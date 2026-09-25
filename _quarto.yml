@@ -8,4 +8,6 @@ format:
   html:
     theme: cosmo
     toc: true
+    toc-location: right-body
+    toc-depth: 3
     number-sections: true
