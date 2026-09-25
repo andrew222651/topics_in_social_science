@@ -3,6 +3,7 @@ project:
 
 website:
   title: "Topics in Social Science"
+  favicon: favicon.ico
 
 format:
   html:
