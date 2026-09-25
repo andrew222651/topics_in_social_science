@@ -1,0 +1,18 @@
+/* Quarto's default CSS hides nav[role="doc-toc"] below the md (768px)
+   breakpoint, which suppresses the table of contents entirely on phones.
+   Re-show the inline body TOC (#TOC-body) on small screens. The
+   right-margin TOC (#TOC) remains hidden because its container
+   #quarto-margin-sidebar is hidden by a separate rule. */
+@media (max-width: 767.98px) {
+  nav[role="doc-toc"] {
+    display: block;
+  }
+}
+
+/* On larger screens do the opposite: hide the inline body TOC and keep
+   only the right-margin "On this page" TOC. */
+@media (min-width: 768px) {
+  #TOC-body {
+    display: none;
+  }
+}
