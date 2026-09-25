@@ -8,6 +8,8 @@ format:
   html:
     theme: cosmo
     css: styles.css
+    filters:
+      - permalink.lua
     toc: true
     toc-location: right-body
     toc-depth: 3

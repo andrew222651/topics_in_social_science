@@ -4,6 +4,11 @@ subtitle: "A Single-Page Quarto Demonstration"
 bibliography: references.bib
 ---
 
+[View the source of this page (`index.md`) on
+GitHub](https://github.com/andrew222651/topics_in_social_science/blob/COMMIT_SHA/index.md)
+· [GitHub
+repository](https://github.com/andrew222651/topics_in_social_science)
+
 ## Introduction {#sec-intro}
 
 This page demonstrates Quarto's cross-referencing features: an auto-generated
