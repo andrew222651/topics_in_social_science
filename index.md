@@ -4,10 +4,23 @@ subtitle: "A Single-Page Quarto Demonstration"
 bibliography: references.bib
 ---
 
+::: {#github-links}
 [View the source of this page (`index.md`) on
 GitHub](https://github.com/andrew222651/topics_in_social_science/blob/COMMIT_SHA/index.md)
 · [GitHub
 repository](https://github.com/andrew222651/topics_in_social_science)
+:::
+
+<script>
+// Quarto inserts the inline TOC (#TOC-body, shown on small screens) at the
+// top of the page body; move the GitHub links above it. On larger screens
+// #TOC-body is hidden (see styles.css), so this has no visible effect there.
+{
+  const tocBody = document.getElementById("TOC-body");
+  const ghLinks = document.getElementById("github-links");
+  if (tocBody && ghLinks) tocBody.before(ghLinks);
+}
+</script>
 
 ## Introduction {#sec-intro}
 
