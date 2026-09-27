@@ -146,6 +146,88 @@ As the Metropolis-Hastings algorithm proposes a new parameter vector $\theta$, t
 Upon encountering this inflated theoretical variance, the Kalman filter optimally assigns an elevated degree of uncertainty to the state-space mapping. Consequently, the log-likelihood of observing the empirical data conditional on that specific parameter draw is severely penalized, effectively pushing the posterior mass away from parameter regions lacking rigorous numerical validity.
 
 
+# Belief elicitation without verification {#sec-belief-elicitation}
+
+Dimensions along which mechanisms in this space vary:
+
+* Whether the mechanism can verify at least some questions, possibly at a cost.
+* Whether there must be multiple questions, and whether agents must all answer
+  the same questions.
+* How many agents there can be.
+* Whether the game has non-truthful equilibria as well as a truthful
+  equilibrium.
+* Whether reputation is a factor.
+* Whether agents have full information or just a signal.
+
+The "Robust Bayesian Truth Serum" (RBTS) has good but not perfect theoretical
+properties. There is a positive empirical result for RBTS when agents generally
+have outside incentives: "Paying for the Truth: The Efficacy of a Peer
+Prediction Mechanism in the Field". However, the incentives in that study were
+small and evenly distributed.
+
+A recent literature review is @kong_minimal_finite [sec. 2].
+
+Twitter's [Community
+Notes](https://vitalik.eth.limo/general/2023/08/16/communitynotes.html) system
+assumes that users will be politically biased in their reports at least some of
+the time. But if a note receives bipartisan support, it is promoted.
+
+Whom should we trust? If someone told the truth in the past, are they
+trustworthy in the future? There is a large literature on reputation in
+economics.
+
+In the absence of a mechanism with a truthful outcome, presumably the
+equilibrium is to shade beliefs away from the outcome for which there is an
+outside incentive.
+
+Suppose the signals are 50-50 binary and highly correlated (e.g. there is a
+single coin flip and the agents all see the result), and the mechanism gives a
+constant reward for consistency (agreeing with a random other agent), which is
+typical in this special case. All agents reporting truthfully and all agents
+reporting untruthfully are both equilibria. If one agent always reports
+truthfully, the remaining agents still have the two equilibria but now honesty
+is Pareto optimal. If a set of agents have an outside incentive to persuade the
+mechanism of the false outcome, whether honesty is Pareto optimal depends on
+the parameters. If the proportion of incentivized agents is $1 - \epsilon$,
+they will lie. Suppose instead the proportion is $1/2 + \epsilon$, and the rest
+are truth-tellers. If each incentivized agent gets a utility increase of $c$ if
+they all lie, the consistency reward must be greater than $2c$ for the
+incentivized agents to choose truth.
+
+Applications:
+
+* Product reviews.
+  * Some ground truth may be available: Amazon could have a per-product
+    prediction market on what percentage of people will return a product. Uber
+    Eats could have markets for whether people will order again from the same
+    restaurant. There are the usual legal hurdles; maybe top predictors could
+    get gift cards? Alternatively, just show the return/reorder rate. Since
+    these are percentages of all orders rather than all reviews, it would cost
+    more to change them with fake orders (assuming fake orders have a cost).
+    Some markets do this: <https://news.ycombinator.com/item?id=34536344>.
+  * Reputation is not useful if agents are anonymous.
+* Prediction market outcome determination.
+  * @freeman2017crowdsourced analyze crowdsourced outcome determination, but
+    there are untruthful equilibria, and behavior in the prediction market is
+    just assumed to be truthful. Also, a trading fee is required, which reduces
+    market efficiency.
+  * Often ground truth is easily available, and the question is just whether
+    the market reports it truthfully. Reputation may be the best option.
+* Blockchain oracles.
+  * The crypto world has high standards for mechanisms, and this is a
+    difficulty.
+* Is the procedure recommended by the dentist really necessary?
+  * There is some literature on reputation [@hubbard2002consumers], but
+    reputation needs ground truth.
+  * Contract: with probability $p$, I'll spend the time to find the answer
+    myself and publish my findings.
+    * In the worst-case scenario this would require becoming a dentist.
+  * Ask the dentist to "prove" the claim, e.g. by referencing a dentistry
+    textbook.
+  * Dentists could publish their patients' overall rate of procedures and/or
+    dental health outcomes in some verifiable way. We would also need info on
+    other factors like patient age.
+
 # References {.unnumbered .unlisted}
 
 ::: {#refs}

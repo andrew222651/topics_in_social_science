@@ -7,3 +7,4 @@ Guidelines:
 * use section labels
 * use bibtex citations with `<ROOT>/references.bib`
 * mermaid diagrams can be used with appropriate syntax
+* these are notes but use full sentences with capitalization
