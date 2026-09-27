@@ -16,3 +16,45 @@
     display: none;
   }
 }
+
+/* Theorem-like environments get italic bodies, matching amsthm's "plain"
+   theorem style in LaTeX. Note that plain theorems carry only class
+   "theorem" (no type class), so the rule targets .theorem broadly and then
+   resets the environments amsthm sets upright ("definition" style) plus
+   remarks/solutions. Theorem titles and proofs stay upright. */
+.theorem {
+  font-style: italic;
+}
+
+.theorem:is(.definition, .example, .exercise, .remark, .solution),
+.proof,
+.theorem .theorem-title {
+  font-style: normal;
+}
+
+/* Contain the floated end markers (below) inside their environment so
+   following text can't wrap up beside them; flow-root establishes a block
+   formatting context, and the clear is a fallback for engines (some epub
+   readers) that ignore flow-root. */
+.theorem,
+.proof {
+  display: flow-root;
+}
+
+.theorem + *,
+.proof + * {
+  clear: both;
+}
+
+/* End-of-environment markers: an open square (tombstone) at the end of
+   proofs and an open triangle at the end of examples and definitions
+   (the upright environments, whose bodies otherwise blend into text). */
+.proof > :last-child::after {
+  content: "\25A1";
+  float: right;
+}
+
+:is(.theorem.example, .theorem.definition) > :last-child::after {
+  content: "\25B3";
+  float: right;
+}
