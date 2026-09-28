@@ -2,7 +2,7 @@ This is a [Quarto](https://quarto.org/) project.
 
 All markdown content is in the single `<ROOT>/index.md` file.
 
-Markdown guidelines:
+Writing guidelines:
 * use labeled environments, eg theorem blocks
 * use section labels
 * use bibtex citations with `<ROOT>/references.bib`
@@ -16,3 +16,6 @@ Markdown guidelines:
   break up long sequences of paragraphs. Too many small deeply nested sections
   disrupt readability.
 * when citing, always use square brackets: [@foo], not @foo, not [-@foo]
+* be very concise, every word should have purpose; but also be complete: define all variables, don't skip proof steps
+* be as consistent as possible across the document in terms of notation, terminology, and style
+* results in the existing literature should be cited and not rederived
