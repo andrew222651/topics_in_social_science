@@ -36,9 +36,7 @@ We will just say "preferences" instead of "revealed preferences."
 * Fundamental theorem of asset pricing [@harrison1979martingales]: market prices $\to$ martingale measure
 * GARP (Afriat's theorem) [@afriat1967construction]: market choices $\to$ continuous, concave, and monotonically increasing utility function
 
-> "To the Bayesian all things are Bayesian." — I. J. Good
-
-Wanting is preferences, liking is a hedonic brain state. There isn't a perfect correlation. Classical utilitarianism and decision utilitarianism are different.
+Motivational "wanting" and hedonic "liking" can dissociate; in this literature, wanting means incentive salience, not economic preference in general [@berridge2016liking]. Preference satisfaction should therefore not be identified with pleasure.
 
 "Consequentialism" means that a node's ranking depends only on its continuation consequences, not on foregone branches or past outcomes [@hammond1988consequentialist]. This is distinct from agreement between earlier and later rankings. Neither property alone supplies an expected-utility representation.
 
@@ -144,9 +142,9 @@ If $h^N\le h^0$ coordinate-wise, weak monotonicity gives no utility increase any
 
 ### What Is the Optimal Practical Prior? {#sec-optimal-prior}
 
-Solomonoff induction is the ideal answer when computation is free [@solomonoff1964formal1; @solomonoff1964formal2]. There is no known uniquely optimal polynomial-time replacement. The strongest general answer is instead a family of resource-bounded Bayesian program mixtures, compared by both computational cost and predictive loss. The attainable tradeoff is not known.
+Solomonoff induction provides an idealized benchmark for universal sequence prediction [@solomonoff1964formal1; @solomonoff1964formal2]. Under the computational and predictive criteria developed here, resource-bounded Bayesian program mixtures provide one baseline, not a proved optimum.
 
-The rest of this section justifies that answer. It begins with pointwise approximation, the most direct interpretation, and turns to other criteria when the earlier ones fail or become degenerate. A useful criterion should reject static baselines, respect simple environments, charge for computation, and permit better-or-worse comparisons.
+We first examine pointwise and average approximation, then compare computational cost with sequential predictive loss. The aim is a criterion that rejects static baselines, respects simple environments, and charges for computation.
 
 All binary logarithms are base 2; $\ln$ denotes the natural logarithm. Fix an optimal prefix-free universal machine $U_d$. Let $K(x)$ be prefix Kolmogorov complexity and let $\mathbf m_d$ be the discrete universal a priori semimeasure. The coding theorem gives
 
@@ -165,7 +163,7 @@ $$\overline{\mathbf M}(x_{1:N})=
 
 The pointwise analyses below concern $\mathbf m_d$ and $K$; the later behavioral analysis concerns the predictions of $\overline{\mathbf M}$. All hidden constants may depend on the fixed machines and fixed algorithms, but not on $n$ or $x$. The precise computability level of several variants of Solomonoff induction is classified by Leike and Hutter [@leike2015computability].
 
-#### Pointwise Approximation {#sec-pointwise-approximation}
+#### Pointwise and Average Approximation {#sec-pointwise-approximation}
 
 General computability and approximation results for Kolmogorov complexity are surveyed by Vitányi [@vitanyi2020incomputable]. The elementary length-wise bounds below follow from standard incompressibility facts.
 
@@ -194,8 +192,6 @@ while the lower bound above is $n/2-O_A(\log n)$ for every fixed computable esti
 
 One can weaken the requirement by asking only for multiplicative approximation of the complexity itself.
 
-##### Weaker Multiplicative Approximation of $K(x)$ {#sec-multiplicative-approximation}
-
 For a total computable rational-valued $A(x)>0$, define
 
 $$\rho_A(n)=\max_{|x|=n}\max\left\{\frac{A(x)}{K(x)},\frac{K(x)}{A(x)}\right\}.$$
@@ -219,19 +215,13 @@ so $\rho_A(n)^2\ge n/(K(n)+O_A(1))$.
 
 The estimator $A(x)=\lceil\sqrt{|x|}\rceil$ has $\rho_A(n)=O(\sqrt n)$ because $1\le K(x)\le n+O(\log n)$. Thus the best fixed computable estimators have worst-case ratio $\sqrt n$ up to logarithmic factors.
 
-#### Average Pointwise Approximation {#sec-average-approximation}
-
 Worst-case pointwise approximation may be too demanding, so the next natural step is to average the error. This immediately raises a choice: average under which distribution?
-
-##### Uniform Average {#sec-uniform-average}
 
 Let $X_n$ be uniform on $\{0,1\}^n$. Approximating $K(x)$ by $|x|$ gives
 
 $$𝔼_{X_n}[|n-K(X_n)|]=O(K(n))=O(\log n).$$
 
 Indeed, $K(x)\le n+K(n)+O(1)$, while the counting bound $\Pr[K(X_n)<n-d]\le2^{-d+O(1)}$ makes the expected deficiency below $n$ constant. Thus returning the length has small uniform-average additive error, even though its worst-case error is linear.
-
-##### Length-Conditioned Universal Average {#sec-length-conditioned-average}
 
 For comparison, condition the discrete universal weights on length $n$:
 
@@ -254,9 +244,7 @@ Thus computable average-case scores under this length-conditioned universal dist
 
 The computability hypothesis is essential: the result does not apply directly to an error score involving the incomputable $K(x)$. Uniform averaging makes a trivial estimator look excellent, while universal averaging gives computably identifiable hard cases constant weight. Neither distribution provides a generally satisfactory relaxation of pointwise approximation.
 
-#### Resource-Bounded Pointwise Approximation {#sec-resource-bounded-approximation}
-
-Let $t$ be a computable time bound, large enough to permit direct printing of an $n$-bit string. Define
+A different relaxation bounds the computation defining complexity. Let $t$ be a computable time bound, large enough to permit direct printing of an $n$-bit string. Define
 
 $$K^t(x)=\min\{|p|:U_d(p)=x\text{ within }t(|x|)\text{ steps}\}.$$
 
@@ -266,15 +254,13 @@ For $|x|=n$, $K(x)\le K^t(x)\le n+O(\log n)$. If $t$ is computable, exhaustive b
 
 Schmidhuber instead incorporated runtime into a speed prior [@schmidhuber2002speed]. A later variant has prediction guarantees for polynomial-time estimable measures but requires doubly exponential time in general and exponential time on polynomial-time sequences. Schmidhuber's original has better complexity bounds, but its analogous stochastic guarantee remains open [@filan2016loss]. Neither result supplies a polynomial-time replacement for Solomonoff prediction.
 
-#### Downstream Decision Error {#sec-downstream-error}
-
-For a decidable language $L$ and deterministic heuristic $A$, let $\varepsilon_A(n)$ be its $\mu_n$-probability of error. This probability is either zero or bounded below by a positive constant: if an error exists, the first one is computable from $n$ and therefore has constant $\mu_n$-mass.
+One can also evaluate downstream decision error. For a decidable language $L$ and deterministic heuristic $A$, let $\varepsilon_A(n)$ be its $\mu_n$-probability of error. This probability is either zero or bounded below by a positive constant: if an error exists, the first one is computable from $n$ and therefore has constant $\mu_n$-mass.
 
 Thus $\varepsilon_A(n)=o(1)$ implies eventual worst-case correctness, not merely good average performance. Decision error is operational, but it is problem-specific, and under universal averaging it is again too close to a worst-case criterion to give a general ranking of priors.
 
-#### Sequential Predictive Performance {#sec-sequential-prediction}
+#### Resource-Bounded Predictive Criteria {#sec-sequential-prediction}
 
-The preceding criteria fail for different reasons: pointwise agreement is too demanding, uniform averages ignore simple strings, universal averages expose computably identifiable worst cases, and downstream decision error depends on the chosen problem. The most operational general alternative considered here is to evaluate a prior by its intended use in sequential prediction. This does not make predictive loss the uniquely correct approximation concept.
+These limitations motivate evaluating a prior by sequential predictive loss rather than pointwise agreement with universal weights. Predictive loss is not the uniquely correct approximation criterion.
 
 For a computable measure $\mu$, universal dominance gives
 
@@ -290,8 +276,6 @@ The chain rule and Pinsker's inequality give the corresponding cumulative square
 Solomonoff introduced universal sequence prediction [@solomonoff1964formal1; @solomonoff1964formal2]. Universal dominance and the modern cumulative-loss treatment, including normalization and extensions to general losses, are developed by Hutter [@hutter2003optimality]; see also [@aixi] for a systematic treatment and discussion of computational limitations.
 
 Log loss is useful because mixture dominance bounds it directly and it decomposes over time; squared error is a consequence. This criterion rejects static predictors without requiring pointwise agreement with $\mathbf M$. We now examine the optimization problem it induces under computational limits.
-
-##### Resource-Bounded Setting {#sec-resource-bounded-setting}
 
 Let $T: \mathbb N \to \mathbb N$ be a time-constructible, monotone time bound per step, and fix a universal interpreter $V$ with prefix-free program domain $P_V$. Assume $T(t)\ge c_V$, where $c_V$ is enough time for a fixed $V$-program to output a constant probability.
 
@@ -334,24 +318,9 @@ Because polynomial time includes every fixed degree $O(t^d)$, increasing the deg
 
 A predictor is viable if $R_A(k)<\infty$ for every fixed $k$. This excludes static predictors, while polynomial $C_A$ excludes the incomputable ideal and unconstrained exhaustive substitutes.
 
-##### Divergence of the Trivial Predictor {#sec-trivial-diverges}
+For example, the static predictor $A(1\mid x_{\lt t})=1/2$ incurs log-loss regret $\ln2$ and squared error $1/4$ at every step against the constant-zero environment in $𝓜_T$, so both cumulative losses are infinite and $A$ is not viable.
 
-Let $A_{\text{triv}} \in 𝓐_{b,T}$ be the static uniform predictor $A_{\text{triv}}(x_t=1\mid x_{\lt t}) = 1/2$ for all $t$.
-
-::: {#thm-trivial-diverges}
-The trivial predictor accumulates infinite cumulative loss on simple deterministic environments in $𝓜_T$.
-:::
-
-::: {.proof}
-Let $\mu_0 \in 𝓜_T$ be the deterministic environment outputting $0^\infty$, so $\mu_0(x_t=1\mid x_{\lt t}) = 0$ for all $t$. The program generating $\mu_0$ has length $O(1)$ and runs within $T(t)$. At every step, the predictor incurs log-loss regret $\ln2$ and squared error $1/4$. Hence
-
-$$L(A_{\text{triv}},\mu_0)=\infty,
-\qquad S(A_{\text{triv}},\mu_0)=\infty,$$
-
-so $A_{\text{triv}}$ is not viable.
-:::
-
-##### Delayed Mixture Predictor $A_b$ {#sec-delayed-mixture}
+#### Delayed Mixture Construction and Guarantees {#sec-delayed-mixture}
 
 The construction combines Bayesian aggregation, Levin-style program search, and specialist experts that activate at different rounds [@hutter2003optimality; @cesabianchi2006prediction; @levin1973universal; @freund1997specialize].
 
@@ -371,9 +340,9 @@ $$\sum_{q\in\{0,1\}^*}\frac{2^{-|q|}}{(|q|+1)(|q|+2)}
 
 The predictor $A_b$ is the conditional distribution of $\xi_b$.
 
-##### Complexity and Computability {#sec-ab-computability}
-
 ::: {#thm-ab-computable}
+## Computational Cost
+
 The predictor $A_b$ belongs to class $𝓐_{b,T}$ under the stated arithmetic convention.
 :::
 
@@ -390,9 +359,9 @@ $$\text{Time}\big(A_b(x_{\lt t})\big)=O(b(t)T(t)).$$
 If $b(t)$ and $T(t)$ are polynomial in $t$, $A_b$ runs in uniform polynomial time per step.
 :::
 
-##### Predictive Guarantee {#sec-predictive-guarantee}
-
 ::: {#thm-ab-guarantee}
+## Predictive Guarantee
+
 For every target environment $\mu\in𝓜_T$, writing $k_\mu=K_T(\mu)$,
 
 $$L(A_b,\mu)
@@ -423,7 +392,7 @@ $$D_{KL}(\mu(x_{1:N})\,\|\,\xi_b(x_{1:N}))
 The chain rule identifies the left side with the finite-horizon cumulative log-loss regret of $A_b$. Taking $N\to\infty$ proves the log-loss bound, and Pinsker's inequality gives the squared-error bound. Finite squared loss implies that expected one-step squared error tends to zero.
 :::
 
-##### Lower Bound and Computation-Loss Tradeoff {#sec-lower-bound-tradeoff}
+#### Bounds and Unresolved Optimality {#sec-lower-bound-tradeoff}
 
 Assume the benchmark class is rich enough to contain, for every $y\in\{0,1\}^m$, the deterministic environment that emits $y$ and then zeros, with
 
@@ -457,13 +426,7 @@ $$R_{A_b}(k)=O(2^{k/d}+k).$$
 
 Thus larger polynomial budgets improve the upper bound, while an exponential budget can recover a linear profile.
 
-##### Answer {#sec-prior-answer}
-
-If "practical" means polynomial-time and universal over $𝓜_T$, no uniquely optimal prior is known. Direct approximation of Solomonoff weights fails, and average approximation depends on the averaging distribution. Under sequential log loss, the most principled general substitute is a resource-bounded Bayesian mixture over programs, evaluated by its pair $(C_A,R_A)$ rather than by loss alone.
-
-This conclusion combines Solomonoff and Hutter's ideal loss bounds [@solomonoff1964formal1; @solomonoff1964formal2; @hutter2003optimality], universal search and expert aggregation [@levin1973universal; @cesabianchi2006prediction; @freund1997specialize], and known efficiency limitations of speed priors [@schmidhuber2002speed; @filan2016loss]. The delayed mixtures above are one polynomial-time baseline, not a proved optimum.
-
-The unrestricted minimax profile is $\Theta(k)$ under the stated richness assumption. The delayed polynomial-time mixtures have exponential upper bounds in $k$, but no matching computational lower bound is known. Thus the optimal practical prior is currently an unresolved computation-loss frontier, not a single established algorithm.
+Under the stated richness assumption, the unrestricted minimax profile is $\Theta(k)$. The delayed mixtures provide polynomial-time baselines when $b$ and $T$ are polynomial, but their exponential upper bounds in $k$ do not establish a computational lower bound or Pareto optimality. The results here therefore leave the attainable computation-loss frontier unresolved; they do not select a uniquely optimal practical prior.
 
 ### Causality {#sec-causality}
 
@@ -508,7 +471,7 @@ Because $G$ is acyclic, there exists a topological ordering $\pi$ of $\mathcal{V
 $$V_i = g_i(U)$$
 :::
 
-Hierarchy of graphical models (the probability-mass formulas below are for finite-valued variables):
+The following hierarchy distinguishes associational, interventional, and counterfactual queries [@pearl2019seven, fig. 1]. The probability-mass formulas below are for finite-valued variables.
 
 * Level 1: standard Bayesian networks (associational / observational)
   * Core mechanics: represents the joint distribution via factorization of conditional probabilities over a DAG: $P(v_1, \dots, v_n) = \prod_{i=1}^n P(v_i \mid v_{\text{Pa}_i})$.
@@ -596,29 +559,11 @@ $$U_{\mathrm{CDT}}(A)=\int_{\mathcal{X}_{\mathcal{U}}}u(h_A(g_x(z)))\,dP_{\mathc
 :::
 
 ::: {.proof}
-First, replacing equations by constants preserves acyclicity. Topological recursion therefore gives a unique measurable $g_x$ for each intervention, hence a unique push-forward law for the specified SCM. It also proves effectiveness, $X_x(z)=x$. For composition, if $W$ is disjoint from $X$ and $W_x(z)=w$, then $g_x(z)$ already satisfies the equations with both $X=x$ and $W=w$ imposed. Uniqueness gives $g_{x,w}(z)=g_x(z)$ and thus $Y_{x,w}(z)=Y_x(z)$. Variables outside the targets and their descendants retain their values by the same recursion. No counterfactual completeness theorem or reversibility axiom is needed.
+The finite-lottery expected-utility theorem gives the representation and positive-affine uniqueness [@mascolell1995microeconomic, propositions 6.B.3 and 6.B.2]. The intervened SCM supplies each $\mu_A$ by the topological recursion in @def-intervention. Independence of the intervention randomizer and $U$ gives $\mu_r=\sum_A r(A)\mu_A$ by total probability. Thus
 
-For the preference claim, write $S_p=p\delta_b+(1-p)\delta_w$, $p\in[0,1]$. Independence preserves both indifference and strict preference, by applying its equivalence in both directions. For $p>0$, it gives $S_p\succ\delta_w$ (with $p=1$ following from nondegeneracy). If $0<q<p$, mixing this comparison with the common lottery $S_p$ with weight $1-q/p$ gives
+$$\sum_c\mu_r(c)u(c)=\sum_A r(A)\sum_c\mu_A(c)u(c).$$
 
-$$S_p\succ (q/p)S_p+(1-q/p)\delta_w=S_q.$$
-
-The case $q=0$ was already established, so standard lotteries are strictly increasing in $p$.
-
-Independence permits replacing a component of a finite mixture by a weakly preferred component: apply it with the remaining normalized mixture as the common lottery, handling weights zero and one directly. Replacing components one at a time therefore shows $\delta_b\succsim L\succsim\delta_w$ for every lottery $L$. For this $L$, the sets
-
-$$H_L=\{p\in[0,1]:S_p\succsim L\},\qquad K_L=\{p\in[0,1]:L\succsim S_p\}$$
-
-are closed by mixture continuity, nonempty because $1\in H_L$ and $0\in K_L$, and cover $[0,1]$ by completeness. Connectedness of $[0,1]$ implies they intersect. Thus $L\sim S_p$ for some $p$, and strict monotonicity and transitivity make this $p$ unique.
-
-Define $u(c)$ to be this unique probability for $L=\delta_c$, so $u(b)=1$ and $u(w)=0$. Repeated substitution of $\delta_c\sim S_{u(c)}$ in a finite mixture, justified by independence, yields
-
-$$L=\sum_c L(c)\delta_c\sim\sum_c L(c)S_{u(c)}=S_{\sum_c L(c)u(c)}.$$
-
-Strict monotonicity of standard lotteries and the weak order now give the claimed expected-utility representation. If another utility $v$ represents the same full-domain lottery preferences, then $v(b)>v(w)$ and $\delta_c\sim S_{u(c)}$ forces
-
-$$v(c)=u(c)v(b)+(1-u(c))v(w)=(v(b)-v(w))u(c)+v(w).$$
-
-Conversely, every positive affine transformation preserves expected-utility comparisons. Finally, independence of the intervention randomizer and $U$ gives $\mu_r=\sum_A r(A)\mu_A$ by total probability. Reduction transfers the lottery representation to interventions, and the push-forward definition of $\mu_A$ gives the displayed integral.
+Reduction to the induced law transfers this representation to intervention preferences. Substituting the push-forward definition of $\mu_A$ gives the displayed integral for a deterministic intervention.
 :::
 
 The full consequence-lottery domain is a substantive assumption: it may be larger than the convex hull of laws attainable by feasible interventions. The affine-uniqueness conclusion uses preferences on that full domain and does not follow merely from preferences on restricted interventions. For example, if all feasible interventions induce the same law, their mutual indifference places no restriction on consequence utilities. Likewise, the SCM, its exogenous distribution, and its causal beliefs are supplied, not elicited or identified by this theorem. This is a conditional expected-utility result, not a joint belief-and-utility representation theorem; the causal interpretation concerns the supplied laws used to evaluate actions [@joyce1999foundations].
@@ -758,11 +703,7 @@ Dimensions along which mechanisms in this space vary:
 * Whether reputation is a factor.
 * Whether agents have full information or just a signal.
 
-The "Robust Bayesian Truth Serum" (RBTS) has good but not perfect theoretical
-properties. There is a positive empirical result for RBTS when agents generally
-have outside incentives: "Paying for the Truth: The Efficacy of a Peer
-Prediction Mechanism in the Field". However, the incentives in that study were
-small and evenly distributed.
+The Robust Bayesian Truth Serum (RBTS) elicits binary information with a strict truthful equilibrium under its common-prior assumptions for populations of at least three agents [@witkowski2012robust]. This does not establish robustness to arbitrary outside incentives. A field experiment found that Bayesian Truth Serum (BTS) payments improved reporting accuracy and reduced favoritism toward family members [@rigol2016paying]. That study used BTS, not RBTS, for payments; its RBTS analysis applied the mechanism to the collected reports afterward.
 
 A recent literature review is [@kong_minimal_finite, sec. 2].
 

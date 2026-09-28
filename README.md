@@ -19,3 +19,4 @@ Writing guidelines:
 * be very concise, every word should have purpose; but also be complete: define all variables, don't skip proof steps
 * be as consistent as possible across the document in terms of notation, terminology, and style
 * results in the existing literature should be cited and not rederived
+* be fully mathematically rigorous in theorems and proofs
