@@ -40,143 +40,106 @@ We will just say "preferences" instead of "revealed preferences."
 
 Wanting is preferences, liking is a hedonic brain state. There isn't a perfect correlation. Classical utilitarianism and decision utilitarianism are different.
 
-"Consequentialism" means decisions are path independent over time.
+"Consequentialism" means that a node's ranking depends only on its continuation consequences, not on foregone branches or past outcomes [@hammond1988consequentialist]. This is distinct from agreement between earlier and later rankings. Neither property alone supplies an expected-utility representation.
 
-### Consequentialism Implies Exponential Discounting {#sec-consequentialism-discounting}
+### Dynamic Consistency Within Stationary Additive SEU {#sec-consequentialism-discounting}
 
-#### Environment and Definitions {#sec-dt-definitions}
+#### Environment and Assumptions {#sec-dt-definitions}
 
-Let $\mathcal{T} = \{0, 1, \dots, T\}$ be a finite discrete time horizon. Uncertainty is governed by a measurable space of states of nature $(\Omega, \mathcal{F})$, revealed sequentially according to a filtration $\mathbb{F} = (\mathcal{F}_t)_{t=0}^T$, where $\mathcal{F}_0 = \{\emptyset, \Omega\}$, $\mathcal{F}_t \subseteq \mathcal{F}_{t+1}$, and $\mathcal{F}_T = \mathcal{F}$. Let $\mathcal{P}_t$ denote the set of non-empty partition cells (events) generating $\mathcal{F}_t$.
+Let $\Omega$ be a nonempty finite state space, with dates $0,\ldots,T$, where $T\ge2$. Let $\mathcal P_t$ be successively refining partitions, with $\mathcal P_0=\{\Omega\}$ and $\mathcal P_T$ the singleton partition. A node is $(t,E)$ with $E\in\mathcal P_t$. The act domain consists of all adapted streams $h=(h_0,\ldots,h_T)$ of bundles in a nonempty open convex set $X\subseteq\mathbb R^K_{++}$. Thus terminal bundles may vary independently across states. Write $e_1$ for the numeraire coordinate vector.
 
-* Consequence space: Let $X \subseteq \mathbb{R}^K_{++}$ be a convex, open set of multidimensional consumption bundles per period. A bundle at time $t$ is a vector $\mathbf{x} = (x_1, \dots, x_K) \in X$, where each component represents an amount of a distinct commodity. Let $\mathbf{e}_1 = (1, 0, \dots, 0) \in \mathbb{R}^K$ denote the unit vector along the first commodity (the numeraire good).
-* Multidimensional acts: A dynamic act $\mathbf{h} = (\mathbf{h}_t)_{t=0}^T$ is an adapted stochastic process where each mapping $\mathbf{h}_t: \Omega \to X$ is $\mathcal{F}_t$-measurable. For any event $E_t \in \mathcal{P}_t$, let $\mathbf{h}_{|E_t}$ denote the continuation act restricted to periods $\tau \ge t$ and states $\omega \in E_t$.
-* Conditional preferences: At each decision node $(t, E_t)$ with $E_t \in \mathcal{P}_t$, the agent holds a complete, transitive binary preference relation $\succsim_{E_t}$ over continuation acts. Preferences satisfy continuity in the product topology and strict monotonicity in the numeraire: for any continuation act $\mathbf{f}$ and scalar $\varepsilon > 0$, $\mathbf{f} \succ_{E_t} \mathbf{f} - \varepsilon \mathbf{e}_1$ on all non-null sub-events.
-* Consequentialism [@hammond1988consequentialist]: For every $t \in \mathcal{T}$ and $E_t \in \mathcal{P}_t$, the preference relation $\succsim_{E_t}$ depends exclusively on the consequences realized in periods $\tau \ge t$ for states $\omega \in E_t$. History prior to $t$ and unreached events $\Omega \setminus E_t$ carry zero normative weight.
-* Intertemporal separability [@koopmans1960stationary]: For every node $(t, E_t)$ and every period $\tau \ge t$, the induced preference over period-$\tau$ consequences is independent of the fixed consequences in all other periods: for any continuation acts $\mathbf{f}, \mathbf{g}, \mathbf{f}', \mathbf{g}'$ on $E_t$ such that $\mathbf{f}_\tau = \mathbf{f}'_\tau$ and $\mathbf{g}_\tau = \mathbf{g}'_\tau$, while $\mathbf{f}_s = \mathbf{g}_s$ and $\mathbf{f}'_s = \mathbf{g}'_s$ for all periods $s \neq \tau$,
-  $$\mathbf{f} \succsim_{E_t} \mathbf{g} \iff \mathbf{f}' \succsim_{E_t} \mathbf{g}'$$
-* Stationarity [@koopmans1960stationary]: The ranking of deterministic continuation streams is independent of calendar time: for any nodes $(t, E_t)$ and $(s, E_s)$ and any deterministic streams $\mathbf{x}, \mathbf{y}$ (the same sequence of bundles in both cases, indexed by time elapsed since the evaluation date),
-  $$\mathbf{x} \succsim_{E_t} \mathbf{y} \iff \mathbf{x} \succsim_{E_s} \mathbf{y}$$
-* Arbitrage-freedom (no money pump): An agent is immune to arbitrage if there exists no decision tree, initial endowment act $\mathbf{f}$, and sequence of voluntary trades with an outside party such that the agent transitions through intermediate holdings and ends with an act $\mathbf{g}$ satisfying $\mathbf{g}_\tau(\omega) \le \mathbf{f}_\tau(\omega)$ coordinate-wise for all $\tau, \omega$ (with strict inequality in the numeraire on a non-null event), or surrenders a strictly positive total numeraire fee $\sum \varepsilon_i > 0$ while returning to the original act $\mathbf{f}$.
+Assume, rather than derive, a stationary time-additive subjective expected utility (SEU) representation at every node:
+
+$$V_{t,E}(h)=\sum_{\omega\in E}q_{t,E}(\omega)
+\sum_{\tau=t}^T d(\tau-t)u(h_\tau(\omega)).$$
+
+Here each $q_{t,E}$ is a probability distribution with strictly positive mass on every state in $E$; the common lag weights satisfy $d(0)=1$ and $d(j)>0$ for $0\le j\le T$; and the common utility $u:X\to\mathbb R$ is continuous and strictly increasing in the numeraire, holding other coordinates fixed. The common $u$, additive SEU form, and node-independent lag weights are substantive assumptions, not consequences of consistency or ordinal separability. Weak coordinate monotonicity of $u$ is an additional assumption only for the dominance claim below.
+
+*Dynamic consistency* means that for every ancestor $(s,A)$ and descendant $(t,E)$, with $s<t$ and $E\subseteq A$, and every pair $f,g$ identical before $t$ and outside $E$,
+
+$$f\succsim_{s,A}g\quad\Longleftrightarrow\quad f\succsim_{t,E}g.$$
+
+This includes preservation of indifference, since the equivalence also applies with $f,g$ interchanged. Equality $E=A$ is allowed when no new information arrives.
 
 ::: {#prp-exponential-discounting}
-Let an agent's dynamic preferences $\{\succsim_{E_t}\}_{t \in \mathcal{T}, E_t \in \mathcal{P}_t}$ over multidimensional acts satisfy consequentialism, intertemporal separability, stationarity, continuity, and strict monotonicity in the numeraire. The agent is free from arbitrage across all dynamic decision trees if and only if there exist:
+## Bayesian Updating and Exponential Weights
 
-1. a continuous, strictly increasing multivariate utility function $u: X \to \mathbb{R}$, unique up to positive affine transformation;
-2. a unique prior probability measure $P$ on $(\Omega, \mathcal{F})$ assigning strictly positive probability to every cell in $\bigcup_{t=0}^T \mathcal{P}_t$;
-3. a constant discount factor $\delta \in (0, 1]$,
+Under the stated representation assumptions, dynamic consistency holds if and only if, writing $P=q_{0,\Omega}$, every node satisfies
 
-such that for every node $(t, E_t)$, continuation acts $\mathbf{f}$ are ranked according to the subjective expected utility functional
+$$q_{t,E}(\omega)=\frac{P(\omega)}{P(E)}\quad(\omega\in E),
+\qquad d(j)=\delta^j\quad(0\le j\le T)$$
 
-$$V_{E_t}(\mathbf{f}) = \mathbb{E}_P \left[ \sum_{\tau = t}^T \delta^{\tau - t} u(\mathbf{f}_\tau) \;\middle|\; E_t \right]$$
-
-where conditional beliefs update strictly via Bayes' rule:
-
-$$P(A \mid E_t) = \frac{P(A \cap E_t)}{P(E_t)} \quad \forall A \in \mathcal{F}.$$
+for some $\delta>0$. Dynamic consistency does not require $\delta\le1$. That bound follows if one additionally assumes impatience: for any bundles $x,y$ with $u(x)>u(y)$, the deterministic stream $(x,y)$ is weakly preferred to $(y,x)$ at two consecutive dates, all other bundles held fixed.
 :::
 
-#### Supporting Lemmas {#sec-dt-lemmas}
+::: {.proof}
+Fix an interior bundle $x$. For sufficiently small $a>0$, $x+re_1\in X$ for $|r|\le a$. Continuity and strict numeraire monotonicity imply that the values $u(x+re_1)-u(x)$ contain an open interval about zero. Consequently, any sufficiently small vector of state-contingent terminal utility increments is realizable, as are sufficiently small utility increments at any two dates. No linearity of $u$ in money is needed.
+
+First suppose consistency holds. Fix a node $(t,E)$ with $t>0$. Compare the constant act $x$ with an act whose only utility increments are $z_\omega$ at date $T$, for $\omega\in E$. Set $p_\omega=P(\omega)/P(E)$ and $q_\omega=q_{t,E}(\omega)$. The root and node value differences are respectively
+
+$$d(T)P(E)\sum_{\omega\in E}p_\omega z_\omega,
+\qquad d(T-t)\sum_{\omega\in E}q_\omega z_\omega.$$
+
+All prefactors are positive. For each $\eta\in E$, choose $z_\omega=c(\mathbf 1_{\{\omega=\eta\}}-q_\eta)$ with $c>0$ small enough for feasibility. The node is indifferent, so consistency makes the root indifferent. Hence $c(p_\eta-q_\eta)=0$, proving $q=p$. This also covers singleton nodes; the root assertion is immediate.
+
+Next fix any $E\in\mathcal P_1$. For each $k=2,\ldots,T$, compare the constant act with a perturbation supported on $E$ and constant across its states: utility increment $-d(k-1)b$ at date $1$ and $b$ at date $k$, where $b\ne0$ is sufficiently small. These are deterministic two-date continuation perturbations on $E$ and are adapted because $E$ is known at date $1$. Their value difference at $(1,E)$ is zero. Root indifference gives
+
+$$P(E)\bigl[-d(1)d(k-1)+d(k)\bigr]b=0.$$
+
+Thus $d(k)=d(1)d(k-1)$. With $\delta=d(1)>0$ and $d(0)=1$, induction gives $d(j)=\delta^j$ throughout the horizon.
+
+Conversely, under Bayes' rule and these exponential weights, any pair differing only on $E$ from date $t$ onward satisfies
+
+$$V_{s,A}(f)-V_{s,A}(g)
+=P(E\mid A)\delta^{t-s}\bigl[V_{t,E}(f)-V_{t,E}(g)\bigr].$$
+
+The multiplier is strictly positive, proving the required equivalence. Finally, the value difference between the two streams in the impatience assumption is a positive factor times $(1-\delta)[u(x)-u(y)]$, so impatience is equivalent to $\delta\le1$ in this class.
+:::
+
+The restriction $T\ge2$ makes the recurrence substantive. With $T=1$, any positive $d(1)$ already has the exponential form on the available lags; with $T=0$, no discount factor is identified. Nothing here determines weights beyond $T$. Full support makes every node reachable, and terminal contingent acts identify each node's normalized belief vector for the common $u$: the same zero-increment test distinguishes any two candidate vectors, including at the root. This conclusion concerns only the nodes of the specified tree. Without full support, consistency at the root cannot identify beliefs at null nodes; without sufficiently rich terminal acts, it need not identify state probabilities. No separate utility-representation or utility-uniqueness theorem is asserted.
+
+#### Money Pumps and Local Acceptance {#sec-dt-lemmas}
 
 ::: {#lem-dynamic-consistency}
-## Arbitrage-Freedom Forces Dynamic Consistency
+## A Strict Reversal Permits a Naive Money Pump
 
-If an agent is free from dynamic arbitrage across all decision trees, then preferences satisfy dynamic consistency: for all $t_1 < t_2$, $E_{t_1} \in \mathcal{P}_{t_1}$, and $E_{t_2} \in \mathcal{P}_{t_2}$ with $E_{t_2} \subset E_{t_1}$, and for any two acts $\mathbf{f}, \mathbf{g}$ that coincide outside $E_{t_2}$ and prior to $t_2$:
-$$\mathbf{f} \succsim_{E_{t_1}} \mathbf{g} \iff \mathbf{f} \succsim_{E_{t_2}} \mathbf{g}$$
+Suppose $f,g$ coincide before $t$ and outside $E$, where $(t,E)$ descends from $(s,A)$, and
+
+$$f\succ_{s,A}g,\qquad g\succ_{t,E}f.$$
+
+An agent who accepts each strictly preferred replacement relative to current holdings, without anticipating later replacements, can be induced by two trades to finish with $g$ minus a strictly positive terminal numeraire fee on $E$, and unchanged holdings elsewhere.
 :::
 
 ::: {.proof}
-Assume dynamic consistency fails. Then there exist nodes $(t_1, E_{t_1})$ and $(t_2, E_{t_2})$ with $E_{t_2} \subset E_{t_1}$, and continuation acts $\mathbf{f}, \mathbf{g}$ identical outside $E_{t_2}$ and prior to $t_2$, such that:
-$$\mathbf{f} \succ_{E_{t_1}} \mathbf{g} \quad \text{and} \quad \mathbf{g} \succ_{E_{t_2}} \mathbf{f}$$
+Let $D_E$ be the stream that is zero except for $e_1$ at date $T$ on $E$. Fees are actual consumption deductions: $h-\varepsilon D_E$ has terminal bundle $h_T(\omega)-\varepsilon e_1$ on $E$. Finiteness and openness of $X$ ensure feasibility for all sufficiently small $\varepsilon>0$. By continuity and the two strict inequalities, choose one such $\varepsilon$ with
 
-By continuity and strict monotonicity in the numeraire, there exist scalar fees $\varepsilon_1, \varepsilon_2 > 0$ such that:
-$$\mathbf{f} - \varepsilon_1 \mathbf{e}_1 \succ_{E_{t_1}} \mathbf{g} \quad \text{and} \quad \mathbf{g} - \varepsilon_2 \mathbf{e}_1 \succ_{E_{t_2}} \mathbf{f}$$
+$$f-\varepsilon D_E\succ_{s,A}g,
+\qquad g-2\varepsilon D_E\succ_{t,E}f-\varepsilon D_E.$$
 
-An arbitrageur constructs the following multi-stage decision tree:
-
-1. At $(t_1, E_{t_1})$, the agent is endowed with $\mathbf{g}$. The arbitrageur offers the act $\mathbf{f}$ in exchange for $\mathbf{g}$ plus a fee of $\varepsilon_1$ units of the numeraire. Because $\mathbf{f} - \varepsilon_1 \mathbf{e}_1 \succ_{E_{t_1}} \mathbf{g}$, the agent voluntarily accepts, holds $\mathbf{f}$, and surrenders $\varepsilon_1$.
-2. Nature moves, and event $E_{t_2}$ materializes. Under consequentialism, the agent evaluates continuation prospects at $(t_2, E_{t_2})$ independent of past trades or unreached branches; the sunk fee $\varepsilon_1$ carries no normative weight. The arbitrageur offers the act $\mathbf{g}$ in exchange for the holding $\mathbf{f}$ plus a fee of $\varepsilon_2$ units of the numeraire. Because $\mathbf{g} - \varepsilon_2 \mathbf{e}_1 \succ_{E_{t_2}} \mathbf{f}$, the agent voluntarily accepts, holds $\mathbf{g}$ once more, and surrenders $\varepsilon_2$.
-
-If the agent is naive, he returns to the original act $\mathbf{g}$, having forfeited $\varepsilon_1 + \varepsilon_2 > 0$ units of numeraire for no net gain in consumption. (Off event $E_{t_2}$, where no second trade occurs, the agent holds $\mathbf{f}$, which coincides with $\mathbf{g}$ there, and has still paid $\varepsilon_1$.)
-
-If the agent is sophisticated in the sense of Strotz [@strotz1955myopia] and prunes the backward trap, Rabinowicz [@rabinowicz2000money] shows that an arbitrageur can construct an upfront money pump tree: anticipating that his future self will defect to $\mathbf{g}$ at $t_2$, the sophisticated agent voluntarily pays an upfront commitment fee at $t_1$ to an external party to restrict his future choice set.
-
-Iterating these trees across periods extracts positive numeraire without providing consumption benefits. Hence, immunity to dynamic arbitrage across all decision trees requires strict dynamic consistency.
+Starting from $g$, offer $f-\varepsilon D_E$ at $(s,A)$. If $E$ is reached, replace this holding with $g-2\varepsilon D_E$ at $(t,E)$. Both trades are strictly accepted under the stated local rule. The first fee persists in both sides of the second comparison; continuity, not an assumption that it disappears, preserves the reversal. Off $E$, $f=g$ and no fee is due. On $E$, the acts agree before $t$, and the second trade restores the remaining $g$ except for the two terminal fees. Thus the final allocation is exactly $g-2\varepsilon D_E$, with a loss on the positive-probability event $E$.
 :::
 
-The converse direction — that dynamically consistent preferences in the class considered here are immune to such pumps — is established by the sufficiency argument in the proof of @prp-exponential-discounting below.
+This proves exploitability of a strict reversal under naive local acceptance, not an equivalence between every weak-ranking inconsistency and a money pump. It makes no claim that a sophisticated agent who anticipates the complete trading policy would accept the first offer. Paying for commitment is not by itself a net-loss cycle.
 
-::: {#lem-expected-utility-bayes}
-## Subjective Uncertainty Forces Expected Utility and Bayes' Rule
+::: {#prp-no-net-loss-pump}
+## Dynamic Consistency Excludes Finite Net-Loss Pumps
 
-If dynamic preferences $\{\succsim_{E_t}\}$ over multidimensional acts satisfy consequentialism and dynamic consistency across all filtrations, then preferences satisfy Savage's sure-thing principle, beliefs are represented by a unique additive probability measure $P$ updating via Bayes' rule, and risk preferences satisfy the von Neumann–Morgenstern independence axiom over $X$.
+Assume the consistent representation of @prp-exponential-discounting and, additionally, weak coordinate monotonicity: $x\le y$ in $X$ implies $u(x)\le u(y)$. A trade at $(t,E)$ replaces the current feasible act only on $E$ and at dates $\tau\ge t$, incorporating all fees and liabilities in the replacement bundles. It is locally accepted only if its node value is weakly higher. No finite contingent policy of such trades can yield a final act coordinate-wise below the initial act in every date and state, with a strict numeraire loss in at least one date and state. In particular, returning to the initial consumption stream except for nonnegative numeraire fees, positive somewhere, is impossible.
 :::
 
 ::: {.proof}
-Let $E \in \mathcal{F}_t$ and partition $E = A \cup B$ with $A, B \in \mathcal{F}_{t+1}$. Consider four acts $\mathbf{f}, \mathbf{g}, \mathbf{f}', \mathbf{g}'$ such that:
+Evaluate every complete act at the same fixed date using
 
-* On $A$: $\mathbf{f} = \mathbf{f}'$ and $\mathbf{g} = \mathbf{g}'$
-* On $B$: $\mathbf{f} = \mathbf{g}$ and $\mathbf{f}' = \mathbf{g}'$
-* On $\Omega \setminus E$: all four acts coincide.
+$$W(h)=\sum_{\omega\in\Omega}P(\omega)\sum_{\tau=0}^T\delta^\tau u(h_\tau(\omega)).$$
 
-By @lem-dynamic-consistency, dynamic consistency requires $\mathbf{f} \succsim_E \mathbf{g} \iff \mathbf{f} \succsim_A \mathbf{g}$. On event $A$, $\mathbf{f}$ and $\mathbf{f}'$ are identical, as are $\mathbf{g}$ and $\mathbf{g}'$. Consequentialism requires that evaluations on sub-tree $A$ depend exclusively on outcomes within $A$. Therefore:
-$$\mathbf{f} \succsim_A \mathbf{g} \iff \mathbf{f}' \succsim_A \mathbf{g}'$$
-Applying dynamic consistency in reverse from $A$ back to $E$:
-$$\mathbf{f}' \succsim_A \mathbf{g}' \iff \mathbf{f}' \succsim_E \mathbf{g}'$$
-Hence, $\mathbf{f} \succsim_E \mathbf{g} \iff \mathbf{f}' \succsim_E \mathbf{g}'$, which is Savage's sure-thing principle (Axiom P2) generalized to multidimensional outcomes.
+Enumerate the finitely many trade occurrences in the contingent policy in chronological order, keeping the stipulated order for multiple trades at one node. Define $h^i$ as the complete act after the first $i$ event-contingent replacements, retaining current holdings on branches not affected by a replacement. A replacement at $(t,E)$ changes no past or off-event bundles, so
 
-Epstein and Le Breton [@epstein1993dynamically, theorem 1] established that on a rich state space, consequentialism and dynamic consistency across all trees imply probabilistic sophistication: there exists a unique, strictly positive additive probability measure $P$ on $(\Omega, \mathcal{F})$ such that acts yielding identical probability distributions over outcome streams in $X^{T-t+1}$ are indifferent.
+$$W(h^{i+1})-W(h^i)
+=P(E)\delta^t\bigl[V_{t,E}(h^{i+1})-V_{t,E}(h^i)\bigr]\ge0.$$
 
-If updating departs from Bayes' rule on some event $H \subset E_{t_1}$ ($P(H \mid E_{t_1}) \neq P(H \cap E_{t_1})/P(E_{t_1})$), Green [@green1987making] demonstrated that an arbitrageur can construct a dynamic Dutch book: a portfolio of state-contingent bets accepted conditionally at $E_{t_1}$ but rejected ex-ante, resulting in a strictly negative numeraire payoff in every state of nature. Updating must therefore be Bayesian.
+This construction evaluates each accepted offer relative to holdings at that occurrence; later replacements are handled at their own occurrences. Summing gives $W(h^N)\ge W(h^0)$. It does not assert that conditional continuation values are nondecreasing along realized paths as information arrives or time passes.
 
-Finally, by Hammond [@hammond1988consequentialist], dynamic consistency across probability mixture trees forces reduction to be linear in probabilities. By the multi-attribute expected utility theorem [@debreu1959theory; @keeney1976decisions], within each period $\tau$, the agent ranks distributions over $X$ by the expectation of a continuous multivariate Bernoulli utility function $u(\mathbf{x}_\tau)$.
-:::
-
-::: {#lem-exponential-discounting}
-## Dynamic Consistency Forces Constant Exponential Discounting
-
-Under intertemporal separability, stationarity, continuity, and strict monotonicity, evaluations of deterministic dated bundles $(\mathbf{x}, \tau)$ for $\mathbf{x} \in X$ at time $t \le \tau$ are represented by $V_t(\mathbf{x}, \tau) = D(t, \tau) u(\mathbf{x})$, with a node-independent utility $u$, $D(t, t) = 1$, and $D(t, \tau)$ continuous and nonincreasing in $\tau$. If preferences are in addition dynamically consistent, then $D(t, \tau) = \delta^{\tau - t}$ for some constant $\delta \in (0, 1]$.
-:::
-
-::: {.proof}
-By intertemporal separability, continuity, and strict monotonicity, deterministic continuation streams admit an additively separable representation $\sum_{\tau \ge t} D(t, \tau) \, u(\mathbf{x}_\tau)$ across periods [@debreu1960topological; @koopmans1960stationary], and stationarity makes the per-period utility $u$ and the discount weights time-invariant, so a single dated bundle $(\mathbf{x}, \tau)$ is evaluated as $D(t, \tau) u(\mathbf{x})$.
-
-Consider three periods $t_0 \le t_1 \le t_2$ and two deterministic consumption bundles $(\mathbf{x}, t_1)$ and $(\mathbf{y}, t_2)$ in $X$. By dynamic consistency (@lem-dynamic-consistency):
-$$D(t_0, t_1) u(\mathbf{x}) = D(t_0, t_2) u(\mathbf{y}) \iff D(t_1, t_1) u(\mathbf{x}) = D(t_1, t_2) u(\mathbf{y})$$
-
-Because $D(t_1, t_1) = 1$, substituting the second equality into the first yields:
-$$D(t_0, t_2) = D(t_0, t_1) \cdot D(t_1, t_2) \quad \forall t_0 \le t_1 \le t_2$$
-
-Stationarity requires that discount factors depend only on the elapsed time lag $\tau - t$: $D(t, \tau) = d(\tau - t)$ for some continuous function $d: \mathbb{R}_+ \to (0, 1]$ with $d(0) = 1$. Let $s = t_1 - t_0 \ge 0$ and $r = t_2 - t_1 \ge 0$. The recursive condition reduces to Cauchy's multiplicative functional equation:
-$$d(s + r) = d(s) \cdot d(r) \quad \forall s, r \ge 0$$
-
-Define $\phi(s) = \ln d(s)$. Taking logarithms transforms this into Cauchy's additive functional equation:
-$$\phi(s + r) = \phi(s) + \phi(r)$$
-Because $d(\cdot)$ is continuous and nonincreasing, $\phi(\cdot)$ is continuous and nonincreasing with $\phi(0) = 0$. The unique continuous solution is linear:
-$$\phi(s) = -\rho s \quad \text{for some constant } \rho \ge 0$$
-
-Exponentiating both sides:
-$$d(s) = e^{-\rho s} = \delta^s$$
-where $\delta = e^{-\rho} \in (0, 1]$. Setting $s = \tau - t$ yields $D(t, \tau) = \delta^{\tau - t}$.
-:::
-
-#### Proof of the Proposition {#sec-proof-exponential-discounting}
-
-::: {.proof}
-*Necessity ($\implies$).*
-
-1. Assume the agent is immune to arbitrage across all dynamic decision trees. By @lem-dynamic-consistency, preferences must satisfy dynamic consistency.
-2. By @lem-expected-utility-bayes [@epstein1993dynamically; @hammond1988consequentialist], consequentialism and dynamic consistency under subjective uncertainty force preferences at each node to satisfy Savage's axioms and the von Neumann–Morgenstern independence axiom. This establishes the existence of a unique additive prior $P$, Bayesian updating, and expected utility evaluation of continuation streams.
-3. Restricting to deterministic sequences across time, intertemporal separability and stationarity yield the additively separable dated-bundle evaluations of @lem-exponential-discounting [@debreu1960topological; @koopmans1960stationary], and dynamic consistency then forces the discount function to satisfy Cauchy's multiplicative functional equation [@hammond1976changing]. Its unique continuous solution is exponential discounting: $D(t, \tau) = \delta^{\tau - t}$.
-4. Integrating the state-space expected utility representation from @lem-expected-utility-bayes with the intertemporal discounting structure from @lem-exponential-discounting — cardinal uniqueness of the von Neumann–Morgenstern index ties the per-period utilities to a common $u$ — yields the unified functional:
-   $$V_{E_t}(\mathbf{f}) = \mathbb{E}_P \left[ \sum_{\tau = t}^T \delta^{\tau - t} u(\mathbf{f}_\tau) \;\middle|\; E_t \right]$$
-
-*Sufficiency ($\impliedby$).* Suppose preferences admit the representation $V_{E_t}(\mathbf{f})$ with Bayesian updating and $\delta \in (0, 1]$. By the law of iterated expectations:
-$$V_{E_t}(\mathbf{f}) = u(\mathbf{f}_t) + \delta \, \mathbb{E}_P \left[ V_{E_{t+1}}(\mathbf{f}) \;\middle|\; E_t \right]$$
-
-The functional obeys the Bellman optimality principle. An optimal act planned at $t = 0$ remains optimal at every reachable node $(t, E_t)$. At any node $(t, E_t)$, the agent will reject any proposed trade that lowers continuation value $V_{E_t}$.
-
-Because $V_{E_t}$ is strictly increasing along the numeraire and dynamically consistent, the value of the agent's allocation is weakly monotonically increasing along any sequence of voluntary exchanges.
-
-Therefore, no sequence of trades can terminate in an act $\mathbf{g}$ with $\mathbf{g} \le \mathbf{f}$ coordinate-wise (and strict inequality in numeraire), nor can an arbitrageur extract positive numeraire fees $\sum \varepsilon_i > 0$ while returning the agent to his initial endowment. The agent is strictly immune to arbitrage.
+If $h^N\le h^0$ coordinate-wise, weak monotonicity gives no utility increase anywhere. At a bundle pair $y=h^N_\tau(\omega)$, $x=h^0_\tau(\omega)$ with $y_1<x_1$, openness permits a small $\eta>0$ such that $y+\eta e_1\in X$ and $y+\eta e_1\le x$. Then $u(y)<u(y+\eta e_1)\le u(x)$. Full support and positive weights therefore give $W(h^N)<W(h^0)$, a contradiction. For pure numeraire fees, strict numeraire monotonicity alone suffices.
 :::
 
 ### What Is the Optimal Practical Prior? {#sec-optimal-prior}
@@ -340,7 +303,9 @@ where each $p$ computes rational conditional probabilities $\mu_p(x_t=1\mid x_{\
 
 Define the resource-bounded description complexity of an environment by
 
-$$K_T(\mu)=\min\{|p|:p\in P_V,\ \mu_p=\mu,\ \mu_p\in𝓜_T\}.$$
+$$K_T(\mu)=\min\left\{|p|:p\in P_V,\ \mu_p=\mu,\ \forall t\ge1,\ \forall x_{\lt t}\in\{0,1\}^{t-1},\ \text{Time}(V(p,x_{\lt t}))\le T(t)\right\}.$$
+
+The runtime constraint applies to the candidate program itself, not merely to the measure it computes. A shorter but slower program for the same measure does not qualify. For $\mu\in𝓜_T$, the minimum exists because at least one qualifying program exists.
 
 Let $b:\mathbb N_{\ge1}\to\mathbb N_{\ge1}$ be a time-constructible, monotone, unbounded enumeration budget. Let $𝓐_{b,T}$ be the class of uniform deterministic predictors $A$ with persistent sequential state, computing $A(x_t=1\mid x_{\lt t})\in[0,1]$ such that
 
@@ -361,7 +326,7 @@ Pinsker's inequality gives $S(A,\mu)\le L(A,\mu)/2$. To compare predictors in th
 
 $$R_A(k)=\sup\left\{L(A,\mu):\mu\in𝓜_T,\ K_T(\mu)\le k\right\}.$$
 
-Let $C_A(t)$ be the worst-case time used by $A$ at step $t$. We evaluate $A$ by the pair $(C_A,R_A)$. It dominates $B$ if $C_A=O(C_B)$ and $R_A(k)\le R_B(k)$ for all sufficiently large $k$. Dominance is strict if $C_A=o(C_B)$ or $R_A(k)<R_B(k)$ infinitely often. This defines a computation-loss Pareto frontier while ignoring finite hardcoded improvements.
+Let $C_A(t)$ be the worst-case time used by $A$ at step $t$. We evaluate $A$ by the pair $(C_A,R_A)$. It dominates $B$ if $C_A=O(C_B)$ and $R_A(k)\le R_B(k)$ for all sufficiently large $k$. Dominance is strict if $C_A=o(C_B)$ or $R_A(k)<R_B(k)$ infinitely often. These comparisons define the candidate computation-loss Pareto frontier; they do not establish that undominated predictors exist. They ignore differences confined to finitely many complexity indices, but not necessarily finite hardcoded prediction improvements: changing predictions at finitely many rounds can permanently change cumulative loss, including its worst-case profile at arbitrarily large complexity indices.
 
 Related Pareto and fixed-resource optimality results appear in [@hutter2003optimality; @aixi], but the exact profile $R_A$ and pair $(C_A,R_A)$ are the synthesis used here.
 
@@ -509,7 +474,7 @@ Let $(\Omega, \Sigma, \mathbb{P})$ be a complete probability space.
 
 An *exogenous variable* is a measurable function $U_i: (\Omega, \Sigma) \to (\mathcal{X}_{U_i}, \mathcal{B}_{U_i})$, where $(\mathcal{X}_{U_i}, \mathcal{B}_{U_i})$ is a standard Borel space. The collection $\mathcal{U} = \{U_1, U_2, \dots, U_m\}$ denotes the complete set of exogenous variables, representing background conditions, physical noise, or external disturbances determined entirely outside the modeled causal system.
 
-The joint distribution of the exogenous variables is the push-forward measure $P_{\mathcal{U}} = \mathbb{P} \circ U^{-1}$ defined on the product measurable space $(\mathcal{X}_{\mathcal{U}}, \mathcal{B}_{\mathcal{U}}) = \prod_{i=1}^m (\mathcal{X}_{U_i}, \mathcal{B}_{U_i})$.
+Writing $U = (U_1, \ldots, U_m)$, the joint distribution of the exogenous variables is the push-forward measure $P_{\mathcal{U}} = \mathbb{P} \circ U^{-1}$ defined on the product measurable space $(\mathcal{X}_{\mathcal{U}}, \mathcal{B}_{\mathcal{U}}) = \prod_{i=1}^m (\mathcal{X}_{U_i}, \mathcal{B}_{U_i})$. The exogenous variables need not be independent.
 :::
 
 ::: {#def-endogenous-variables}
@@ -519,9 +484,9 @@ Let $\mathcal{V} = \{V_1, V_2, \dots, V_n\}$ be a finite set of *endogenous vari
 
 A *structural causal equation* for an endogenous variable $V_i$ is a measurable map:
 
-$$f_i: \prod_{j \in \text{Pa}_i} \mathcal{X}_{V_j} \times \mathcal{X}_{U_i} \to \mathcal{X}_{V_i}$$
+$$f_i: \prod_{j \in \text{Pa}_i} \mathcal{X}_{V_j} \times \prod_{k \in I_i}\mathcal{X}_{U_k} \to \mathcal{X}_{V_i}$$
 
-where $\text{Pa}_i \subseteq \mathcal{V} \setminus \{V_i\}$ denotes the set of *endogenous parents* (direct causes) of $V_i$, and $U_i \subseteq \mathcal{U}$ represents the exogenous variables directly influencing $V_i$.
+where $\text{Pa}_i \subseteq \{1,\ldots,n\}\setminus\{i\}$ indexes the *endogenous parents* (direct causes) of $V_i$, and $I_i \subseteq \{1,\ldots,m\}$ indexes its exogenous inputs. Write $V_{\text{Pa}_i} = (V_j)_{j\in\text{Pa}_i}$ and $U_{I_i} = (U_k)_{k\in I_i}$.
 :::
 
 ::: {#def-scm}
@@ -536,27 +501,27 @@ where:
 1. $\mathcal{U}$ is the set of exogenous variables with joint measure $P_{\mathcal{U}}$ on $(\mathcal{X}_{\mathcal{U}}, \mathcal{B}_{\mathcal{U}})$.
 2. $\mathcal{V}$ is the set of endogenous variables with product space $(\mathcal{X}_{\mathcal{V}}, \mathcal{B}_{\mathcal{V}}) = \prod_{i=1}^n (\mathcal{X}_{V_i}, \mathcal{B}_{V_i})$.
 3. $\mathcal{F} = \{f_1, f_2, \dots, f_n\}$ is the collection of structural causal equations.
-4. The directed graph $G = (\mathcal{V}, \mathcal{E})$, defined by directed edges $(V_j, V_i) \in \mathcal{E} \iff V_j \in \text{Pa}_i$, is a *Directed Acyclic Graph (DAG)*.
+4. The directed graph $G = (\mathcal{V}, \mathcal{E})$, defined by directed edges $(V_j, V_i) \in \mathcal{E} \iff j \in \text{Pa}_i$, is a *Directed Acyclic Graph (DAG)*.
 
 Because $G$ is acyclic, there exists a topological ordering $\pi$ of $\mathcal{V}$. By recursive substitution along $\pi$, the system of equations $\mathcal{F}$ defines a unique, measurable mapping $g: \mathcal{X}_{\mathcal{U}} \to \mathcal{X}_{\mathcal{V}}$, such that each endogenous variable is expressed as a deterministic function of the exogenous vector:
 
 $$V_i = g_i(U)$$
 :::
 
-Hierarchy of graphical models:
+Hierarchy of graphical models (the probability-mass formulas below are for finite-valued variables):
 
 * Level 1: standard Bayesian networks (associational / observational)
-  * Core mechanics: represents the joint distribution via factorization of conditional probabilities over a DAG: $P(V_1, \dots, V_n) = \prod_{i=1}^n P(V_i \mid \text{Pa}_i)$.
+  * Core mechanics: represents the joint distribution via factorization of conditional probabilities over a DAG: $P(v_1, \dots, v_n) = \prod_{i=1}^n P(v_i \mid v_{\text{Pa}_i})$.
   * Primary query: passive observation and conditioning—"What does observing $X = x$ tell us about $Y$?" ($P(Y \mid X = x)$).
-  * Scope and limits: encodes conditional independencies via $d$-separation, but directed edges do not necessarily denote physical causality. Models within the same Markov equivalence class yield identical probability distributions.
+  * Scope and limits: encodes conditional independencies via $d$-separation, but directed edges do not necessarily denote physical causality. Markov-equivalent DAGs represent the same family of distributions, not identical distributions for arbitrary parameter choices.
 * Level 2: causal Bayesian networks (interventional / action)
-  * Core mechanics: treats edges as asymmetric, autonomous physical mechanisms and models interventions via graph surgery and the $do$-operator: $P(V \mid do(X = x^*)) = \prod_{i: V_i \neq X} P(V_i \mid \text{Pa}_i) \cdot \mathbb{I}(V_X = x^*)$.
+  * Core mechanics: under independent node disturbances, or appropriate causal sufficiency of the observed DAG, autonomous causal kernels $K_i$ give the truncated product for $X \subseteq \mathcal{V}$: $P(v \mid do(X = x)) = \prod_{i: V_i \notin X} K_i(v_i \mid v_{\text{Pa}_i})\prod_{j: V_j\in X}\mathbb{I}(v_j=x_j)$. Observationally, $P(v)=\prod_i K_i(v_i\mid v_{\text{Pa}_i})$; the kernels agree with observational conditionals on positive-probability parent configurations. Kernels on unobserved configurations require further specification to evaluate interventions reaching them.
   * Primary query: active manipulation—"What happens to $Y$ if we force $X = x$?" ($P(Y \mid do(X = x))$).
   * Scope and limits: severs incoming arrows to the target variable, distinguishing physical causation from spurious association. Cannot answer unit-level retrospective or counterfactual questions.
 * Level 3: structural causal models (counterfactual / retrospective)
-  * Core mechanics: models the system using deterministic assignment functions $V_i = f_i(\text{Pa}_i, U_i)$, where uncertainty originates strictly from the joint distribution over exogenous background variables $P(U)$.
+  * Core mechanics: models the system using deterministic assignment functions $V_i = f_i(V_{\text{Pa}_i}, U_{I_i})$, where uncertainty originates from the joint distribution over exogenous background variables $P_{\mathcal{U}}$.
   * Primary query: retrospection and individual attribution—"Given that $X = x$ and $Y = y$ occurred, what would $Y$ have been if $X$ had been set to $x'$ instead?" ($P(Y_{x'} \mid X = x, Y = y)$).
-  * Scope and limits: isolates unit-level background states $U = u$, enabling reasoning about alternative outcomes across parallel scenarios. Completely subsumes both Level 1 (conditioning) and Level 2 (population-level interventions).
+  * Scope and limits: uses the same background state $U = u$ across alternative scenarios, supplying cross-intervention structure not specified by causal kernels alone. It supports observational, interventional, and counterfactual queries, but their identification from data requires additional assumptions. With correlated or shared node disturbances, the endogenous DAG alone need not give an observational factorization or a truncated-product formula; interventions remain defined by structural recursion and the joint exogenous law.
 
 In a Structural Causal Model (SCM), *proximate causes* correspond to the direct parents ($\text{Pa}(Y)$) immediately adjacent to an outcome, while *distal causes* correspond to upstream ancestors ($\text{Anc}(Y) \setminus \text{Pa}(Y)$) separated from the outcome by one or more intermediate mechanisms (mediators).
 
@@ -591,66 +556,72 @@ This formalizes subjunctive belief-updating ("the probability that $Y \in E$ wou
 :::
 
 ::: {#def-preference-acts}
-## Preference Relation over Causal Acts
+## Consequence Lotteries and Randomized Causal Acts
 
-Let $\mathcal{C}$ be a set of deterministic consequences, endowed with a $\sigma$-algebra $\Sigma_{\mathcal{C}}$. An act $A \in \mathcal{A}$ induces a probability measure $\mu_A$ on $(\mathcal{C}, \Sigma_{\mathcal{C}})$ via the causal supposition distribution over the states:
+Fix a finite consequence set $\mathcal{C}$ with at least two elements and the discrete $\sigma$-algebra. For every $A = do(X=x) \in \mathcal{A}$, fix a measurable consequence map $h_A:\mathcal{X}_{\mathcal{V}}\to\mathcal{C}$, including any intervention costs in the consequence if relevant. The given SCM induces the lottery
 
-$$\mu_A(C) = \int_{\mathcal{X}_{\mathcal{V}}} \mathbb{I}_{C}(\text{outcome}(v, A)) \, dP(v \parallel A)$$
+$$\mu_A(c) = \int_{\mathcal{X}_{\mathcal{U}}}\mathbb{I}\{h_A(g_x(z))=c\}\,dP_{\mathcal{U}}(z), \qquad c\in\mathcal{C}.$$
 
-Let $\succsim$ be a binary relation on $\mathcal{A}$, where $A \succsim B$ denotes that the agent weakly prefers act $A$ to act $B$.
+Let $\Delta(\mathcal{C})$ be the full simplex of probability distributions on $\mathcal{C}$, with pointwise mixtures $\alpha L+(1-\alpha)M$, and let $\delta_c$ denote the lottery concentrated at $c$. Preferences $\succsim$ are defined on this full simplex; $\sim$ and $\succ$ denote indifference and strict preference.
+
+A randomized intervention is a finite-support probability distribution $r$ on $\mathcal{A}$: an external randomizer independent of $U$ selects $A$ with probability $r(A)$, then performs it. Its consequence lottery is $\mu_r=\sum_A r(A)\mu_A$. Thus randomizing between $r$ and $s$ with probability $\alpha$ induces $\alpha\mu_r+(1-\alpha)\mu_s$. Deterministic interventions are included as point masses. *Reduction to the induced law* is the additional requirement that intervention preferences $\succsim_{\mathcal{A}}$ satisfy
+
+$$r\succsim_{\mathcal{A}}s \iff \mu_r\succsim\mu_s.$$
+
+This requirement rules out preferences for the randomization procedure or causal route beyond what is recorded in the consequence.
 :::
 
 ::: {#prp-causal-representation}
-## Structural-Suppositional Causal Representation
+## Finite-Lottery Causal Expected Utility
 
-*Assumptions.*
+Fix the acyclic SCM and consequence maps above; they supply the causal outcome laws, rather than being inferred from preferences. Suppose preferences on the full domain $\Delta(\mathcal{C})$ satisfy the following finite-lottery axioms [@vonneumann1944theory]:
 
-1. Galles–Pearl axiomatization of structural counterfactuals. The set of potential response variables $\{Y_x \mid Y \in \mathcal{V}, X \subseteq \mathcal{V}, x \in \mathcal{X}_X\}$ generated by the structural model $\mathcal{M}$ satisfies the following axioms for all disjoint variable subsets $W, X, Y, Z \subseteq \mathcal{V}$ and corresponding values in the domains of those variables:
-   * Effectiveness:
-     $$X_x = x$$
-   * Composition:
-     $$(W_x = w) \implies (Y_{x, w} = Y_x)$$
-   * Reversibility (acyclicity): for any finite sequence of variables and values $(Y^{(1)}, y^{(1)}), \dots, (Y^{(k)}, y^{(k)})$:
-     $$\left( \bigwedge_{i=1}^{k-1} Y^{(i+1)}_{y^{(i)}} = y^{(i+1)} \right) \land \left( Y^{(1)}_{y^{(k)}} = y^{(1)} \right) \implies \left( Y^{(1)}_{y^{(k-1)}} = y^{(1)} \right)$$
-2. Suppositional coherence and mechanism invariance. The causal supposition operator $P(\cdot \parallel \cdot)$ is governed by the distribution $P_{\mathcal{M}}$ induced by the structural model, satisfying:
-   * Centering: for all $A = do(X = x)$:
-     $$P(X = x \parallel A) = 1$$
-   * Autonomous mechanism invariance: for any event $S \in \sigma(\{V_j \in \mathcal{V} \mid V_j \notin \text{Desc}(X)\})$ governed by equations unaffected by the intervention $do(X = x)$:
-     $$P(S \parallel do(X = x)) = P_{\mathcal{M}}(S)$$
-     where $\text{Desc}(X)$ denotes the topological descendants of $X$ in the DAG $G$.
-3. Joycean axioms of causal preference. The preference relation $\succsim$ over $\mathcal{A}$ satisfies:
-   * Weak order: $\succsim$ is complete ($\forall A, B \in \mathcal{A}: A \succsim B \lor B \succsim A$) and transitive ($\forall A, B, C \in \mathcal{A}: A \succsim B \land B \succsim C \implies A \succsim C$).
-   * Dominance (causal sure-thing principle): for any partition of mutually exclusive and exhaustive states $\{S_i\}_{i=1}^k \subset \mathcal{S}$, if $A$ is weakly preferred to $B$ conditional on every supposed state:
-     $$\forall i \in \{1, \dots, k\}, \quad (A \land S_i) \succsim (B \land S_i) \implies A \succsim B$$
-   * Archimedean continuity: for all acts $A, B, C \in \mathcal{A}$ such that $A \succ B \succ C$, there exist real numbers $\alpha, \beta \in (0, 1)$ such that:
-     $$\alpha A + (1 - \alpha) C \succ B \succ \beta A + (1 - \beta) C$$
-     under convex combinations of the induced consequence measures $\mu_A, \mu_B, \mu_C$.
-   * Subjunctive neutrality (independence of irrelevant news): for any two acts $A, B \in \mathcal{A}$, preference is invariant under indicative probability conditioning:
-     $$A \succsim B \iff \mu_A \succsim \mu_B$$
-     where $\mu_A$ and $\mu_B$ depend solely on the causal supposition measure $P(\cdot \parallel \cdot)$ and are strictly independent of the passive diagnostic posteriors $P(\cdot \mid A)$ and $P(\cdot \mid B)$.
+1. Weak order: $\succsim$ is complete and transitive.
+2. Mixture continuity: for all $L,M,N\in\Delta(\mathcal{C})$, both $\{\alpha\in[0,1]:\alpha L+(1-\alpha)M\succsim N\}$ and $\{\alpha\in[0,1]:N\succsim\alpha L+(1-\alpha)M\}$ are closed.
+3. Independence: for all $L,M,N\in\Delta(\mathcal{C})$ and $\alpha\in(0,1)$,
+   $$L\succsim M \iff \alpha L+(1-\alpha)N\succsim\alpha M+(1-\alpha)N.$$
+4. Nondegeneracy: there are best and worst consequences $b,w\in\mathcal{C}$ with $\delta_b\succsim\delta_c\succsim\delta_w$ for every $c\in\mathcal{C}$ and $\delta_b\succ\delta_w$.
 
-*Conclusion.* Under Assumptions 1 through 3:
+Then there is a utility $u:\mathcal{C}\to\mathbb{R}$, unique up to positive affine transformation among utilities representing these full-domain lottery preferences, such that
 
-1. Existence and uniqueness of causal beliefs: the agent's subjective causal beliefs are uniquely represented by the push-forward measure $P_{\mathcal{M}}$ over potential responses generated by the structural causal model $\mathcal{M}$.
-2. Existence and affine uniqueness of utility: there exists a bounded, real-valued, $\Sigma_{\mathcal{C}}$-measurable utility function $u: \mathcal{C} \to \mathbb{R}$, unique up to a positive affine transformation:
-   $$u^*(\cdot) = a \cdot u(\cdot) + b, \quad a \in \mathbb{R}^+, \; b \in \mathbb{R}$$
-3. Causal expected utility representation: for any two candidate actions $A, B \in \mathcal{A}$:
-   $$A \succsim B \iff U_{\text{CDT}}(A) \ge U_{\text{CDT}}(B)$$
-   where the decision functional $U_{\text{CDT}}: \mathcal{A} \to \mathbb{R}$ is the *Causal Expected Utility*:
-   $$U_{\text{CDT}}(A) = \int_{\mathcal{X}_{\mathcal{V}}} u\big(\text{outcome}(v, A)\big) \, dP(v \parallel A) = \int_{\mathcal{X}_{\mathcal{U}}} u\big(\text{outcome}(g_x(u), A)\big) \, dP_{\mathcal{U}}(u)$$
+$$L\succsim M \iff \sum_{c\in\mathcal{C}}L(c)u(c)\ge\sum_{c\in\mathcal{C}}M(c)u(c).$$
+
+If intervention preferences satisfy reduction to the induced law, they are represented by
+
+$$U_{\mathrm{CDT}}(r)=\sum_A r(A)\sum_{c\in\mathcal{C}}\mu_A(c)u(c).$$
+
+In particular, for $A=do(X=x)$,
+
+$$U_{\mathrm{CDT}}(A)=\int_{\mathcal{X}_{\mathcal{U}}}u(h_A(g_x(z)))\,dP_{\mathcal{U}}(z).$$
 :::
 
 ::: {.proof}
-1. Existence and validity of causal supposition: by the soundness and completeness results of Galles and Pearl [@galles1998axiomatic], the structural equations $\mathcal{F}$ over the DAG $G$ and probability space $(\mathcal{X}_{\mathcal{U}}, \mathcal{B}_{\mathcal{U}}, P_{\mathcal{U}})$ uniquely generate potential response functions $g_x: \mathcal{X}_{\mathcal{U}} \to \mathcal{X}_{\mathcal{V}}$ satisfying Effectiveness, Composition, and Reversibility. Consequently, the push-forward measure $P_{\mathcal{M}}(\cdot_x) = P_{\mathcal{U}} \circ g_x^{-1}$ is well-defined. The causal supposition operator $P(\cdot \parallel do(X = x)) := P_{\mathcal{M}}(\cdot_x)$ therefore unconditionally satisfies Joyce's foundational suppositional requirements:
-   * Centering follows directly from Effectiveness ($X_x = x \implies P(X = x \parallel do(X = x)) = 1$).
-   * Mechanism invariance follows from Composition and DAG acyclicity, ensuring non-descendant background mechanisms remain invariant under intervention.
-2. Preference representation: because $P(\cdot \parallel \cdot)$ is a valid, centered, and invariant causal supposition measure, the preference relation $\succsim$ satisfies Joyce's structural axioms (Weak Order, Dominance under Supposition, Continuity, and Subjunctive Neutrality). By Joyce's representation theorem [@joyce1999foundations, theorem 5.2]:
-   * The subjective probability measure over counterfactual states is uniquely fixed to $P_{\mathcal{M}}$, and
-   * There exists an affine-unique utility function $u: \mathcal{C} \to \mathbb{R}$ such that acts are ordered by:
-     $$A \succsim B \iff \int_{\mathcal{X}_{\mathcal{V}}} u(\text{outcome}(v, A)) \, dP(v \parallel A) \ge \int_{\mathcal{X}_{\mathcal{V}}} u(\text{outcome}(v, B)) \, dP(v \parallel B)$$
+First, replacing equations by constants preserves acyclicity. Topological recursion therefore gives a unique measurable $g_x$ for each intervention, hence a unique push-forward law for the specified SCM. It also proves effectiveness, $X_x(z)=x$. For composition, if $W$ is disjoint from $X$ and $W_x(z)=w$, then $g_x(z)$ already satisfies the equations with both $X=x$ and $W=w$ imposed. Uniqueness gives $g_{x,w}(z)=g_x(z)$ and thus $Y_{x,w}(z)=Y_x(z)$. Variables outside the targets and their descendants retain their values by the same recursion. No counterfactual completeness theorem or reversibility axiom is needed.
 
-Substituting $P(v \parallel A) = P_{\mathcal{U}} \circ g_x^{-1}$ into the integral yields the result.
+For the preference claim, write $S_p=p\delta_b+(1-p)\delta_w$, $p\in[0,1]$. Independence preserves both indifference and strict preference, by applying its equivalence in both directions. For $p>0$, it gives $S_p\succ\delta_w$ (with $p=1$ following from nondegeneracy). If $0<q<p$, mixing this comparison with the common lottery $S_p$ with weight $1-q/p$ gives
+
+$$S_p\succ (q/p)S_p+(1-q/p)\delta_w=S_q.$$
+
+The case $q=0$ was already established, so standard lotteries are strictly increasing in $p$.
+
+Independence permits replacing a component of a finite mixture by a weakly preferred component: apply it with the remaining normalized mixture as the common lottery, handling weights zero and one directly. Replacing components one at a time therefore shows $\delta_b\succsim L\succsim\delta_w$ for every lottery $L$. For this $L$, the sets
+
+$$H_L=\{p\in[0,1]:S_p\succsim L\},\qquad K_L=\{p\in[0,1]:L\succsim S_p\}$$
+
+are closed by mixture continuity, nonempty because $1\in H_L$ and $0\in K_L$, and cover $[0,1]$ by completeness. Connectedness of $[0,1]$ implies they intersect. Thus $L\sim S_p$ for some $p$, and strict monotonicity and transitivity make this $p$ unique.
+
+Define $u(c)$ to be this unique probability for $L=\delta_c$, so $u(b)=1$ and $u(w)=0$. Repeated substitution of $\delta_c\sim S_{u(c)}$ in a finite mixture, justified by independence, yields
+
+$$L=\sum_c L(c)\delta_c\sim\sum_c L(c)S_{u(c)}=S_{\sum_c L(c)u(c)}.$$
+
+Strict monotonicity of standard lotteries and the weak order now give the claimed expected-utility representation. If another utility $v$ represents the same full-domain lottery preferences, then $v(b)>v(w)$ and $\delta_c\sim S_{u(c)}$ forces
+
+$$v(c)=u(c)v(b)+(1-u(c))v(w)=(v(b)-v(w))u(c)+v(w).$$
+
+Conversely, every positive affine transformation preserves expected-utility comparisons. Finally, independence of the intervention randomizer and $U$ gives $\mu_r=\sum_A r(A)\mu_A$ by total probability. Reduction transfers the lottery representation to interventions, and the push-forward definition of $\mu_A$ gives the displayed integral.
 :::
+
+The full consequence-lottery domain is a substantive assumption: it may be larger than the convex hull of laws attainable by feasible interventions. The affine-uniqueness conclusion uses preferences on that full domain and does not follow merely from preferences on restricted interventions. For example, if all feasible interventions induce the same law, their mutual indifference places no restriction on consequence utilities. Likewise, the SCM, its exogenous distribution, and its causal beliefs are supplied, not elicited or identified by this theorem. This is a conditional expected-utility result, not a joint belief-and-utility representation theorem; the causal interpretation concerns the supplied laws used to evaluate actions [@joyce1999foundations].
 
 ## Statistics {#sec-statistics}
 
