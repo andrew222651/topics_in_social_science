@@ -25,17 +25,13 @@ repository](https://github.com/andrew222651/topics_in_social_science)
 
 ## Naive Decision Theory {#sec-naive-decision-theory}
 
-### Preferences and beliefs
+### Bayesianism and utility theory {#sec-bayesianism-utility}
 
-When we speak of "preferences" and "beliefs" we refer
-not to mental phenomena necessarily but
-to
-information encoded by observable decisions with consequences.
-Our use of "preferences" means "revealed preferences".
-The phrase "revealed beliefs" is not standard but could describe our
-use of "beliefs".
-For example, these definitions are compatible with decision utilitarianism
-but not classical utilitarianism which is concerned with hedonic brain states.
+We begin with a behavioral view of decision-making: "preferences" and "beliefs" describe information encoded by observable choices with consequences, not necessarily mental phenomena. Preferences are thus *revealed preferences*; beliefs can also be represented through choices under suitable assumptions.
+
+::: {#rem-utilitarianism}
+This interpretation is compatible with decision utilitarianism for example, but differs from classical utilitarianism's concern with hedonic brain states.
+:::
 
 The following table traces results justifying subjective expected utility
 from von Neumann and Morgenstern's game theory to Bayesian updating. It also includes related results from finance and revealed preference theory.
@@ -48,14 +44,14 @@ A good overview is [@weisberg2011varieties].
 | Savage's preference axioms, including the sure-thing principle and small-event continuity | Expected utility with atomless, finitely additive subjective probability | [@savage1954foundations] |
 | Objective lotteries and uncertain states; Anscombe-Aumann preference axioms | Expected utility with subjective probability and state-independent utility | [@anscombe1963definition] |
 | Finite market choices at positive prices satisfying the generalized axiom of revealed preference (GARP) | Continuous, concave, strictly increasing utility rationalizing choices | Afriat's theorem [@afriat1967construction] |
-| Coherent betting prices; advance updating rule immune to diachronic Dutch books under partition learning | Bayesian updating on positive-probability evidence | [@teller1973conditionalization] |
-| Viable frictionless market with simple self-financing trades | Equivalent martingale measure for discounted prices | [@harrison1979martingales] |
+| Probabilities used as buying and selling prices for bets; updating rule announced in advance; learning which cell of a partition contains the state | Diachronic Dutch-book argument for Bayesian updating on positive-probability evidence | [@teller1973conditionalization] |
+| Finite-state, finite-horizon frictionless market; strictly positive numeraire; unrestricted self-financing trades | Absence of arbitrage is equivalent to existence of an equivalent martingale measure for prices expressed in units of the numeraire | [@harrison1979martingales] |
 
 
 
 ### Preferences over time {#sec-consequentialism-discounting}
 
-Can an agent willingly accept a sequence of trades that leaves the original consumption plan unchanged except for lost money? Such a sequence is a *money pump*. We ask which restrictions on preferences rule out these losses when tastes can change and new information can arrive [@hammond1976changing; @rabinowicz2000money].
+The behavioral view now extends to preferences over future consumption across dates and information states, without requiring separate probabilities to represent beliefs. We ask when changing tastes and new information permit a *money pump*: a sequence of willingly accepted trades that leaves the original consumption plan unchanged except for lost money [@hammond1976changing; @rabinowicz2000money].
 
 Let $\Omega$ be a nonempty finite set of states and let dates be $0,\ldots,T$, with $T\ge1$. Information at date $t$ is a partition $\mathcal P_t$ of $\Omega$: the agent learns which cell $E\in\mathcal P_t$ contains the actual state. Assume $\mathcal P_0=\{\Omega\}$ and that each partition refines the preceding one, so information is retained. A *node* $(t,E)$ specifies the date and information; $(0,\Omega)$ is the root.
 
@@ -115,6 +111,147 @@ All original consumption is restored except the $0.5$ paid at date $0$. This is 
 :::
 
 Commitment, restricted offers, or anticipation of later trades can prevent exploitation despite inconsistent rankings [@strotz1955myopia; @rabinowicz2000money]. Thus absence of observed exploitation does not establish dynamic consistency.
+
+### Causality {#sec-causality}
+
+To evaluate actions, we need beliefs about what they cause, not merely what they predict. Preferences still rank choices by their consequences, but causal beliefs are supplied as models and probabilities rather than recovered from choices. These beliefs distinguish observing an event from intervening to produce it. The main result below, @prp-causal-representation, shows how expected-utility axioms rank interventions by their posterior expected consequences, given those beliefs.
+
+#### Causal models and interventions {#sec-causal-models}
+
+We use acyclic structural causal models and their intervention semantics [@galles1998axiomatic; @pearl2019seven].
+
+::: {#def-scm}
+###### Structural causal model
+
+A *structural causal model* (SCM) is a tuple $\mathcal M=\langle\mathcal U,\mathcal V,\mathcal F,P_{\mathcal U}\rangle$. The finite collections $\mathcal U=\{U_1,\ldots,U_m\}$ and $\mathcal V=\{V_1,\ldots,V_n\}$ contain background (*exogenous*) and modeled (*endogenous*) variables, respectively. All variables take values in standard Borel spaces; $\mathcal X_S$ denotes the product state space for a collection $S$ of variables, with product sigma-algebra $\mathcal B_S$.
+
+The background vector $U$ has joint law $P_{\mathcal U}$; its components need not be independent. The measurable structural functions $\mathcal F=\{f_1,\ldots,f_n\}$ specify
+
+$$V_i=f_i(V_{\mathrm{Pa}_i},U_{I_i}),\qquad i=1,\ldots,n,$$
+
+where $\mathrm{Pa}_i\subseteq\{1,\ldots,n\}\setminus\{i\}$ indexes endogenous parents and $I_i\subseteq\{1,\ldots,m\}$ indexes exogenous inputs. Require the graph with edges $V_j\to V_i$ for $j\in\mathrm{Pa}_i$ to be acyclic. Recursive evaluation in a topological order then gives a unique measurable solution $V=g(U)$ and observational law $P_{\mathcal M}=P_{\mathcal U}\circ g^{-1}$.
+:::
+
+Relative to this graph, call the parents of an outcome $Y$ its *proximal causes*, and its nonparent ancestors its *distal causes*. Distal effects pass through mediators: in a chain $Z\to X\to Y$, $X$ is proximal and $Z$ distal to $Y$. These descriptions depend on which mechanisms the model represents explicitly; they do not rank causal importance or guarantee a nonzero effect for every intervention [@pearl2019seven].
+
+::: {#def-intervention}
+###### Intervention and potential responses
+
+For $X\subseteq\mathcal V$ and $x\in\mathcal X_X$, the notation $\operatorname{do}(X=x)$ means *set* every variable in $X$ to its specified value. It replaces the equations for those variables by $V_j=x_j$, leaving all other equations and $P_{\mathcal U}$ unchanged. This idealized intervention removes incoming arrows to the targets, not their outgoing effects.
+
+Write $g_x$ for the modified system's solution map and $Y_x(U)$ for its $Y$ coordinate. For every measurable $B\subseteq\mathcal X_Y$, define
+
+$$P_{\mathcal M}(Y\in B\mid\operatorname{do}(X=x))
+:=P_{\mathcal U}\{z:Y_x(z)\in B\}.$$
+
+The bar here labels a modified model; it is not conditioning on an event called $\operatorname{do}(X=x)$. In contrast, $P_{\mathcal M}(Y\in B\mid X=x)$ retains the original equations and conditions on an observed value. An intervention is defined even when that value has zero observational probability. The empty intervention leaves the model unchanged.
+:::
+
+In $Z\to X\to Y$, intervening on the distal cause $Z$ allows its effect to propagate through $X$. Intervening on $X$ instead cuts the link $Z\to X$: $Z$ no longer affects $Y$ through that path. Observing $X=x$ cuts no link and may provide evidence about $Z$. If another path from $Z$ to $Y$ exists, fixing $X$ need not block it.
+
+A *probability kernel* from a measurable space $S$ to a measurable space $T$ assigns each $s\in S$ a probability law $K(s,\cdot)$ on $T$, with $s\mapsto K(s,B)$ measurable for each measurable $B\subseteq T$. A *causal kernel* specifies a node's law when its parents are externally fixed. It is *autonomous* if this mechanism remains unchanged under interventions on other nodes [@pearl2019seven].
+
+These distinctions give a three-level hierarchy of queries and corresponding graphical models [@pearl2019seven, fig. 1]:
+
+| Level | Model and added structure | Typical query | Limits |
+| --- | --- | --- | --- |
+| 1. Association: observing | An ordinary _Bayesian network_ factors an observational law over a DAG; the graph encodes conditional independencies, not necessarily causation. | $P(Y\in B\mid X=x)$: what does observing $X=x$ tell us about $Y$? | The observational law alone generally does not determine intervention effects. |
+| 2. Intervention: doing | A _causal Bayesian network_ gives arrows causal meaning and specifies autonomous kernels that remain unchanged when other mechanisms are replaced. | $P(Y\in B\mid\operatorname{do}(X=x))$: what happens if we set $X=x$? | Intervention laws alone generally do not determine joint potential responses across alternative actions. |
+| 3. Counterfactuals: imagining | An _SCM_ supplies structural functions and a joint background law, linking alternative interventions through the same $U$. | $P(Y_{x'}\in B\mid X=x,Y=y)$: given what occurred, what would $Y$ have been under $X=x'$? | Counterfactual conclusions depend on this additional structure and need not be identified from data. |
+
+Each level adds information, not merely arrows: the same endogenous DAG can appear at all three levels. An SCM supports all three queries; its counterfactual calculation conditions the background state on actual evidence before evaluating the alternative intervention.
+
+At an exact observation with probability zero, the observational law alone does not specify a unique conditional prediction [@kallenberg2021foundations, theorem 8.5]. A fully specified SCM nevertheless determines what happens when we *set* a variable to that value, using the modified equations rather than conditioning.
+
+::: {#def-causal-kernels}
+###### Node causal kernels
+
+For finite-valued endogenous variables, let $E_i:=U_{I_i}$ denote the background inputs to node $i$, called its *node disturbance*. For each parent configuration $p$ and node value $a$, define the causal probability mass kernel
+
+$$K_i(a\mid p):=P_{\mathcal U}\{z:f_i(p,z_{I_i})=a\}.$$
+
+Thus $K_i(\cdot\mid p)$ is the law of $V_i$ obtained by fixing its parents to $p$ and retaining the original background law. The SCM specifies it even for parent configurations that never occur observationally; the bar denotes the kernel's input, not observational conditioning.
+:::
+
+If the disturbance vectors $E_1,\ldots,E_n$ are mutually independent, the intervention law has the *truncated factorization* [@pearl2019seven]
+
+$$P_{\mathcal M}(v\mid\operatorname{do}(X=x))
+=\prod_{i:V_i\notin X}K_i(v_i\mid v_{\mathrm{Pa}_i})
+\prod_{j:V_j\in X}\mathbb I\{v_j=x_j\}.$$
+
+Here $v=(v_1,\ldots,v_n)$ is a complete endogenous assignment, $v_{\mathrm{Pa}_i}$ is its parent subvector, $P_{\mathcal M}(v\mid\operatorname{do}(X=x))$ is the probability of $V=v$ under the intervention, and $\mathbb I\{v_j=x_j\}$ is one if $v_j=x_j$ and zero otherwise. The factorization is called truncated because the intervention replaces each targeted node's kernel by this indicator.
+
+Under this independence assumption, the kernels agree with observational conditionals on positive-probability parent configurations. At zero-probability parent configurations, they are specified by the SCM, not determined by the observational law. With shared or dependent disturbances this product need not hold, but the causal kernels and the structural definition of interventions still apply.
+
+#### Bayesian inference and causal choice {#sec-bayesian-causal-choice}
+
+To allow uncertainty about causal structure and mechanisms, let $\Theta$ be a finite set of candidate SCMs $\mathcal M_\theta$ on the same endogenous state space, with prior probabilities $\pi(\theta)$. Let $D$ denote observed data and $\ell_\theta(D)$ its likelihood under the actual sampling or experimental design. For positive marginal likelihood, Bayesian updating gives [@gelman2013bayesian]
+
+$$\pi(\theta\mid D)=
+\frac{\pi(\theta)\ell_\theta(D)}{\sum_{\vartheta\in\Theta}\pi(\vartheta)\ell_\vartheta(D)}.$$
+
+Consider an intervention on a new unit whose background variables are independent of $D$ conditional on $\theta$, with law $P_{\mathcal U,\theta}$. Learning changes the weights on models; intervention changes the equations within each model. For counterfactuals about a unit already observed, its background law must also be conditioned on that unit's evidence [@pearl2019seven].
+
+::: {#def-supposition}
+###### Posterior causal prediction
+
+Let $\mathcal A=\{\operatorname{do}(X=x):X\subseteq\mathcal V,\ x\in\mathcal X_X\}$ be the deterministic intervention acts. For $A=\operatorname{do}(X=x)$ and $E\in\mathcal B_{\mathcal V}$, define the posterior causal law
+
+$$Q_D^A(E)=\sum_{\theta\in\Theta}\pi(\theta\mid D)
+P_{\mathcal U,\theta}\{z:g_{\theta,x}(z)\in E\},$$
+
+where $g_{\theta,x}$ is the intervened solution map in $\mathcal M_\theta$. Thus $Q_D^A(E)$ is also written $P(V\in E\mid D,\operatorname{do}(X=x))$. A known SCM is the special case $|\Theta|=1$.
+:::
+
+::: {#def-preference-acts}
+###### Consequence lotteries and randomized interventions
+
+Fix a finite consequence set $\mathcal C$ with at least two elements and the discrete sigma-algebra. For each $A\in\mathcal A$, a measurable map $h_A:\mathcal X_{\mathcal V}\to\mathcal C$ records all relevant consequences, including intervention costs. Its posterior consequence lottery is
+
+$$\mu_{A,D}(c)=Q_D^A(h_A^{-1}(\{c\})),\qquad c\in\mathcal C.$$
+
+Let $\Delta(\mathcal C)$ be the full simplex of consequence lotteries, with pointwise mixtures, and $\delta_c$ the lottery concentrated at $c$. At fixed evidence $D$, write $\succsim$ for preferences on this simplex and $\succ$ for strict preference.
+
+A randomized intervention $r$ is a finite-support distribution on $\mathcal A$. Conditional on $D$, an external randomizer independent of the model and background variables selects and performs $A$ with probability $r(A)$. Its lottery is $\mu_{r,D}=\sum_A r(A)\mu_{A,D}$; deterministic acts are point masses. *Reduction to the induced law* requires intervention preferences $\succsim_{\mathcal A,D}$ to satisfy
+
+$$r\succsim_{\mathcal A,D}s\iff\mu_{r,D}\succsim\mu_{s,D}.$$
+
+This excludes preferences for a procedure or causal route beyond what $h_A$ records.
+:::
+
+The following applies the finite-lottery representation theorem to posterior causal laws [@vonneumann1944theory; @mascolell1995microeconomic, propositions 6.B.3 and 6.B.2]. Its causal interpretation follows the separation of causal beliefs and utilities in causal decision theory [@joyce1999foundations].
+
+::: {#prp-causal-representation}
+###### Bayesian causal expected utility
+
+Fix the models, prior, likelihood, consequence maps, and evidence $D$ above. Suppose preferences on $\Delta(\mathcal C)$ satisfy:
+
+1. Weak order: $\succsim$ is complete and transitive.
+2. Mixture continuity: for all $L,M,N\in\Delta(\mathcal{C})$, both $\{\alpha\in[0,1]:\alpha L+(1-\alpha)M\succsim N\}$ and $\{\alpha\in[0,1]:N\succsim\alpha L+(1-\alpha)M\}$ are closed.
+3. Independence: for all $L,M,N\in\Delta(\mathcal{C})$ and $\alpha\in(0,1)$,
+   $$L\succsim M \iff \alpha L+(1-\alpha)N\succsim\alpha M+(1-\alpha)N.$$
+4. Nondegeneracy: some $L,M\in\Delta(\mathcal C)$ satisfy $L\succ M$.
+
+Then there is a utility $u:\mathcal{C}\to\mathbb{R}$, unique up to positive affine transformation among utilities representing these full-domain lottery preferences, such that
+
+$$L\succsim M \iff \sum_{c\in\mathcal{C}}L(c)u(c)\ge\sum_{c\in\mathcal{C}}M(c)u(c).$$
+
+If intervention preferences satisfy reduction to the induced law, they are represented by
+
+$$U_D(r)=\sum_A r(A)\sum_{c\in\mathcal C}\mu_{A,D}(c)u(c).$$
+
+In particular, for $A=\operatorname{do}(X=x)$,
+
+$$U_D(A)=\sum_{\theta\in\Theta}\pi(\theta\mid D)
+\int_{\mathcal X_{\mathcal U,\theta}}
+u(h_A(g_{\theta,x}(z)))\,dP_{\mathcal U,\theta}(z).$$
+
+Conversely, every nonconstant utility on $\mathcal C$ defines lottery preferences satisfying these four axioms, and the displayed $U_D$ defines intervention preferences satisfying reduction.
+:::
+
+The result separates three ingredients: structural assumptions determine intervention responses, Bayesian conditioning weights candidate models, and preference axioms justify expected-utility evaluation. It does not derive the first two from the third. Nor does it establish causal identification: models with identical observational likelihoods can predict different intervention effects, leaving their posterior odds unchanged by observational data [@pearl2019seven].
+
+Utility uniqueness uses preferences on the full lottery simplex, not merely feasible interventions. If all feasible interventions induce the same lottery, their mutual indifference cannot identify utility. The result is also at fixed evidence $D$: a common utility across information states or an axiomatic derivation of Bayesian updating requires additional assumptions [@anscombe1963definition; @teller1973conditionalization].
 
 ### What Is the Optimal Practical Prior? {#sec-optimal-prior}
 
@@ -233,315 +370,117 @@ One can also evaluate downstream decision error. For a decidable language $L$ an
 
 Thus $\varepsilon_A(n)=o(1)$ implies eventual worst-case correctness, not merely good average performance. Decision error is operational, but it is problem-specific, and under universal averaging it is again too close to a worst-case criterion to give a general ranking of priors.
 
-#### Resource-Bounded Predictive Criteria {#sec-sequential-prediction}
+#### Resource-bounded predictive criteria {#sec-sequential-prediction}
 
-These limitations motivate evaluating a prior by sequential predictive loss rather than pointwise agreement with universal weights. Predictive loss is not the uniquely correct approximation criterion.
+A practical criterion evaluates a prior through its posterior predictive rule: how much prediction error remains at a fixed computational budget? This evaluates the prior together with its inference algorithm, not the prior alone.
 
-For a computable measure $\mu$, universal dominance gives
+Let $A$ be a computable sequential predictor returning rational probabilities $A(1\mid x_{\lt n})\in[0,1]$ on every binary history, with $A(0\mid x_{\lt n})=1-A(1\mid x_{\lt n})$. Its induced joint distribution is
 
-$$\mathbf M(x_{1:N})\ge2^{-K(\mu)-O(1)}\mu(x_{1:N}).$$
+$$A(x_{1:N})=\prod_{n=1}^N A(x_n\mid x_{\lt n}).$$
 
-Normalizing the one-step conditionals cannot reduce the probability assigned to the observed symbol relative to the raw semimeasure conditionals. Consequently, Solomonoff prediction has cumulative expected log-loss regret
+For an environment measure $\mu$, define cumulative expected log-loss regret, using natural logarithms, by
 
-$$D_{KL}(\mu(x_{1:N})\,\|\,\overline{\mathbf M}(x_{1:N}))
-\le (K(\mu)+O(1))\ln2.$$
+$$L(A,\mu)=\sum_{n=1}^\infty \mathbb E_\mu\left[
+D_{KL}\big(\mu(\cdot\mid x_{\lt n})\,\|\,A(\cdot\mid x_{\lt n})\big)
+\right].$$
 
-The chain rule and Pinsker's inequality give the corresponding cumulative squared-error bound, smaller by a factor of two.
+This nonnegative, possibly infinite quantity measures excess loss relative to knowing $\mu$ [@hutter2003optimality; @cesabianchi2006prediction].
 
-Solomonoff introduced universal sequence prediction [@solomonoff1964formal1; @solomonoff1964formal2]. Universal dominance and the modern cumulative-loss treatment, including normalization and extensions to general losses, are developed by Hutter [@hutter2003optimality]; see also [@aixi] for a systematic treatment and discussion of computational limitations.
+Fix a prefix-free interpreter $V$ for explicitly clocked programs and a monotone, time-constructible bound $T(n)$, large enough for fixed programs predicting $0$, $1$, and $1/2$. A program qualifies if, on every history of length $n-1$, it returns a valid rational conditional probability within $T(n)$ bit-computation steps, including input access, clocking, and binary output.
 
-Log loss is useful because mixture dominance bounds it directly and it decomposes over time; squared error is a consequence. This criterion rejects static predictors without requiring pointwise agreement with $\mathbf M$. We now examine the optimization problem it induces under computational limits.
+Write $P_T$ for these qualifying programs and $\mu_p$ for the measure induced by program $p$. Define
 
-Let $T: \mathbb N \to \mathbb N$ be a time-constructible, monotone time bound per step, and fix a universal interpreter $V$ with prefix-free program domain $P_V$. Assume $T(t)\ge c_V$, where $c_V$ is enough time for a fixed $V$-program to output a constant probability.
+$$\mathcal M_T=\{\mu_p:p\in P_T\},\qquad
+K_T(\mu)=\min\{|p|:p\in P_T,\ \mu_p=\mu\}.$$
 
-Define the benchmark class $𝓜_T$ of $T$-time computable measures by
+The time restriction applies to the description itself; a shorter, slower program does not qualify.
 
-$$𝓜_T = \left\{ \mu_p : p \in P_V, \; \forall t \ge 1, \; \forall x_{\lt t} \in \{0,1\}^{t-1}, \; \text{Time}\big(V(p, x_{\lt t})\big) \le T(t) \right\},$$
+::: {#def-resource-bounded-predictive-criterion}
+###### Resource-bounded predictive criterion
 
-where each $p$ computes rational conditional probabilities $\mu_p(x_t=1\mid x_{\lt t})$.
+The complexity-indexed loss profile of a predictor $A$ is
 
-Define the resource-bounded description complexity of an environment by
+$$R_A(\ell)=\sup\{L(A,\mu):\mu\in\mathcal M_T,\ K_T(\mu)\le\ell\},
+\qquad \sup\varnothing:=0.$$
 
-$$K_T(\mu)=\min\left\{|p|:p\in P_V,\ \mu_p=\mu,\ \forall t\ge1,\ \forall x_{\lt t}\in\{0,1\}^{t-1},\ \text{Time}(V(p,x_{\lt t}))\le T(t)\right\}.$$
+Fix a bit-computation machine and constants $C>0$ and integer $k\ge1$, shared across candidates. Admissible algorithms have persistent sequential state and worst-case per-round cost
 
-The runtime constraint applies to the candidate program itself, not merely to the measure it computes. A shorter but slower program for the same measure does not qualify. For $\mu\in𝓜_T$, the minimum exists because at least one qualifying program exists.
+$$C_A(n)\le Cn^k\qquad(n\ge1),$$
 
-Let $b:\mathbb N_{\ge1}\to\mathbb N_{\ge1}$ be a time-constructible, monotone, unbounded enumeration budget. Let $𝓐_{b,T}$ be the class of uniform deterministic predictors $A$ with persistent sequential state, computing $A(x_t=1\mid x_{\lt t})\in[0,1]$ such that
-
-$$\text{Time}(A(x_{\lt t}))=O(b(t)T(t)).$$
-
-The $O(b(t)T(t))$ bound uses unit-cost rational arithmetic for aggregation and constant-overhead simulation of $V$, with shared read-only access to the observed history. Interpreter time includes input access and writing rational outputs as binary numerator-denominator pairs; it does not use unit-cost rational arithmetic.
-
-For any sequential predictor $A$ and $\mu\in𝓜_T$, define cumulative log-loss regret and cumulative squared error by
-
-$$L(A,\mu)=\sum_{t=1}^\infty 𝔼_\mu\left[
-D_{KL}\big(\mu(\cdot\mid x_{\lt t})\,\|\,A(\cdot\mid x_{\lt t})\big)
-\right],$$
-
-$$S(A,\mu)=\sum_{t=1}^\infty 𝔼_\mu\left[
-\big(A(1\mid x_{\lt t})-\mu(1\mid x_{\lt t})\big)^2\right].$$
-
-Pinsker's inequality gives $S(A,\mu)\le L(A,\mu)/2$. To compare predictors in this resource-bounded setting, define the complexity-indexed worst-case loss profile
-
-$$R_A(k)=\sup\left\{L(A,\mu):\mu\in𝓜_T,\ K_T(\mu)\le k\right\}.$$
-
-Let $C_A(t)$ be the worst-case time used by $A$ at step $t$. We evaluate $A$ by the pair $(C_A,R_A)$. It dominates $B$ if $C_A=O(C_B)$ and $R_A(k)\le R_B(k)$ for all sufficiently large $k$. Dominance is strict if $C_A=o(C_B)$ or $R_A(k)<R_B(k)$ infinitely often. These comparisons define the candidate computation-loss Pareto frontier; they do not establish that undominated predictors exist. They ignore differences confined to finitely many complexity indices, but not necessarily finite hardcoded prediction improvements: changing predictions at finitely many rounds can permanently change cumulative loss, including its worst-case profile at arbitrarily large complexity indices.
-
-Related Pareto and fixed-resource optimality results appear in [@hutter2003optimality; @aixi], but the exact profile $R_A$ and pair $(C_A,R_A)$ are the synthesis used here.
-
-Because polynomial time includes every fixed degree $O(t^d)$, increasing the degree may indefinitely trade more computation for less loss. A frontier may therefore exist without a single optimal polynomial-time prior.
-
-A predictor is viable if $R_A(k)<\infty$ for every fixed $k$. This excludes static predictors, while polynomial $C_A$ excludes the incomputable ideal and unconstrained exhaustive substitutes.
-
-For example, the static predictor $A(1\mid x_{\lt t})=1/2$ incurs log-loss regret $\ln2$ and squared error $1/4$ at every step against the constant-zero environment in $𝓜_T$, so both cumulative losses are infinite and $A$ is not viable.
-
-#### Delayed Mixture Construction and Guarantees {#sec-delayed-mixture}
-
-The following construction combines Bayesian aggregation, Levin-style program search, and specialist experts that activate at different rounds [@hutter2003optimality; @cesabianchi2006prediction; @levin1973universal; @freund1997specialize].
-
-Define the activation time
-
-$$\tau_b(k)=\min\{t\ge1:b(t)\ge2^k\}.$$
-
-For each binary string $q$, let $\nu_q$ predict $1/2$ before $\tau_b(|q|)$. Thereafter it runs $V(q,x_{\lt t})$ for at most $T(t)$ steps, using $1/2$ after a timeout or invalid output. Define
-
-$$\xi_b=\sum_{q\in\{0,1\}^*}
-\frac{2^{-|q|}}{(|q|+1)(|q|+2)}\nu_q.$$
-
-These weights sum to one because
-
-$$\sum_{q\in\{0,1\}^*}\frac{2^{-|q|}}{(|q|+1)(|q|+2)}
-=\sum_{k=0}^\infty\frac1{(k+1)(k+2)}=1.$$
-
-The predictor $A_b$ is the conditional distribution of $\xi_b$.
-
-::: {#thm-ab-computable}
-###### Computational Cost
-
-The predictor $A_b$ belongs to class $𝓐_{b,T}$ under the stated arithmetic convention.
+over all histories of length $n-1$, counting state updates and probability output. The criterion is to minimize $R_A(\ell)$ across complexity levels $\ell$ subject to this computational budget.
 :::
 
-::: {.proof}
-At time $t$, only programs of length at most $\lfloor\log b(t)\rfloor$ have activated. Their number is
+Profiles can cross; neither a unique minimizer nor an algorithm attaining every pointwise infimum is assumed. Unlike uniform-average complexity approximation, this criterion is not satisfied by a trivial length estimate. Unlike universal-average decision error, it permits gradual learning rather than requiring eventual worst-case correctness.
 
-$$\sum_{k=0}^{\lfloor \log b(t) \rfloor} 2^k
-< 2^{\lfloor \log b(t) \rfloor + 1} \le 2b(t).$$
+::: {#exm-trivial-prior-loss}
+###### A trivial prior fails to learn
 
-All inactive components have the same fair-coin likelihood and their telescoping tail weight can be aggregated exactly. Maintaining the active likelihoods and simulating each component for at most $T(t)$ steps gives
+The fair-coin prior assigns $A(x_{1:N})=2^{-N}$ to every binary string and always predicts $A(1\mid x_{\lt n})=1/2$. Let $\mu_0\in\mathcal M_T$ generate only zeros. At every round,
 
-$$\text{Time}\big(A_b(x_{\lt t})\big)=O(b(t)T(t)).$$
+$$D_{KL}\big(\mu_0(\cdot\mid 0^{n-1})\,\|\,A(\cdot\mid 0^{n-1})\big)=\ln2.$$
 
-If $b(t)$ and $T(t)$ are polynomial in $t$, $A_b$ also runs in uniform polynomial bit time per step, though not necessarily $O(b(t)T(t))$. Each component likelihood multiplies at most $t$ rational outputs of at most $T(t)$ bits each; summing $O(b(t))$ weighted likelihoods therefore involves only polynomial-length integers. Program enumeration, history access, and standard bit-level simulation likewise take polynomial time.
+Its expected regret after $N$ observations is $N\ln2$, so $L(A,\mu_0)=\infty$ and $R_A(\ell)=\infty$ for every $\ell\ge K_T(\mu_0)$. Even an arbitrarily long run of zeros leaves its next prediction unchanged. More generally, no history-independent predictor, even one varying with $n$, has finite regret against both constant environments.
 :::
+
+The construction below achieves finite $R_A(\ell)$ at every fixed $\ell$. Ideal Solomonoff prediction has an $O(\ell)$ profile on this benchmark, but is incomputable and hence inadmissible [@hutter2003optimality; @leike2015computability].
+
+#### Delayed mixture construction and guarantees {#sec-delayed-mixture}
+
+Combine Bayesian aggregation with bounded program search and delayed expert activation [@levin1973universal; @cesabianchi2006prediction; @freund1997specialize]. Let $b(n)$ be a monotone, time-constructible, unbounded positive-integer budget, and define
+
+$$\tau_b(\ell)=\min\{n\ge1:b(n)\ge2^\ell\},\qquad
+w_q=\frac{2^{-|q|}}{(|q|+1)(|q|+2)}\quad(q\in\{0,1\}^*).$$
+
+The weights over all binary strings sum to one. Expert $\nu_q$ predicts $1/2$ before round $\tau_b(|q|)$. Thereafter, it simulates $V(q,x_{\lt n})$ for at most $T(n)$ steps, using the returned probability or $1/2$ on timeout or invalid output. Set
+
+$$\xi_b=\sum_{q\in\{0,1\}^*}w_q\nu_q,\qquad
+A_b(a\mid x)=\frac{\xi_b(xa)}{\xi_b(x)}\quad(a\in\{0,1\}).$$
+
+At every finite round, inactive experts supply positive fair-coin mass, so these conditionals are defined on every history.
+
+Implementation maintains active likelihoods and groups all inactive experts into one fair-coin component. At round $n$, the active strings have length at most $h=\lfloor\log_2 b(n)\rfloor$; their number is $O(b(n))$, and the inactive prior mass is $1/(h+2)$. Newly activated experts inherit their previous fair-coin likelihood.
+
+For the following operation count only, rational arithmetic has unit cost and simulation of $V$ has constant overhead, with shared read-only history access. The interpreter itself uses bit computation, including binary numerator-denominator output; the unit-cost convention applies only to mixture aggregation.
 
 ::: {#thm-ab-guarantee}
-###### Predictive Guarantee
+###### Computational and predictive guarantees
 
-For every target environment $\mu\in𝓜_T$, writing $k_\mu=K_T(\mu)$,
+The predictor $A_b$ is computable with $O(b(n)T(n))$ interpreter-simulation and rational-arithmetic operations per round under these conventions. If $b$ and $T$ are polynomial, it also has polynomial bit-computation cost, possibly with a larger exponent.
 
-$$L(A_b,\mu)
-\le\left(\tau_b(k_\mu)-1+k_\mu\right)\ln2
-+\ln((k_\mu+1)(k_\mu+2)),$$
+For every integer $\ell\ge0$, its loss profile satisfies
 
-and $S(A_b,\mu)$ is at most half this quantity. Consequently,
-
-$$R_{A_b}(k)\le(\tau_b(k)-1+k)\ln2+
-\ln((k+1)(k+2)).$$
+$$R_{A_b}(\ell)\le
+(\tau_b(\ell)-1+\ell)\ln2+\ln((\ell+1)(\ell+2)).$$
 :::
 
-::: {.proof}
-Fix a shortest $T$-time program $p$ for $\mu$, and let $t_p=\tau_b(|p|)$. The component $\nu_p$ predicts by fair coin for the first $t_p-1$ steps and agrees with $\mu$ thereafter. Therefore, for every horizon $N$,
+This is a delayed version of the standard Bayesian log-loss aggregation guarantee [@hutter2003optimality; @cesabianchi2006prediction]. It supplies a finite-profile baseline, not an optimality claim.
 
-$$D_{KL}(\mu(x_{1:N})\,\|\,\nu_p(x_{1:N}))
-\le (t_p-1)\ln 2.$$
+#### Bounds and unresolved optimality {#sec-lower-bound-tradeoff}
 
-Because the fixed mixture $\xi_b$ assigns weight
+For a fixed positive integer $d$, take $b(n)=n^d$ and suppose $T(n)=O(n^r)$. The construction gives
 
-$$w_p=\frac{2^{-|p|}}{(|p|+1)(|p|+2)}$$
+$$\text{unit-cost runtime}=O(n^{r+d}),\qquad
+R_{A_b}(\ell)=O(2^{\ell/d}+\ell).$$
 
-to $\nu_p$, $\xi_b(x_{1:N})\ge w_p\nu_p(x_{1:N})$. Hence
+Larger $d$ trades more computation for a smaller profile upper bound. Allocating $d\le k-r$ applies only to this unit-cost exponent accounting; even there, constants must fit a fixed budget $C$. For the actual $Cn^k$ bit budget, interpreter simulation and exact rational arithmetic must both be charged. Polynomial bit-time computability does not establish the same exponent $r+d$.
 
-$$D_{KL}(\mu(x_{1:N})\,\|\,\xi_b(x_{1:N}))
-\le (t_p-1+|p|)\ln2+\ln((|p|+1)(|p|+2)).$$
+A separate information-theoretic lower bound requires richness: for every binary string $y$ of length $m$, assume $\mathcal M_T$ contains the deterministic environment $\mu_y$ emitting $y$ and then zeros, with
 
-The chain rule identifies the left side with the finite-horizon cumulative log-loss regret of $A_b$. Taking $N\to\infty$ proves the log-loss bound, and Pinsker's inequality gives the squared-error bound. Finite squared loss implies that expected one-step squared error tends to zero.
-:::
+$$K_T(\mu_y)\le m+K(m)+O(1),$$
 
-#### Bounds and Unresolved Optimality {#sec-lower-bound-tradeoff}
-
-Assume the benchmark class is rich enough to contain, for every $y\in\{0,1\}^m$, the deterministic environment that emits $y$ and then zeros, with
-
-$$K_T(\mu_y)\le m+K(m)+O(1).$$
-
-The next theorem adapts the standard counting argument behind minimax log-loss lower bounds to the resource-bounded complexity $K_T$ and the profile $R_A$ [@hutter2003optimality; @cesabianchi2006prediction].
+uniformly in $m,y$, where $K(m)$ is prefix-free integer complexity. This assumption is not automatic for an arbitrary $T$.
 
 ::: {#thm-minimax-lower-bound}
-Under the richness assumption above, every predictor $A$ has
+###### Minimax log-loss bound
 
-$$R_A(k)\ge(k-O(\log k))\ln2.$$
+Under this richness assumption, every predictor $A$ satisfies, as $\ell\to\infty$,
+
+$$R_A(\ell)\ge(\ell-O(\log\ell))\ln2.$$
 :::
 
-::: {.proof}
-For a fixed $m$, the probabilities that $A$ assigns to the $2^m$ possible initial strings sum to one. Some $y\in\{0,1\}^m$ therefore has $A(y)\le2^{-m}$. Against the deterministic environment $\mu_y$, the first $m$ steps alone contribute log-loss regret at least
+This specializes the standard minimax log-loss bound to the complexity-indexed benchmark [@hutter2003optimality; @cesabianchi2006prediction]. Together with Solomonoff's ideal bound, it makes linear dependence on $\ell$ the information-theoretic benchmark.
 
-$$-\ln A(y)\ge m\ln2.$$
-
-Since $K(m)=O(\log m)$, choosing $m=k-O(\log k)$ gives the result.
-:::
-
-Hutter's universal-dominance bound gives the ideal Solomonoff predictor an $O(k)$ profile on this benchmark because unrestricted description complexity is at most $K_T(\mu)+O(1)$ [@hutter2003optimality]. Combined with the counting argument and its richness assumption, this gives a $\Theta(k)$ profile: linear dependence on environment complexity is information-theoretically optimal.
-
-For the delayed mixtures, $b(t)=t$ gives
-
-$$R_{A_b}(k)=O(2^k+k).$$
-
-More generally, for every fixed positive integer $d$, $b(t)=t^d$ gives runtime $O(t^dT(t))$ and
-
-$$R_{A_b}(k)=O(2^{k/d}+k).$$
-
-Thus larger polynomial budgets improve the upper bound, while an exponential budget can recover a linear profile.
-
-Under the stated richness assumption, the unrestricted minimax profile is $\Theta(k)$. The delayed mixtures provide polynomial-time baselines when $b$ and $T$ are polynomial, but their exponential upper bounds in $k$ do not establish a computational lower bound or Pareto optimality. The results here therefore leave the attainable computation-loss frontier unresolved; they do not select a uniquely optimal practical prior.
-
-### Causality {#sec-causality}
-
-::: {#def-probability-space}
-###### Probability Space and Exogenous Variables
-
-Let $(\Omega, \Sigma, \mathbb{P})$ be a complete probability space.
-
-An *exogenous variable* is a measurable function $U_i: (\Omega, \Sigma) \to (\mathcal{X}_{U_i}, \mathcal{B}_{U_i})$, where $(\mathcal{X}_{U_i}, \mathcal{B}_{U_i})$ is a standard Borel space. The collection $\mathcal{U} = \{U_1, U_2, \dots, U_m\}$ denotes the complete set of exogenous variables, representing background conditions, physical noise, or external disturbances determined entirely outside the modeled causal system.
-
-Writing $U = (U_1, \ldots, U_m)$, the joint distribution of the exogenous variables is the push-forward measure $P_{\mathcal{U}} = \mathbb{P} \circ U^{-1}$ defined on the product measurable space $(\mathcal{X}_{\mathcal{U}}, \mathcal{B}_{\mathcal{U}}) = \prod_{i=1}^m (\mathcal{X}_{U_i}, \mathcal{B}_{U_i})$. The exogenous variables need not be independent.
-:::
-
-::: {#def-endogenous-variables}
-###### Endogenous Variables and Structural Functions
-
-Let $\mathcal{V} = \{V_1, V_2, \dots, V_n\}$ be a finite set of *endogenous variables*, where each $V_i$ takes values in a measurable space $(\mathcal{X}_{V_i}, \mathcal{B}_{V_i})$.
-
-A *structural causal equation* for an endogenous variable $V_i$ is a measurable map:
-
-$$f_i: \prod_{j \in \text{Pa}_i} \mathcal{X}_{V_j} \times \prod_{k \in I_i}\mathcal{X}_{U_k} \to \mathcal{X}_{V_i}$$
-
-where $\text{Pa}_i \subseteq \{1,\ldots,n\}\setminus\{i\}$ indexes the *endogenous parents* (direct causes) of $V_i$, and $I_i \subseteq \{1,\ldots,m\}$ indexes its exogenous inputs. Write $V_{\text{Pa}_i} = (V_j)_{j\in\text{Pa}_i}$ and $U_{I_i} = (U_k)_{k\in I_i}$.
-:::
-
-::: {#def-scm}
-###### Structural Causal Model
-
-A *Structural Causal Model (SCM)* is a 4-tuple:
-
-$$\mathcal{M} = \langle \mathcal{U}, \mathcal{V}, \mathcal{F}, P_{\mathcal{U}} \rangle$$
-
-where:
-
-1. $\mathcal{U}$ is the set of exogenous variables with joint measure $P_{\mathcal{U}}$ on $(\mathcal{X}_{\mathcal{U}}, \mathcal{B}_{\mathcal{U}})$.
-2. $\mathcal{V}$ is the set of endogenous variables with product space $(\mathcal{X}_{\mathcal{V}}, \mathcal{B}_{\mathcal{V}}) = \prod_{i=1}^n (\mathcal{X}_{V_i}, \mathcal{B}_{V_i})$.
-3. $\mathcal{F} = \{f_1, f_2, \dots, f_n\}$ is the collection of structural causal equations.
-4. The directed graph $G = (\mathcal{V}, \mathcal{E})$, defined by directed edges $(V_j, V_i) \in \mathcal{E} \iff j \in \text{Pa}_i$, is a *Directed Acyclic Graph (DAG)*.
-
-Because $G$ is acyclic, there exists a topological ordering $\pi$ of $\mathcal{V}$. By recursive substitution along $\pi$, the system of equations $\mathcal{F}$ defines a unique, measurable mapping $g: \mathcal{X}_{\mathcal{U}} \to \mathcal{X}_{\mathcal{V}}$, such that each endogenous variable is expressed as a deterministic function of the exogenous vector:
-
-$$V_i = g_i(U)$$
-:::
-
-The following hierarchy distinguishes associational, interventional, and counterfactual queries [@pearl2019seven, fig. 1]. The probability-mass formulas below are for finite-valued variables.
-
-* Level 1: standard Bayesian networks (associational / observational)
-  * Core mechanics: represents the joint distribution via factorization of conditional probabilities over a DAG: $P(v_1, \dots, v_n) = \prod_{i=1}^n P(v_i \mid v_{\text{Pa}_i})$.
-  * Primary query: passive observation and conditioning—"What does observing $X = x$ tell us about $Y$?" ($P(Y \mid X = x)$).
-  * Scope and limits: encodes conditional independencies via $d$-separation, but directed edges do not necessarily denote physical causality. Markov-equivalent DAGs represent the same family of distributions, not identical distributions for arbitrary parameter choices.
-* Level 2: causal Bayesian networks (interventional / action)
-  * Core mechanics: under independent node disturbances, or appropriate causal sufficiency of the observed DAG, autonomous causal kernels $K_i$ give the truncated product for $X \subseteq \mathcal{V}$: $P(v \mid do(X = x)) = \prod_{i: V_i \notin X} K_i(v_i \mid v_{\text{Pa}_i})\prod_{j: V_j\in X}\mathbb{I}(v_j=x_j)$. Observationally, $P(v)=\prod_i K_i(v_i\mid v_{\text{Pa}_i})$; the kernels agree with observational conditionals on positive-probability parent configurations. Kernels on unobserved configurations require further specification to evaluate interventions reaching them.
-  * Primary query: active manipulation—"What happens to $Y$ if we force $X = x$?" ($P(Y \mid do(X = x))$).
-  * Scope and limits: severs incoming arrows to the target variable, distinguishing physical causation from spurious association. Cannot answer unit-level retrospective or counterfactual questions.
-* Level 3: structural causal models (counterfactual / retrospective)
-  * Core mechanics: models the system using deterministic assignment functions $V_i = f_i(V_{\text{Pa}_i}, U_{I_i})$, where uncertainty originates from the joint distribution over exogenous background variables $P_{\mathcal{U}}$.
-  * Primary query: retrospection and individual attribution—"Given that $X = x$ and $Y = y$ occurred, what would $Y$ have been if $X$ had been set to $x'$ instead?" ($P(Y_{x'} \mid X = x, Y = y)$).
-  * Scope and limits: uses the same background state $U = u$ across alternative scenarios, supplying cross-intervention structure not specified by causal kernels alone. It supports observational, interventional, and counterfactual queries, but their identification from data requires additional assumptions. With correlated or shared node disturbances, the endogenous DAG alone need not give an observational factorization or a truncated-product formula; interventions remain defined by structural recursion and the joint exogenous law.
-
-In a Structural Causal Model (SCM), *proximate causes* correspond to the direct parents ($\text{Pa}(Y)$) immediately adjacent to an outcome, while *distal causes* correspond to upstream ancestors ($\text{Anc}(Y) \setminus \text{Pa}(Y)$) separated from the outcome by one or more intermediate mechanisms (mediators).
-
-::: {#def-intervention}
-###### Intervention and Potential Response Variables
-
-Let $X \subseteq \mathcal{V}$ and $x \in \mathcal{X}_X = \prod_{V_j \in X} \mathcal{X}_{V_j}$.
-
-An *atomic intervention* $do(X = x)$ forms a modified submodel $\mathcal{M}_x = \langle \mathcal{U}, \mathcal{V}, \mathcal{F}_x, P_{\mathcal{U}} \rangle$, where the equation set $\mathcal{F}_x$ is obtained by replacing $f_j$ for each $V_j \in X$ with the constant map:
-
-$$V_j \equiv x_j$$
-
-while retaining the original functions $f_k$ for all $V_k \notin X$.
-
-For any variable $Y \in \mathcal{V}$ and any realization $u \in \mathcal{X}_{\mathcal{U}}$, the *potential response* $Y_x(u)$ is the unique solution for $Y$ in $\mathcal{M}_x$ under input $u$.
-
-Because $g_{Y; x}: \mathcal{X}_{\mathcal{U}} \to \mathcal{X}_Y$ is measurable, $Y_x$ is a well-defined random variable on $(\Omega, \Sigma, \mathbb{P})$, with induced probability distribution:
-
-$$P_{\mathcal{M}}(Y_x \in B) = P_{\mathcal{U}}\big(\{u \in \mathcal{X}_{\mathcal{U}} \mid Y_x(u) \in B\}\big), \quad \forall B \in \mathcal{B}_Y$$
-:::
-
-::: {#def-supposition}
-###### Causal Supposition Operator
-
-Let $\mathcal{A} = \{do(X = x) \mid X \subseteq \mathcal{V}, x \in \mathcal{X}_X\}$ be the set of atomic causal acts, and let $\mathcal{S}$ denote the set of measurable state propositions over $\mathcal{V}$.
-
-The *causal supposition operator* is a map $P(\cdot \parallel \cdot): \mathcal{S} \times \mathcal{A} \to [0, 1]$ defined such that for any event $E \in \mathcal{B}_Y$ and action $A = do(X = x)$:
-
-$$P(Y \in E \parallel A) := P_{\mathcal{M}}(Y_x \in E)$$
-
-This formalizes subjunctive belief-updating ("the probability that $Y \in E$ would occur if $X$ were set to $x$ by intervention") without reference to indicative conditional probability $P(Y \in E \mid X = x)$.
-:::
-
-::: {#def-preference-acts}
-###### Consequence Lotteries and Randomized Causal Acts
-
-Fix a finite consequence set $\mathcal{C}$ with at least two elements and the discrete $\sigma$-algebra. For every $A = do(X=x) \in \mathcal{A}$, fix a measurable consequence map $h_A:\mathcal{X}_{\mathcal{V}}\to\mathcal{C}$, including any intervention costs in the consequence if relevant. The given SCM induces the lottery
-
-$$\mu_A(c) = \int_{\mathcal{X}_{\mathcal{U}}}\mathbb{I}\{h_A(g_x(z))=c\}\,dP_{\mathcal{U}}(z), \qquad c\in\mathcal{C}.$$
-
-Let $\Delta(\mathcal{C})$ be the full simplex of probability distributions on $\mathcal{C}$, with pointwise mixtures $\alpha L+(1-\alpha)M$, and let $\delta_c$ denote the lottery concentrated at $c$. Preferences $\succsim$ are defined on this full simplex; $\sim$ and $\succ$ denote indifference and strict preference.
-
-A randomized intervention is a finite-support probability distribution $r$ on $\mathcal{A}$: an external randomizer independent of $U$ selects $A$ with probability $r(A)$, then performs it. Its consequence lottery is $\mu_r=\sum_A r(A)\mu_A$. Thus randomizing between $r$ and $s$ with probability $\alpha$ induces $\alpha\mu_r+(1-\alpha)\mu_s$. Deterministic interventions are included as point masses. *Reduction to the induced law* is the additional requirement that intervention preferences $\succsim_{\mathcal{A}}$ satisfy
-
-$$r\succsim_{\mathcal{A}}s \iff \mu_r\succsim\mu_s.$$
-
-This requirement rules out preferences for the randomization procedure or causal route beyond what is recorded in the consequence.
-:::
-
-::: {#prp-causal-representation}
-###### Finite-Lottery Causal Expected Utility
-
-Fix the acyclic SCM and consequence maps above; they supply the causal outcome laws, rather than being inferred from preferences. Suppose preferences on the full domain $\Delta(\mathcal{C})$ satisfy the following finite-lottery axioms [@vonneumann1944theory]:
-
-1. Weak order: $\succsim$ is complete and transitive.
-2. Mixture continuity: for all $L,M,N\in\Delta(\mathcal{C})$, both $\{\alpha\in[0,1]:\alpha L+(1-\alpha)M\succsim N\}$ and $\{\alpha\in[0,1]:N\succsim\alpha L+(1-\alpha)M\}$ are closed.
-3. Independence: for all $L,M,N\in\Delta(\mathcal{C})$ and $\alpha\in(0,1)$,
-   $$L\succsim M \iff \alpha L+(1-\alpha)N\succsim\alpha M+(1-\alpha)N.$$
-4. Nondegeneracy: there are best and worst consequences $b,w\in\mathcal{C}$ with $\delta_b\succsim\delta_c\succsim\delta_w$ for every $c\in\mathcal{C}$ and $\delta_b\succ\delta_w$.
-
-Then there is a utility $u:\mathcal{C}\to\mathbb{R}$, unique up to positive affine transformation among utilities representing these full-domain lottery preferences, such that
-
-$$L\succsim M \iff \sum_{c\in\mathcal{C}}L(c)u(c)\ge\sum_{c\in\mathcal{C}}M(c)u(c).$$
-
-If intervention preferences satisfy reduction to the induced law, they are represented by
-
-$$U_{\mathrm{CDT}}(r)=\sum_A r(A)\sum_{c\in\mathcal{C}}\mu_A(c)u(c).$$
-
-In particular, for $A=do(X=x)$,
-
-$$U_{\mathrm{CDT}}(A)=\int_{\mathcal{X}_{\mathcal{U}}}u(h_A(g_x(z)))\,dP_{\mathcal{U}}(z).$$
-:::
-
-::: {.proof}
-The finite-lottery expected-utility theorem gives the representation and positive-affine uniqueness [@mascolell1995microeconomic, propositions 6.B.3 and 6.B.2]. The intervened SCM supplies each $\mu_A$ by the topological recursion in @def-intervention. Independence of the intervention randomizer and $U$ gives $\mu_r=\sum_A r(A)\mu_A$ by total probability. Thus
-
-$$\sum_c\mu_r(c)u(c)=\sum_A r(A)\sum_c\mu_A(c)u(c).$$
-
-Reduction to the induced law transfers this representation to intervention preferences. Substituting the push-forward definition of $\mu_A$ gives the displayed integral for a deterministic intervention.
-:::
-
-The full consequence-lottery domain is a substantive assumption: it may be larger than the convex hull of laws attainable by feasible interventions. The affine-uniqueness conclusion uses preferences on that full domain and does not follow merely from preferences on restricted interventions. For example, if all feasible interventions induce the same law, their mutual indifference places no restriction on consequence utilities. Likewise, the SCM, its exogenous distribution, and its causal beliefs are supplied, not elicited or identified by this theorem. This is a conditional expected-utility result, not a joint belief-and-utility representation theorem; the causal interpretation concerns the supplied laws used to evaluate actions [@joyce1999foundations].
+The polynomial-time construction instead supplies an exponential-in-complexity upper bound. Neither that upper bound nor the information-theoretic lower bound establishes a computational lower bound, an optimal $n^k$ algorithm, or a uniquely optimal practical prior.
 
 ## Statistics {#sec-statistics}
 
