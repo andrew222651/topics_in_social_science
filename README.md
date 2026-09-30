@@ -20,3 +20,4 @@ Writing guidelines:
 * be as consistent as possible across the document in terms of notation, terminology, and style
 * results in the existing literature should be cited and not rederived
 * be fully mathematically rigorous in theorems and proofs
+* when writing the name of a theorem-type environment, use a level 6 heading (######)

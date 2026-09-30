@@ -25,7 +25,15 @@ repository](https://github.com/andrew222651/topics_in_social_science)
 
 ## Naive Decision Theory {#sec-naive-decision-theory}
 
-We will just say "preferences" instead of "revealed preferences."
+When we speak of "preferences" and "beliefs" we refer
+not to mental phenomena necessarily but
+to
+information encoded by observable decisions with consequences.
+Our use of "preferences" means "revealed preferences".
+The phrase "revealed beliefs" is not standard but could describe our
+use of "beliefs".
+For example, these definitions are compatible with decision utilitarianism
+but not classical utilitarianism which is concerned with hedonic brain states.
 
 * von Neumann utility theory [@vonneumann1944theory]: objective probabilities $\to$ utility function
 * [@savage1954foundations]: preferences, continuity in events $\to$ atomless subjective probability measure, utility function
@@ -36,9 +44,9 @@ We will just say "preferences" instead of "revealed preferences."
 * Fundamental theorem of asset pricing [@harrison1979martingales]: market prices $\to$ martingale measure
 * GARP (Afriat's theorem) [@afriat1967construction]: market choices $\to$ continuous, concave, and monotonically increasing utility function
 
-Motivational "wanting" and hedonic "liking" can dissociate; in this literature, wanting means incentive salience, not economic preference in general [@berridge2016liking]. Preference satisfaction should therefore not be identified with pleasure.
 
-"Consequentialism" means that a node's ranking depends only on its continuation consequences, not on foregone branches or past outcomes [@hammond1988consequentialist]. This is distinct from agreement between earlier and later rankings. Neither property alone supplies an expected-utility representation.
+
+"Consequentialism" means that a decision tree node's ranking depends only on its continuation consequences, not on foregone branches or past outcomes [@hammond1988consequentialist]. This is distinct from agreement between earlier and later rankings. Neither property alone supplies an expected-utility representation.
 
 ### Dynamic Consistency Within Stationary Additive SEU {#sec-consequentialism-discounting}
 
@@ -60,7 +68,7 @@ $$f\succsim_{s,A}g\quad\Longleftrightarrow\quad f\succsim_{t,E}g.$$
 This includes preservation of indifference, since the equivalence also applies with $f,g$ interchanged. Equality $E=A$ is allowed when no new information arrives.
 
 ::: {#prp-exponential-discounting}
-## Bayesian Updating and Exponential Weights
+###### Bayesian Updating and Exponential Weights
 
 Under the stated representation assumptions, dynamic consistency holds if and only if, writing $P=q_{0,\Omega}$, every node satisfies
 
@@ -99,7 +107,7 @@ The restriction $T\ge2$ makes the recurrence substantive. With $T=1$, any positi
 #### Money Pumps and Local Acceptance {#sec-dt-lemmas}
 
 ::: {#lem-dynamic-consistency}
-## A Strict Reversal Permits a Naive Money Pump
+###### A Strict Reversal Permits a Naive Money Pump
 
 Suppose $f,g$ coincide before $t$ and outside $E$, where $(t,E)$ descends from $(s,A)$, and
 
@@ -120,7 +128,7 @@ Starting from $g$, offer $f-\varepsilon D_E$ at $(s,A)$. If $E$ is reached, repl
 This proves exploitability of a strict reversal under naive local acceptance, not an equivalence between every weak-ranking inconsistency and a money pump. It makes no claim that a sophisticated agent who anticipates the complete trading policy would accept the first offer. Paying for commitment is not by itself a net-loss cycle.
 
 ::: {#prp-no-net-loss-pump}
-## Dynamic Consistency Excludes Finite Net-Loss Pumps
+###### Dynamic Consistency Excludes Finite Net-Loss Pumps
 
 Assume the consistent representation of @prp-exponential-discounting and, additionally, weak coordinate monotonicity: $x\le y$ in $X$ implies $u(x)\le u(y)$. A trade at $(t,E)$ replaces the current feasible act only on $E$ and at dates $\tau\ge t$, incorporating all fees and liabilities in the replacement bundles. It is locally accepted only if its node value is weakly higher. No finite contingent policy of such trades can yield a final act coordinate-wise below the initial act in every date and state, with a strict numeraire loss in at least one date and state. In particular, returning to the initial consumption stream except for nonnegative numeraire fees, positive somewhere, is impossible.
 :::
@@ -341,7 +349,7 @@ $$\sum_{q\in\{0,1\}^*}\frac{2^{-|q|}}{(|q|+1)(|q|+2)}
 The predictor $A_b$ is the conditional distribution of $\xi_b$.
 
 ::: {#thm-ab-computable}
-## Computational Cost
+###### Computational Cost
 
 The predictor $A_b$ belongs to class $𝓐_{b,T}$ under the stated arithmetic convention.
 :::
@@ -360,7 +368,7 @@ If $b(t)$ and $T(t)$ are polynomial in $t$, $A_b$ runs in uniform polynomial tim
 :::
 
 ::: {#thm-ab-guarantee}
-## Predictive Guarantee
+###### Predictive Guarantee
 
 For every target environment $\mu\in𝓜_T$, writing $k_\mu=K_T(\mu)$,
 
@@ -431,7 +439,7 @@ Under the stated richness assumption, the unrestricted minimax profile is $\Thet
 ### Causality {#sec-causality}
 
 ::: {#def-probability-space}
-## Probability Space and Exogenous Variables
+###### Probability Space and Exogenous Variables
 
 Let $(\Omega, \Sigma, \mathbb{P})$ be a complete probability space.
 
@@ -441,7 +449,7 @@ Writing $U = (U_1, \ldots, U_m)$, the joint distribution of the exogenous variab
 :::
 
 ::: {#def-endogenous-variables}
-## Endogenous Variables and Structural Functions
+###### Endogenous Variables and Structural Functions
 
 Let $\mathcal{V} = \{V_1, V_2, \dots, V_n\}$ be a finite set of *endogenous variables*, where each $V_i$ takes values in a measurable space $(\mathcal{X}_{V_i}, \mathcal{B}_{V_i})$.
 
@@ -453,7 +461,7 @@ where $\text{Pa}_i \subseteq \{1,\ldots,n\}\setminus\{i\}$ indexes the *endogeno
 :::
 
 ::: {#def-scm}
-## Structural Causal Model
+###### Structural Causal Model
 
 A *Structural Causal Model (SCM)* is a 4-tuple:
 
@@ -489,7 +497,7 @@ The following hierarchy distinguishes associational, interventional, and counter
 In a Structural Causal Model (SCM), *proximate causes* correspond to the direct parents ($\text{Pa}(Y)$) immediately adjacent to an outcome, while *distal causes* correspond to upstream ancestors ($\text{Anc}(Y) \setminus \text{Pa}(Y)$) separated from the outcome by one or more intermediate mechanisms (mediators).
 
 ::: {#def-intervention}
-## Intervention and Potential Response Variables
+###### Intervention and Potential Response Variables
 
 Let $X \subseteq \mathcal{V}$ and $x \in \mathcal{X}_X = \prod_{V_j \in X} \mathcal{X}_{V_j}$.
 
@@ -507,7 +515,7 @@ $$P_{\mathcal{M}}(Y_x \in B) = P_{\mathcal{U}}\big(\{u \in \mathcal{X}_{\mathcal
 :::
 
 ::: {#def-supposition}
-## Causal Supposition Operator
+###### Causal Supposition Operator
 
 Let $\mathcal{A} = \{do(X = x) \mid X \subseteq \mathcal{V}, x \in \mathcal{X}_X\}$ be the set of atomic causal acts, and let $\mathcal{S}$ denote the set of measurable state propositions over $\mathcal{V}$.
 
@@ -519,7 +527,7 @@ This formalizes subjunctive belief-updating ("the probability that $Y \in E$ wou
 :::
 
 ::: {#def-preference-acts}
-## Consequence Lotteries and Randomized Causal Acts
+###### Consequence Lotteries and Randomized Causal Acts
 
 Fix a finite consequence set $\mathcal{C}$ with at least two elements and the discrete $\sigma$-algebra. For every $A = do(X=x) \in \mathcal{A}$, fix a measurable consequence map $h_A:\mathcal{X}_{\mathcal{V}}\to\mathcal{C}$, including any intervention costs in the consequence if relevant. The given SCM induces the lottery
 
@@ -535,7 +543,7 @@ This requirement rules out preferences for the randomization procedure or causal
 :::
 
 ::: {#prp-causal-representation}
-## Finite-Lottery Causal Expected Utility
+###### Finite-Lottery Causal Expected Utility
 
 Fix the acyclic SCM and consequence maps above; they supply the causal outcome laws, rather than being inferred from preferences. Suppose preferences on the full domain $\Delta(\mathcal{C})$ satisfy the following finite-lottery axioms [@vonneumann1944theory]:
 
@@ -569,6 +577,30 @@ Reduction to the induced law transfers this representation to intervention prefe
 The full consequence-lottery domain is a substantive assumption: it may be larger than the convex hull of laws attainable by feasible interventions. The affine-uniqueness conclusion uses preferences on that full domain and does not follow merely from preferences on restricted interventions. For example, if all feasible interventions induce the same law, their mutual indifference places no restriction on consequence utilities. Likewise, the SCM, its exogenous distribution, and its causal beliefs are supplied, not elicited or identified by this theorem. This is a conditional expected-utility result, not a joint belief-and-utility representation theorem; the causal interpretation concerns the supplied laws used to evaluate actions [@joyce1999foundations].
 
 ## Statistics {#sec-statistics}
+
+### Bayesian Classification with Prior Information on Class Proportions {#sec-bayesian-classification}
+
+The usual Bayesian regression update tacitly assumes $p(\theta\mid x)=p(\theta)$: observing inputs $x$ alone does not inform the regression parameters $\theta$. This is not automatic. For observed labels $y$, Bayes's rule gives
+
+$$p(\theta\mid x,y)\propto p(y\mid x,\theta)p(\theta\mid x),$$
+
+and replacing $p(\theta\mid x)$ by $p(\theta)$ requires that assumption [@gelman2013bayesian, sec. 14.1]. For inputs sampled from a population density $g$, it holds if $g$ is known and does not depend on $\theta$, or if unknown $g$ and $\theta$ are independent a priori. In either case, the input likelihood, integrated over $g$ when necessary, does not depend on $\theta$ and cancels.
+
+Prior information on class proportions can break this independence. For a classifier $p(Y=k\mid x,\theta)$ with $Y\in\{1,\ldots,K\}$, the population class proportions are
+
+$$\pi_k=\int p(Y=k\mid x,\theta)g(x)\,dx.$$
+
+If $g$ is known, a compatible prior on $\pi$ can be encoded through a prior on $\theta$ without invalidating the usual update. If $g$ is unknown, information about $\pi$ constrains $(\theta,g)$ jointly. When incorporating it makes them dependent, learning about $g$ from observed inputs can also update $\theta$, so the input model cannot simply be ignored. Not every prior on $\pi$ requires such dependence.
+
+A direct approach is to model class-wise input densities $f_k(x\mid\phi_k)=p(x\mid Y=k,\phi_k)$, with parameters $\phi_k$, and specify the class probabilities $\pi$ explicitly, fixing them if known or assigning them a prior if uncertain. Bayes's rule gives
+
+$$P(Y=k\mid X=x,\pi,\phi)=
+\frac{\pi_k f_k(x\mid\phi_k)}
+{\sum_{j=1}^K\pi_j f_j(x\mid\phi_j)},$$
+
+where $\phi=(\phi_1,\ldots,\phi_K)$ and the denominator is positive. This incorporates information about class probabilities directly, without translating it into a prior on regression coefficients. For prediction, uncertain parameters are integrated out under their posterior given the observed data and the new input.
+
+For a general construction of informative priors on such functionals of a joint distribution, see *marginally specified priors* [@kessler2015marginally, secs. 2 and 4]. This is not a ready-made logistic-regression procedure; exactly known proportions require separate treatment as constraints.
 
 ### Uncertainty due to computational approximation in Bayesian inference {#sec-uncertainty-computation}
 
