@@ -25,6 +25,8 @@ repository](https://github.com/andrew222651/topics_in_social_science)
 
 ## Naive Decision Theory {#sec-naive-decision-theory}
 
+### Preferences and beliefs
+
 When we speak of "preferences" and "beliefs" we refer
 not to mental phenomena necessarily but
 to
@@ -35,126 +37,91 @@ use of "beliefs".
 For example, these definitions are compatible with decision utilitarianism
 but not classical utilitarianism which is concerned with hedonic brain states.
 
-* von Neumann utility theory [@vonneumann1944theory]: objective probabilities $\to$ utility function
-* [@savage1954foundations]: preferences, continuity in events $\to$ atomless subjective probability measure, utility function
-* [@anscombe1963definition]: objective probabilities, preferences $\to$ finite subjective probability measure, utility function
-* [@arrow1971essays]: objective probabilities, preferences, monotone continuity $\to$ subjective probability measure, utility function
-* [@teller1973conditionalization]: bet choices $\to$ finite subjective probability measure with Bayesian updating
-* [@epstein1993dynamically]: preferences $\to$ finite subjective probability with Bayesian updating, utility function
-* Fundamental theorem of asset pricing [@harrison1979martingales]: market prices $\to$ martingale measure
-* GARP (Afriat's theorem) [@afriat1967construction]: market choices $\to$ continuous, concave, and monotonically increasing utility function
+The following table traces results justifying subjective expected utility
+from von Neumann and Morgenstern's game theory to Bayesian updating. It also includes related results from finance and revealed preference theory.
+A good overview is [@weisberg2011varieties].
+
+
+| Assumptions | Conclusions | Citation |
+| --- | --- | --- |
+| Objective lotteries; complete, transitive, continuous preferences satisfying independence | Utility function representing preferences by expected utility | [@vonneumann1944theory] |
+| Savage's preference axioms, including the sure-thing principle and small-event continuity | Expected utility with atomless, finitely additive subjective probability | [@savage1954foundations] |
+| Objective lotteries and uncertain states; Anscombe-Aumann preference axioms | Expected utility with subjective probability and state-independent utility | [@anscombe1963definition] |
+| Finite market choices at positive prices satisfying the generalized axiom of revealed preference (GARP) | Continuous, concave, strictly increasing utility rationalizing choices | Afriat's theorem [@afriat1967construction] |
+| Coherent betting prices; advance updating rule immune to diachronic Dutch books under partition learning | Bayesian updating on positive-probability evidence | [@teller1973conditionalization] |
+| Viable frictionless market with simple self-financing trades | Equivalent martingale measure for discounted prices | [@harrison1979martingales] |
 
 
 
-"Consequentialism" means that a decision tree node's ranking depends only on its continuation consequences, not on foregone branches or past outcomes [@hammond1988consequentialist]. This is distinct from agreement between earlier and later rankings. Neither property alone supplies an expected-utility representation.
+### Preferences over time {#sec-consequentialism-discounting}
 
-### Dynamic Consistency Within Stationary Additive SEU {#sec-consequentialism-discounting}
+Can an agent willingly accept a sequence of trades that leaves the original consumption plan unchanged except for lost money? Such a sequence is a *money pump*. We ask which restrictions on preferences rule out these losses when tastes can change and new information can arrive [@hammond1976changing; @rabinowicz2000money].
 
-#### Environment and Assumptions {#sec-dt-definitions}
+Let $\Omega$ be a nonempty finite set of states and let dates be $0,\ldots,T$, with $T\ge1$. Information at date $t$ is a partition $\mathcal P_t$ of $\Omega$: the agent learns which cell $E\in\mathcal P_t$ contains the actual state. Assume $\mathcal P_0=\{\Omega\}$ and that each partition refines the preceding one, so information is retained. A *node* $(t,E)$ specifies the date and information; $(0,\Omega)$ is the root.
 
-Let $\Omega$ be a nonempty finite state space, with dates $0,\ldots,T$, where $T\ge2$. Let $\mathcal P_t$ be successively refining partitions, with $\mathcal P_0=\{\Omega\}$ and $\mathcal P_T$ the singleton partition. A node is $(t,E)$ with $E\in\mathcal P_t$. The act domain consists of all adapted streams $h=(h_0,\ldots,h_T)$ of bundles in a nonempty open convex set $X\subseteq\mathbb R^K_{++}$. Thus terminal bundles may vary independently across states. Write $e_1$ for the numeraire coordinate vector.
+A *plan* $h=(h_0,\ldots,h_T)$ specifies a bundle $h_t(\omega)\in\mathbb R^K_{++}$ at each date and state, where $K\ge1$ is the number of goods, the first is money, and $\mathbb R^K_{++}$ denotes strictly positive bundles. A plan is *adapted* if $h_t$ is constant on each cell of $\mathcal P_t$: consumption cannot depend on information not yet learned. Let $\mathcal H$ consist of all such plans.
 
-Assume, rather than derive, a stationary time-additive subjective expected utility (SEU) representation at every node:
+At node $(t,E)$, the *continuation* of $h$ is $(h_\tau(\omega))_{\tau\ge t,\,\omega\in E}$. Assume preferences over these continuations are represented by a real-valued function $V_{t,E}$, continuous in the bundle coordinates and strictly increasing in money: any nonzero, nonnegative adapted cash addition to the continuation raises its value. Write $f\succsim_{t,E}g$ when $V_{t,E}(f)\ge V_{t,E}(g)$, and $f\succ_{t,E}g$ when the inequality is strict, evaluating only the continuations. No expected-utility or additive form is required.
 
-$$V_{t,E}(h)=\sum_{\omega\in E}q_{t,E}(\omega)
-\sum_{\tau=t}^T d(\tau-t)u(h_\tau(\omega)).$$
+::: {#def-dynamic-consistency}
+###### Dynamic consistency
 
-Here each $q_{t,E}$ is a probability distribution with strictly positive mass on every state in $E$; the common lag weights satisfy $d(0)=1$ and $d(j)>0$ for $0\le j\le T$; and the common utility $u:X\to\mathbb R$ is continuous and strictly increasing in the numeraire, holding other coordinates fixed. The common $u$, additive SEU form, and node-independent lag weights are substantive assumptions, not consequences of consistency or ordinal separability. Weak coordinate monotonicity of $u$ is an additional assumption only for the dominance claim below.
-
-*Dynamic consistency* means that for every ancestor $(s,A)$ and descendant $(t,E)$, with $s<t$ and $E\subseteq A$, and every pair $f,g$ identical before $t$ and outside $E$,
+Preferences are *dynamically consistent* if, for every pair of nodes $(s,A)$ and $(t,E)$ with $s<t$ and $E\subseteq A$, and every $f,g\in\mathcal H$ identical before $t$ and outside $E$,
 
 $$f\succsim_{s,A}g\quad\Longleftrightarrow\quad f\succsim_{t,E}g.$$
 
-This includes preservation of indifference, since the equivalence also applies with $f,g$ interchanged. Equality $E=A$ is allowed when no new information arrives.
-
-::: {#prp-exponential-discounting}
-###### Bayesian Updating and Exponential Weights
-
-Under the stated representation assumptions, dynamic consistency holds if and only if, writing $P=q_{0,\Omega}$, every node satisfies
-
-$$q_{t,E}(\omega)=\frac{P(\omega)}{P(E)}\quad(\omega\in E),
-\qquad d(j)=\delta^j\quad(0\le j\le T)$$
-
-for some $\delta>0$. Dynamic consistency does not require $\delta\le1$. That bound follows if one additionally assumes impatience: for any bundles $x,y$ with $u(x)>u(y)$, the deterministic stream $(x,y)$ is weakly preferred to $(y,x)$ at two consecutive dates, all other bundles held fixed.
+This preserves both strict rankings and indifference for choices confined to the later continuation; it does not forbid changing decisions when new information arrives.
 :::
 
-::: {.proof}
-Fix an interior bundle $x$. For sufficiently small $a>0$, $x+re_1\in X$ for $|r|\le a$. Continuity and strict numeraire monotonicity imply that the values $u(x+re_1)-u(x)$ contain an open interval about zero. Consequently, any sufficiently small vector of state-contingent terminal utility increments is realizable, as are sufficiently small utility increments at any two dates. No linearity of $u$ in money is needed.
+A *trade* at $(t,E)$ replaces the current plan only on $E$ from date $t$ onward, before that date's consumption. All fees are included, and every resulting complete plan must lie in $\mathcal H$. Under *naive local acceptance*, strictly preferred trades are accepted, strictly worse trades are rejected, and indifference may be resolved either way, without anticipating later offers.
 
-First suppose consistency holds. Fix a node $(t,E)$ with $t>0$. Compare the constant act $x$ with an act whose only utility increments are $z_\omega$ at date $T$, for $\omega\in E$. Set $p_\omega=P(\omega)/P(E)$ and $q_\omega=q_{t,E}(\omega)$. The root and node value differences are respectively
+A *pure-fee pump* is a finite sequence of accepted trades, offered chronologically at specified nodes, whose final plan equals the initial plan except for nonnegative money deductions, positive at least once. Thus there is no gain at any date or state and a cash loss somewhere.
 
-$$d(T)P(E)\sum_{\omega\in E}p_\omega z_\omega,
-\qquad d(T-t)\sum_{\omega\in E}q_\omega z_\omega.$$
-
-All prefactors are positive. For each $\eta\in E$, choose $z_\omega=c(\mathbf 1_{\{\omega=\eta\}}-q_\eta)$ with $c>0$ small enough for feasibility. The node is indifferent, so consistency makes the root indifferent. Hence $c(p_\eta-q_\eta)=0$, proving $q=p$. This also covers singleton nodes; the root assertion is immediate.
-
-Next fix any $E\in\mathcal P_1$. For each $k=2,\ldots,T$, compare the constant act with a perturbation supported on $E$ and constant across its states: utility increment $-d(k-1)b$ at date $1$ and $b$ at date $k$, where $b\ne0$ is sufficiently small. These are deterministic two-date continuation perturbations on $E$ and are adapted because $E$ is known at date $1$. Their value difference at $(1,E)$ is zero. Root indifference gives
-
-$$P(E)\bigl[-d(1)d(k-1)+d(k)\bigr]b=0.$$
-
-Thus $d(k)=d(1)d(k-1)$. With $\delta=d(1)>0$ and $d(0)=1$, induction gives $d(j)=\delta^j$ throughout the horizon.
-
-Conversely, under Bayes' rule and these exponential weights, any pair differing only on $E$ from date $t$ onward satisfies
-
-$$V_{s,A}(f)-V_{s,A}(g)
-=P(E\mid A)\delta^{t-s}\bigl[V_{t,E}(f)-V_{t,E}(g)\bigr].$$
-
-The multiplier is strictly positive, proving the required equivalence. Finally, the value difference between the two streams in the impatience assumption is a positive factor times $(1-\delta)[u(x)-u(y)]$, so impatience is equivalent to $\delta\le1$ in this class.
-:::
-
-The restriction $T\ge2$ makes the recurrence substantive. With $T=1$, any positive $d(1)$ already has the exponential form on the available lags; with $T=0$, no discount factor is identified. Nothing here determines weights beyond $T$. Full support makes every node reachable, and terminal contingent acts identify each node's normalized belief vector for the common $u$: the same zero-increment test distinguishes any two candidate vectors, including at the root. This conclusion concerns only the nodes of the specified tree. Without full support, consistency at the root cannot identify beliefs at null nodes; without sufficiently rich terminal acts, it need not identify state probabilities. No separate utility-representation or utility-uniqueness theorem is asserted.
-
-#### Money Pumps and Local Acceptance {#sec-dt-lemmas}
-
-::: {#lem-dynamic-consistency}
-###### A Strict Reversal Permits a Naive Money Pump
-
-Suppose $f,g$ coincide before $t$ and outside $E$, where $(t,E)$ descends from $(s,A)$, and
-
-$$f\succ_{s,A}g,\qquad g\succ_{t,E}f.$$
-
-An agent who accepts each strictly preferred replacement relative to current holdings, without anticipating later replacements, can be induced by two trades to finish with $g$ minus a strictly positive terminal numeraire fee on $E$, and unchanged holdings elsewhere.
-:::
-
-::: {.proof}
-Let $D_E$ be the stream that is zero except for $e_1$ at date $T$ on $E$. Fees are actual consumption deductions: $h-\varepsilon D_E$ has terminal bundle $h_T(\omega)-\varepsilon e_1$ on $E$. Finiteness and openness of $X$ ensure feasibility for all sufficiently small $\varepsilon>0$. By continuity and the two strict inequalities, choose one such $\varepsilon$ with
-
-$$f-\varepsilon D_E\succ_{s,A}g,
-\qquad g-2\varepsilon D_E\succ_{t,E}f-\varepsilon D_E.$$
-
-Starting from $g$, offer $f-\varepsilon D_E$ at $(s,A)$. If $E$ is reached, replace this holding with $g-2\varepsilon D_E$ at $(t,E)$. Both trades are strictly accepted under the stated local rule. The first fee persists in both sides of the second comparison; continuity, not an assumption that it disappears, preserves the reversal. Off $E$, $f=g$ and no fee is due. On $E$, the acts agree before $t$, and the second trade restores the remaining $g$ except for the two terminal fees. Thus the final allocation is exactly $g-2\varepsilon D_E$, with a loss on the positive-probability event $E$.
-:::
-
-This proves exploitability of a strict reversal under naive local acceptance, not an equivalence between every weak-ranking inconsistency and a money pump. It makes no claim that a sophisticated agent who anticipates the complete trading policy would accept the first offer. Paying for commitment is not by itself a net-loss cycle.
+The following is a simple version of the classical paid-exchange argument [@davidson1955outlines, pp. 145--146], applied to changing preferences [@hammond1976changing; @rabinowicz2000money].
 
 ::: {#prp-no-net-loss-pump}
-###### Dynamic Consistency Excludes Finite Net-Loss Pumps
+###### Dynamic consistency and absence of money pumps
 
-Assume the consistent representation of @prp-exponential-discounting and, additionally, weak coordinate monotonicity: $x\le y$ in $X$ implies $u(x)\le u(y)$. A trade at $(t,E)$ replaces the current feasible act only on $E$ and at dates $\tau\ge t$, incorporating all fees and liabilities in the replacement bundles. It is locally accepted only if its node value is weakly higher. No finite contingent policy of such trades can yield a final act coordinate-wise below the initial act in every date and state, with a strict numeraire loss in at least one date and state. In particular, returning to the initial consumption stream except for nonnegative numeraire fees, positive somewhere, is impossible.
+Under the preceding assumptions, preferences are dynamically consistent if and only if no pure-fee pump exists from any initial plan in $\mathcal H$.
+
+Whenever consistency fails, there are plans $f,g\in\mathcal H$ differing only on some event $E\in\mathcal P_t$ from some date $t>0$ onward, with
+
+$$f\succ_{0,\Omega}g,\qquad g\succ_{t,E}f.$$
+
+Starting from $g$, two strictly accepted trades suffice: at the root, replace $g$ by $f$ for a sufficiently small positive upfront fee; at $(t,E)$, restore $g$'s continuation for free. Outside $E$, no second trade is needed. The final plan is $g$ minus the upfront fee in every state.
 :::
 
-::: {.proof}
-Evaluate every complete act at the same fixed date using
+::: {#exm-consistent-changing-tastes}
+###### Allowed: different tastes at different consumption dates
 
-$$W(h)=\sum_{\omega\in\Omega}P(\omega)\sum_{\tau=0}^T\delta^\tau u(h_\tau(\omega)).$$
+There is no uncertainty, dates are $0,1,2$, and a bundle $(m,c,a)\in\mathbb R^3_{++}$ consists of money, coffee, and tea. Let
 
-Enumerate the finitely many trade occurrences in the contingent policy in chronological order, keeping the stipulated order for multiple trades at one node. Define $h^i$ as the complete act after the first $i$ event-contingent replacements, retaining current holdings on branches not affected by a replacement. A replacement at $(t,E)$ changes no past or off-event bundles, so
+$$U_0(m,c,a)=m+2c+a,\qquad U_1(m,c,a)=U_2(m,c,a)=m+c+2a,$$
 
-$$W(h^{i+1})-W(h^i)
-=P(E)\delta^t\bigl[V_{t,E}(h^{i+1})-V_{t,E}(h^i)\bigr]\ge0.$$
+and evaluate remaining consumption by $V_t(h)=\sum_{\tau=t}^2 U_\tau(h_\tau)$. At equal money holdings, the agent prefers two coffees and one tea to one coffee and two teas for consumption at date $0$, but prefers the reverse for consumption at date $1$.
 
-This construction evaluates each accepted offer relative to holdings at that occurrence; later replacements are handled at their own occurrences. Summing gives $W(h^N)\ge W(h^0)$. It does not assert that conditional continuation values are nondecreasing along realized paths as information arrives or time passes.
-
-If $h^N\le h^0$ coordinate-wise, weak monotonicity gives no utility increase anywhere. At a bundle pair $y=h^N_\tau(\omega)$, $x=h^0_\tau(\omega)$ with $y_1<x_1$, openness permits a small $\eta>0$ such that $y+\eta e_1\in X$ and $y+\eta e_1\le x$. Then $u(y)<u(y+\eta e_1)\le u(x)$. Full support and positive weights therefore give $W(h^N)<W(h^0)$, a contradiction. For pure numeraire fees, strict numeraire monotonicity alone suffices.
+This change is consistent: already at date $0$, the agent prefers the tea-heavy bundle for date-$1$ consumption. The ranking of any fixed future consumption choice is preserved. These preferences therefore admit no pure-fee pump under the stated trading rule.
 :::
+
+::: {#exm-inconsistent-changing-tastes}
+###### Not allowed: reversing the same future choice
+
+Keep the same dates and goods, but suppose that at date $0$ the agent values every date's bundle by $m+2c+a$, whereas at dates $1$ and $2$ the agent values each remaining bundle by $m+c+2a$, adding across dates. No information arrives. Initially the date-$2$ bundle is $(10,1,2)$, and date-$0$ money exceeds $0.5$:
+
+1. At date $0$, pay $0.5$ immediately to replace the terminal bundle by $(10,2,1)$. Its contribution to date-$0$ utility rises from $14$ to $15$, so the net gain is $0.5$ and the agent accepts.
+2. At date $1$, exchange that terminal bundle back for $(10,1,2)$ at no additional charge. Its contribution to date-$1$ utility rises from $14$ to $15$, so the agent accepts again.
+
+All original consumption is restored except the $0.5$ paid at date $0$. This is a pure-fee pump: the agent reverses a ranking over consumption at the same future date, not merely a ranking of goods consumed at different dates.
+:::
+
+Commitment, restricted offers, or anticipation of later trades can prevent exploitation despite inconsistent rankings [@strotz1955myopia; @rabinowicz2000money]. Thus absence of observed exploitation does not establish dynamic consistency.
 
 ### What Is the Optimal Practical Prior? {#sec-optimal-prior}
 
-Solomonoff induction provides an idealized benchmark for universal sequence prediction [@solomonoff1964formal1; @solomonoff1964formal2]. Under the computational and predictive criteria developed here, resource-bounded Bayesian program mixtures provide one baseline, not a proved optimum.
+Solomonoff induction provides an idealized benchmark for universal sequence prediction [@solomonoff1964formal1; @solomonoff1964formal2]. But 
+what's the best we can do in polynomial time?
 
-We first examine pointwise and average approximation, then compare computational cost with sequential predictive loss. The aim is a criterion that rejects static baselines, respects simple environments, and charges for computation.
-
-All binary logarithms are base 2; $\ln$ denotes the natural logarithm. Fix an optimal prefix-free universal machine $U_d$. Let $K(x)$ be prefix Kolmogorov complexity and let $\mathbf m_d$ be the discrete universal a priori semimeasure. The coding theorem gives
+Here $\log$ denotes the base-2 logarithm and $\ln$ the natural logarithm. Fix an optimal prefix-free universal machine $U_d$. Let $K(x)$ be prefix Kolmogorov complexity and let $\mathbf m_d$ be the discrete universal a priori semimeasure. The coding theorem gives
 
 $$\mathbf m_d(x)=\Theta(2^{-K(x)}),\qquad \sum_x2^{-K(x)}\le1.$$
 
@@ -303,7 +270,7 @@ Let $b:\mathbb N_{\ge1}\to\mathbb N_{\ge1}$ be a time-constructible, monotone, u
 
 $$\text{Time}(A(x_{\lt t}))=O(b(t)T(t)).$$
 
-We use unit-cost rational arithmetic; a bit-cost model adds polynomial overhead.
+The $O(b(t)T(t))$ bound uses unit-cost rational arithmetic for aggregation and constant-overhead simulation of $V$, with shared read-only access to the observed history. Interpreter time includes input access and writing rational outputs as binary numerator-denominator pairs; it does not use unit-cost rational arithmetic.
 
 For any sequential predictor $A$ and $\mu\in𝓜_T$, define cumulative log-loss regret and cumulative squared error by
 
@@ -330,7 +297,7 @@ For example, the static predictor $A(1\mid x_{\lt t})=1/2$ incurs log-loss regre
 
 #### Delayed Mixture Construction and Guarantees {#sec-delayed-mixture}
 
-The construction combines Bayesian aggregation, Levin-style program search, and specialist experts that activate at different rounds [@hutter2003optimality; @cesabianchi2006prediction; @levin1973universal; @freund1997specialize].
+The following construction combines Bayesian aggregation, Levin-style program search, and specialist experts that activate at different rounds [@hutter2003optimality; @cesabianchi2006prediction; @levin1973universal; @freund1997specialize].
 
 Define the activation time
 
@@ -364,7 +331,7 @@ All inactive components have the same fair-coin likelihood and their telescoping
 
 $$\text{Time}\big(A_b(x_{\lt t})\big)=O(b(t)T(t)).$$
 
-If $b(t)$ and $T(t)$ are polynomial in $t$, $A_b$ runs in uniform polynomial time per step.
+If $b(t)$ and $T(t)$ are polynomial in $t$, $A_b$ also runs in uniform polynomial bit time per step, though not necessarily $O(b(t)T(t))$. Each component likelihood multiplies at most $t$ rational outputs of at most $T(t)$ bits each; summing $O(b(t))$ weighted likelihoods therefore involves only polynomial-length integers. Program enumeration, history access, and standard bit-level simulation likewise take polynomial time.
 :::
 
 ::: {#thm-ab-guarantee}
@@ -748,23 +715,16 @@ Whom should we trust? If someone told the truth in the past, are they
 trustworthy in the future? There is a large literature on reputation in
 economics.
 
-In the absence of a mechanism with a truthful outcome, presumably the
-equilibrium is to shade beliefs away from the outcome for which there is an
-outside incentive.
-
-Suppose the signals are 50-50 binary and highly correlated (e.g. there is a
-single coin flip and the agents all see the result), and the mechanism gives a
-constant reward for consistency (agreeing with a random other agent), which is
-typical in this special case. All agents reporting truthfully and all agents
-reporting untruthfully are both equilibria. If one agent always reports
-truthfully, the remaining agents still have the two equilibria but now honesty
-is Pareto optimal. If a set of agents have an outside incentive to persuade the
-mechanism of the false outcome, whether honesty is Pareto optimal depends on
-the parameters. If the proportion of incentivized agents is $1 - \epsilon$,
-they will lie. Suppose instead the proportion is $1/2 + \epsilon$, and the rest
-are truth-tellers. If each incentivized agent gets a utility increase of $c$ if
-they all lie, the consistency reward must be greater than $2c$ for the
-incentivized agents to choose truth.
+Suppose all agents observe the same fair coin flip and receive a reward $r>0$
+for agreeing with a uniformly sampled other agent. Without outside incentives,
+all agents reporting truthfully and all agents reporting falsely are both
+equilibria. For a given agent, let $q$ be the fraction of other agents reporting
+falsely. Reporting falsely earns expected agreement reward $qr$, whereas truth
+earns $(1-q)r$. If $q>1/2$, increasing $r$ strengthens the incentive to report
+falsely. An outside benefit from false reports can reinforce this incentive;
+there is no general reward threshold that guarantees truthfulness. Comparing
+equilibria or coordinated switches requires specifying the outside payoffs and
+which agents, if any, are committed to truth-telling.
 
 Applications:
 

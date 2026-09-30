@@ -16,8 +16,11 @@ Writing guidelines:
   break up long sequences of paragraphs. Too many small deeply nested sections
   disrupt readability.
 * when citing, always use square brackets: [@foo], not @foo, not [-@foo]
-* be very concise, every word should have purpose; but also be complete: define all variables, don't skip proof steps
+* be very very concise, every word should have purpose; but also be complete and explicit: define all variables, don't skip logical steps
 * be as consistent as possible across the document in terms of notation, terminology, and style
-* results in the existing literature should be cited and not rederived
-* be fully mathematically rigorous in theorems and proofs
+* if a fact/theorem/model/idea is mentioned and it already exists in the literature, it should be cited and not rederived. even if a result hasn't exactly been published before, always situate things in the relevant literature if possible. claims or implications of originality should be as weak as possible.
+* be fully mathematically rigorous in theorems and definitions
 * when writing the name of a theorem-type environment, use a level 6 heading (######)
+* theorems should be true, of course, but don't write proofs
+* the reader has no knowledge of previous versions of the document or of any AI chat conversations
+* headings should be in sentence case
