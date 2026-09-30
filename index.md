@@ -27,13 +27,22 @@ repository](https://github.com/andrew222651/topics_in_social_science)
 
 ### Bayesianism and utility theory {#sec-bayesianism-utility}
 
-We begin with a behavioral view of decision-making: "preferences" and "beliefs" describe information encoded by observable choices with consequences, not necessarily mental phenomena. Preferences are thus *revealed preferences*; beliefs can also be represented through choices under suitable assumptions.
+We begin with a behavioral view of decision-making: an agent's "preferences" and "beliefs" are encoded by observable choices with consequences, not necessarily mental phenomena. Preferences are thus *revealed preferences*; beliefs can also be represented through choices under suitable assumptions.
 
 ::: {#rem-utilitarianism}
 This interpretation is compatible with decision utilitarianism for example, but differs from classical utilitarianism's concern with hedonic brain states.
 :::
 
-The following table traces results justifying subjective expected utility
+::: {#def-bayesian-expected-utility}
+###### Bayesian expected-utility maximization
+
+Let $A$ and $\Omega$ be finite nonempty sets of actions and states, $p$ a subjective prior on $\Omega$, and $u(a,\omega)\in\mathbb R$ the utility of action $a$'s consequence in state $\omega$. After observing an event $E\subseteq\Omega$ with $p(E)=\sum_{\omega\in E}p(\omega)>0$, choose
+
+$$a^*(E)\in\operatorname*{arg\,max}_{a\in A}
+\sum_{\omega\in E}p(\omega\mid E)\,u(a,\omega).$$
+:::
+
+The following table traces results justifying some part of subjective expected utility
 from von Neumann and Morgenstern's game theory to Bayesian updating. It also includes related results from finance and revealed preference theory.
 A good overview is [@weisberg2011varieties].
 
@@ -44,14 +53,14 @@ A good overview is [@weisberg2011varieties].
 | Savage's preference axioms, including the sure-thing principle and small-event continuity | Expected utility with atomless, finitely additive subjective probability | [@savage1954foundations] |
 | Objective lotteries and uncertain states; Anscombe-Aumann preference axioms | Expected utility with subjective probability and state-independent utility | [@anscombe1963definition] |
 | Finite market choices at positive prices satisfying the generalized axiom of revealed preference (GARP) | Continuous, concave, strictly increasing utility rationalizing choices | Afriat's theorem [@afriat1967construction] |
-| Probabilities used as buying and selling prices for bets; updating rule announced in advance; learning which cell of a partition contains the state | Diachronic Dutch-book argument for Bayesian updating on positive-probability evidence | [@teller1973conditionalization] |
+| Probabilities used as buying and selling prices for bets; updating rule announced in advance; learning which cell of a partition contains the state | Departures from Bayesian conditionalization on positive-probability evidence permit a sequence of accepted bets with a guaranteed net loss | [@teller1973conditionalization] |
 | Finite-state, finite-horizon frictionless market; strictly positive numeraire; unrestricted self-financing trades | Absence of arbitrage is equivalent to existence of an equivalent martingale measure for prices expressed in units of the numeraire | [@harrison1979martingales] |
 
 
 
 ### Preferences over time {#sec-consequentialism-discounting}
 
-The behavioral view now extends to preferences over future consumption across dates and information states, without requiring separate probabilities to represent beliefs. We ask when changing tastes and new information permit a *money pump*: a sequence of willingly accepted trades that leaves the original consumption plan unchanged except for lost money [@hammond1976changing; @rabinowicz2000money].
+The behavioral view now extends to preferences over future consumption across dates and information states (without requiring separate probabilities to represent beliefs). We ask when changing tastes and new information permit a *money pump*: a sequence of willingly accepted trades that leaves the original consumption plan unchanged except for lost money [@hammond1976changing; @rabinowicz2000money].
 
 Let $\Omega$ be a nonempty finite set of states and let dates be $0,\ldots,T$, with $T\ge1$. Information at date $t$ is a partition $\mathcal P_t$ of $\Omega$: the agent learns which cell $E\in\mathcal P_t$ contains the actual state. Assume $\mathcal P_0=\{\Omega\}$ and that each partition refines the preceding one, so information is retained. A *node* $(t,E)$ specifies the date and information; $(0,\Omega)$ is the root.
 
@@ -114,7 +123,7 @@ Commitment, restricted offers, or anticipation of later trades can prevent explo
 
 ### Causality {#sec-causality}
 
-To evaluate actions, we need beliefs about what they cause, not merely what they predict. Preferences still rank choices by their consequences, but causal beliefs are supplied as models and probabilities rather than recovered from choices. These beliefs distinguish observing an event from intervening to produce it. The main result below, @prp-causal-representation, shows how expected-utility axioms rank interventions by their posterior expected consequences, given those beliefs.
+To evaluate actions, we need beliefs about what they cause, not merely what they predict. The main result below, @prp-causal-representation, shows how expected-utility axioms rank interventions by their posterior expected consequences. This particular result takes causal models and probabilities as given rather than recovering them from choices. Choices among interventions can reveal aspects of causal beliefs given suitable utility restrictions and sufficiently rich choices, but cannot distinguish models that give identical consequence distributions for every available intervention [@joyce1999foundations].
 
 #### Causal models and interventions {#sec-causal-models}
 
@@ -490,7 +499,7 @@ The usual Bayesian regression update tacitly assumes $p(\theta\mid x)=p(\theta)$
 
 $$p(\theta\mid x,y)\propto p(y\mid x,\theta)p(\theta\mid x),$$
 
-and replacing $p(\theta\mid x)$ by $p(\theta)$ requires that assumption [@gelman2013bayesian, sec. 14.1]. For inputs sampled from a population density $g$, it holds if $g$ is known and does not depend on $\theta$, or if unknown $g$ and $\theta$ are independent a priori. In either case, the input likelihood, integrated over $g$ when necessary, does not depend on $\theta$ and cancels.
+and the usual practice of replacing $p(\theta\mid x)$ by $p(\theta)$ requires that assumption [@gelman2013bayesian, sec. 14.1]. For inputs sampled from a population density $g$, it holds if $g$ is known and does not depend on $\theta$, or if unknown $g$ and $\theta$ are independent a priori. In either case, the input likelihood, integrated over $g$ when necessary, does not depend on $\theta$ and cancels.
 
 Prior information on class proportions can break this independence. For a classifier $p(Y=k\mid x,\theta)$ with $Y\in\{1,\ldots,K\}$, the population class proportions are
 

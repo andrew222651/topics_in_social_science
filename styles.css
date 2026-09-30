@@ -49,14 +49,14 @@
 }
 
 /* End-of-environment markers: an open square (tombstone) at the end of
-   proofs and an open triangle at the end of examples and definitions
+   proofs and an open triangle at the end of examples, definitions, and remarks
    (the upright environments, whose bodies otherwise blend into text). */
 .proof > :last-child::after {
   content: "\25A1";
   float: right;
 }
 
-:is(.theorem.example, .theorem.definition) > :last-child::after {
+:is(.theorem.example, .theorem.definition, .remark) > :last-child::after {
   content: "\25B3";
   float: right;
 }
