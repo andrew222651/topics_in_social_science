@@ -27,6 +27,8 @@ repository](https://github.com/andrew222651/topics_in_social_science)
 
 ### Bayesianism and utility theory {#sec-bayesianism-utility}
 
+There is no single definition of subjective expected utility maximizing
+but the following captures the general idea.
 
 ::: {#def-bayesian-expected-utility}
 ###### Bayesian expected-utility maximization
@@ -297,9 +299,10 @@ The result separates three ingredients: structural assumptions determine interve
 
 Utility uniqueness uses preferences on the full lottery simplex, not merely feasible interventions. If all feasible interventions induce the same lottery, their mutual indifference cannot identify utility. The result is also at fixed evidence $D$: a common utility across information states or an axiomatic derivation of Bayesian updating requires additional assumptions [@anscombe1963definition; @teller1973conditionalization].
 
+
 ### What Is the Optimal Practical Prior? {#sec-optimal-prior}
 
-Solomonoff induction provides an idealized benchmark for universal sequence prediction [@solomonoff1964formal1; @solomonoff1964formal2]. But 
+Solomonoff induction provides an ideal for universal sequence prediction [@solomonoff1964formal1; @solomonoff1964formal2]. But 
 what's the best we can do in polynomial time?
 
 Here $\log$ denotes the base-2 logarithm and $\ln$ the natural logarithm. Fix an optimal prefix-free universal machine $U_d$. Let $K(x)$ be prefix Kolmogorov complexity and let $\mathbf m_d$ be the discrete universal a priori semimeasure. The coding theorem gives
