@@ -27,11 +27,11 @@ repository](https://github.com/andrew222651/topics_in_social_science)
 
 ### Bayesianism and utility theory {#sec-bayesianism-utility}
 
-There is no single definition of subjective expected utility maximizing
+There is no single definition of subjective expected utility (SEU) maximizing
 but the following captures the general idea.
 
 ::: {#def-bayesian-expected-utility}
-###### Bayesian expected-utility maximization
+###### Basic Bayesian expected-utility maximization
 
 Let $A$ and $\Omega$ be finite nonempty sets of actions and states, $p$ a subjective prior on $\Omega$, and $u(a,\omega)\in\mathbb R$ the utility of action $a$'s consequence in state $\omega$. After observing an event $E\subseteq\Omega$ with $p(E)=\sum_{\omega\in E}p(\omega)>0$, choose
 
@@ -40,12 +40,10 @@ $$a^*(E)\in\operatorname*{arg\,max}_{a\in A}
 :::
 
 Roughly speaking, @def-bayesian-expected-utility would be justified
-if given a rational agent, we can uniquely construct
+if, given a rational agent, we can uniquely construct
 $p$ and $u$ from observed actions.
-The following list traces such results
-developed over the 20th century
-for various aspects of Bayesian expected-utility maximization
-and related concepts.
+The following list traces results of this form
+under various assumptions.
 A good overview is [@weisberg2011varieties].
 
 
