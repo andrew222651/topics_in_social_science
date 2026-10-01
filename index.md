@@ -534,7 +534,8 @@ The usual Bayesian regression update tacitly assumes $p(\theta\mid x)=p(\theta)$
 
 $$p(\theta\mid x,y)\propto p(y\mid x,\theta)p(\theta\mid x),$$
 
-and the usual practice of replacing $p(\theta\mid x)$ by $p(\theta)$ requires that assumption [@gelman2013bayesian, sec. 14.1]. For inputs sampled from a population density $g$, it holds if $g$ is known and does not depend on $\theta$, or if unknown $g$ and $\theta$ are independent a priori. In either case, the input likelihood, integrated over $g$ when necessary, does not depend on $\theta$ and cancels.
+and the usual practice is replacing $p(\theta\mid x)$ with $p(\theta)$ [@gelman2013bayesian, sec. 14.1].
+For inputs sampled from a population density $g$, the assumption holds if $g$ is known and does not depend on $\theta$, or if unknown $g$ and $\theta$ are independent a priori. In either case, the input likelihood, integrated over $g$ when necessary, does not depend on $\theta$ and cancels.
 
 Prior information on class proportions can break this independence. For a classifier $p(Y=k\mid x,\theta)$ with $Y\in\{1,\ldots,K\}$, the population class proportions are
 
