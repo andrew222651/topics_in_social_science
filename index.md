@@ -27,11 +27,6 @@ repository](https://github.com/andrew222651/topics_in_social_science)
 
 ### Bayesianism and utility theory {#sec-bayesianism-utility}
 
-We begin with a behavioral view of decision-making: an agent's "preferences" and "beliefs" are encoded by observable choices with consequences, not necessarily mental phenomena. Preferences are thus *revealed preferences*; beliefs can also be represented through choices under suitable assumptions.
-
-::: {#rem-utilitarianism}
-This interpretation is compatible with decision utilitarianism for example, but differs from classical utilitarianism's concern with hedonic brain states.
-:::
 
 ::: {#def-bayesian-expected-utility}
 ###### Bayesian expected-utility maximization
@@ -42,25 +37,56 @@ $$a^*(E)\in\operatorname*{arg\,max}_{a\in A}
 \sum_{\omega\in E}p(\omega\mid E)\,u(a,\omega).$$
 :::
 
-The following table traces results justifying some part of subjective expected utility
-from von Neumann and Morgenstern's game theory to Bayesian updating. It also includes related results from finance and revealed preference theory.
+Roughly speaking, @def-bayesian-expected-utility would be justified
+if given a rational agent, we can uniquely construct
+$p$ and $u$ from observed actions.
+The following list traces such results
+developed over the 20th century
+for various aspects of Bayesian expected-utility maximization
+and related concepts.
 A good overview is [@weisberg2011varieties].
 
 
-| Assumptions | Conclusions | Citation |
-| --- | --- | --- |
-| Objective lotteries; complete, transitive, continuous preferences satisfying independence | Utility function representing preferences by expected utility | [@vonneumann1944theory] |
-| Savage's preference axioms, including the sure-thing principle and small-event continuity | Expected utility with atomless, finitely additive subjective probability | [@savage1954foundations] |
-| Objective lotteries and uncertain states; Anscombe-Aumann preference axioms | Expected utility with subjective probability and state-independent utility | [@anscombe1963definition] |
-| Finite market choices at positive prices satisfying the generalized axiom of revealed preference (GARP) | Continuous, concave, strictly increasing utility rationalizing choices | Afriat's theorem [@afriat1967construction] |
-| Probabilities used as buying and selling prices for bets; updating rule announced in advance; learning which cell of a partition contains the state | Departures from Bayesian conditionalization on positive-probability evidence permit a sequence of accepted bets with a guaranteed net loss | [@teller1973conditionalization] |
-| Finite-state, finite-horizon frictionless market; strictly positive numeraire; unrestricted self-financing trades | Absence of arbitrage is equivalent to existence of an equivalent martingale measure for prices expressed in units of the numeraire | [@harrison1979martingales] |
+- [@vonneumann1944theory]
+  - *Assumptions*: Objective lotteries; complete, transitive, continuous preferences satisfying independence.
+  - *Conclusions*: Utility function representing preferences by expected utility.
+  - *Foundational in*: Game theory
+- [@savage1954foundations]
+  - *Assumptions*: Savage's preference axioms, including the sure-thing principle and small-event continuity.
+  - *Conclusions*: Expected utility with atomless, finitely additive subjective probability.
+- [@anscombe1963definition]
+  - *Assumptions*: Objective lotteries and uncertain states; Anscombe-Aumann preference axioms.
+  - *Conclusions*: Expected utility with subjective probability and state-independent utility.
+- Afriat's theorem [@afriat1967construction]
+  - *Assumptions*: Finite market choices at positive prices satisfying the generalized axiom of revealed preference (GARP).
+  - *Conclusions*: Continuous, concave, strictly increasing utility rationalizing choices.
+- [@teller1973conditionalization]
+  - *Assumptions*: Probabilities used as buying and selling prices for bets; updating rule announced in advance; learning which cell of a partition contains the state.
+  - *Conclusions*: Bayesian conditionalization.
+  - *Foundational in*: Statistics
+- Fundamental theorem of asset pricing [@harrison1979martingales]
+  - *Assumptions*: Finite-state, finite-horizon frictionless market; strictly positive numeraire; unrestricted self-financing trades.
+  - *Conclusions*: Existence of an equivalent martingale (conditioning) measure.
+  - *Foundational in*: Finance
+
+@def-bayesian-expected-utility operationalizes
+_preferences_ (via $u$) and _beliefs_ (via $p$).
+Note that these are behavioral definitions: 
+we treat the agent as a black box. 
+Also note that these are "revealed preferences", not
+"stated preferences".
+
+
+::: {#rem-utilitarianism}
+This interpretation is compatible with decision utilitarianism for example, but differs from classical utilitarianism's concern with hedonic brain states.
+:::
 
 
 
 ### Preferences over time {#sec-consequentialism-discounting}
 
-The behavioral view now extends to preferences over future consumption across dates and information states (without requiring separate probabilities to represent beliefs). We ask when changing tastes and new information permit a *money pump*: a sequence of willingly accepted trades that leaves the original consumption plan unchanged except for lost money [@hammond1976changing; @rabinowicz2000money].
+Fields in economics like price index theory deal with consumption over time.
+Rational beliefs evolve via conditioning, but what about preferences?
 
 Let $\Omega$ be a nonempty finite set of states and let dates be $0,\ldots,T$, with $T\ge1$. Information at date $t$ is a partition $\mathcal P_t$ of $\Omega$: the agent learns which cell $E\in\mathcal P_t$ contains the actual state. Assume $\mathcal P_0=\{\Omega\}$ and that each partition refines the preceding one, so information is retained. A *node* $(t,E)$ specifies the date and information; $(0,\Omega)$ is the root.
 
@@ -123,7 +149,16 @@ Commitment, restricted offers, or anticipation of later trades can prevent explo
 
 ### Causality {#sec-causality}
 
-To evaluate actions, we need beliefs about what they cause, not merely what they predict. The main result below, @prp-causal-representation, shows how expected-utility axioms rank interventions by their posterior expected consequences. This particular result takes causal models and probabilities as given rather than recovering them from choices. Choices among interventions can reveal aspects of causal beliefs given suitable utility restrictions and sufficiently rich choices, but cannot distinguish models that give identical consequence distributions for every available intervention [@joyce1999foundations].
+_Interventions_ in the world are not passively observed data from the environment. 
+For example, suppose we observe that a protein marker in the blood is perfectly correlated
+with a disease. 
+If we simply take this as our posterior, we conclude that artificially altering the marker
+will stop the disease with probability 1.
+Avoiding this trap requires _causal models_.
+
+Below we introduce causal models and state @prp-causal-representation which shows how expected-utility axioms rank interventions by their posterior expected consequences.
+This particular result takes models and probabilities as given rather than recovering them from choices.
+Choices among interventions can reveal aspects of causal beliefs given suitable utility restrictions and sufficiently rich choices, but cannot distinguish models that give identical consequence distributions for every available intervention [@joyce1999foundations].
 
 #### Causal models and interventions {#sec-causal-models}
 
