@@ -81,6 +81,10 @@ Also note that these are "revealed preferences", not
 This interpretation is compatible with decision utilitarianism for example, but differs from classical utilitarianism's concern with hedonic brain states.
 :::
 
+::: {#rem-nihilism}
+The preferences in @def-bayesian-expected-utility are about as subjective and arbitrary as the beliefs are.
+:::
+
 
 
 ### Preferences over time {#sec-consequentialism-discounting}
@@ -672,6 +676,74 @@ When this state-dependent error covariance is integrated into the measurement eq
 As the Metropolis-Hastings algorithm proposes a new parameter vector $\theta$, the framework computes the local approximation bounds endogenously. If the proposed $\theta$ specifies a parameter space characterized by high non-linearity or severe ill-conditioning, the computed numerical bounds increase by orders of magnitude. This escalation scales the theoretical covariance matrix $\Sigma_\epsilon(\theta)$ proportionately.
 
 Upon encountering this inflated theoretical variance, the Kalman filter optimally assigns an elevated degree of uncertainty to the state-space mapping. Consequently, the log-likelihood of observing the empirical data conditional on that specific parameter draw is severely penalized, effectively pushing the posterior mass away from parameter regions lacking rigorous numerical validity.
+
+
+## Game theory {#sec-game-theory}
+
+### Equilibria under bounded randomness {#sec-equilibria-bounded-randomness}
+
+All asymptotic statements are as $n\to\infty$. Algorithms receive $1^n$ (the unary encoding of $n$); each algorithm is fixed independently of $n$.
+
+::: {#def-ppt}
+###### Probabilistic polynomial time
+
+An algorithm is probabilistic polynomial-time (PPT) in $n$ if it has access to a stream of fair, independent random coin flips and its execution halts within $O(n^d)$ steps for some fixed constant $d > 0$.
+A strategy family $\sigma=(\sigma_n)_{n\ge1}$ is PPT if a single algorithm implements it with cumulative execution time across all $n$ rounds bounded by $O(n^d)$ for some fixed constant $d > 0$, for every history and random tape.
+:::
+
+We're interested in zero-sum games with mixed equilibria.
+Take the $n$-round repeated Matching Pennies game:
+
+* In each round $t \in \{1, \dots, n\}$, Player 1 and Player 2 choose actions $a_1^t, a_2^t \in \{0, 1\}$ simultaneously, having observed both players' actions in all previous rounds.
+* The stage utility is $u_1(a_1^t, a_2^t) = 1$ if $a_1^t = a_2^t$ and $-1$ if $a_1^t \neq a_2^t$, with $u_2 = -u_1$.
+
+The normalized average game payoff for Player $i \in \{1, 2\}$ is:
+$$U_{i,n}(\sigma_1, \sigma_2) = \frac{1}{n} \sum_{t=1}^n \mathbb{E}[u_i(a_1^t, a_2^t)],$$
+where the expectation is over the players' independent private randomness in the $n$-round game.
+
+
+
+Throughout this section, fix a constant $c \in (0, 1)$ and define the seed length $s(n) = \lfloor n^c \rfloor$.
+
+::: {#def-bounded-randomness-prg}
+###### Pseudorandom generator
+
+A family $G_n: \{0, 1\}^{s(n)} \to \{0, 1\}^n$, implemented by a single deterministic algorithm $G(1^n,s)=G_n(s)$ in polynomial time in $n$, is a pseudorandom generator (PRG) if, for every PPT distinguisher $D$, there exists a negligible function $\epsilon_D$ such that, for all sufficiently large $n$,
+
+$$|\Pr_{s \sim U_{s(n)},D}[D(1^n,G_n(s)) = 1] - \Pr_{r \sim U_n,D}[D(1^n,r) = 1]| \le \epsilon_D(n),$$
+
+where $U_{s(n)}$ and $U_n$ denote uniform distributions over strings of length $s(n)$ and $n$, respectively, and probabilities also include $D$'s private randomness.
+:::
+
+
+::: {#def-computational-equilibrium}
+###### Computational equilibrium
+
+A profile $(\sigma_1,\sigma_2)$ of PPT strategy families is a computational equilibrium if, for every PPT alternative strategy family $\sigma_1'$, there exists a negligible function $\epsilon_{1,\sigma_1'}$ such that, for all sufficiently large $n$,
+
+$$U_{1,n}(\sigma_1', \sigma_2) \le U_{1,n}(\sigma_1, \sigma_2) + \epsilon_{1,\sigma_1'}(n),$$
+
+and, for every PPT alternative strategy family $\sigma_2'$, there exists a negligible function $\epsilon_{2,\sigma_2'}$ such that, for all sufficiently large $n$,
+
+$$U_{2,n}(\sigma_1, \sigma_2') \le U_{2,n}(\sigma_1, \sigma_2) + \epsilon_{2,\sigma_2'}(n).$$
+:::
+
+
+The following specializes the PRG construction discussed in [@hubavcek2016can, sec. 1] to the PPT setting defined here.
+
+
+::: {#thm-bounded-pennies}
+###### Equilibrium under bounded randomness
+
+Assume a PRG family $(G_n)_{n\ge1}$ as defined above exists. For each player $i\in\{1,2\}$, let $\sigma_i^*$ sample a private seed $s_i\sim U_{s(n)}$, independently of the other player's seed, compute $w_i=G_n(s_i)$, and play $a_i^t=w_i[t]$ in each round $t\in\{1,\ldots,n\}$.
+
+Then $\sigma^*=(\sigma_1^*,\sigma_2^*)$ is a computational equilibrium of the family of $n$-round repeated matching pennies games, using only $s(n)$ random bits per player.
+:::
+
+
+
+Deviations may use polynomially many private random bits, not just $s(n)$, yet every fixed PPT deviation yields at most a negligible gain as $n\to\infty$.
+
 
 
 # Belief elicitation without verification {#sec-belief-elicitation}
