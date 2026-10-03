@@ -808,8 +808,12 @@ Applications:
 * Is the procedure recommended by the dentist really necessary?
   * There is some literature on reputation [@hubbard2002consumers], but
     reputation needs ground truth.
+  * [@dulleck2006doctors] suggests two ideas: fixed
+    payments with liability preventing undertreatment (see also [@hanson1994buy]),
+    or setting prices so that profits are equal
+    across verifiable treatments.
   * Contract: with probability $p$, I'll spend the time to find the answer
-    myself and publish my findings.
+    myself and publish my findings [@gao2019incentivizing].
     * In the worst-case scenario this would require becoming a dentist.
   * Ask the dentist to "prove" the claim, e.g. by referencing a dentistry
     textbook.
