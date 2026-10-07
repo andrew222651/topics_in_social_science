@@ -24,3 +24,4 @@ Writing guidelines:
 * theorems should be true, of course, but don't write proofs
 * the reader has no knowledge of previous versions of the document or of any AI chat conversations
 * headings should be in sentence case
+* if a section has a single subsection and no other content, remove the subsection heading and make the section heading "{Section heading}: {Subsection heading}"

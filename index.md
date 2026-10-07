@@ -85,6 +85,19 @@ This interpretation is compatible with decision utilitarianism for example, but 
 The preferences in @def-bayesian-expected-utility are about as subjective and arbitrary as the beliefs are.
 :::
 
+::: {#prp-nonnegative-value-information}
+###### Nonnegative value of information
+
+In @def-bayesian-expected-utility, let $\mathcal P$ be a partition of $\Omega$. Suppose observing which cell contains the state is costless and leaves $A$ and $u$ unchanged. The *ex ante value of information*, measured in expected utility under $p$, is nonnegative [@blackwell1953equivalent]:
+
+$$\sum_{\substack{E\in\mathcal P\\p(E)>0}}p(E)
+\max_{a\in A}\sum_{\omega\in E}p(\omega\mid E)u(a,\omega)
+-\max_{a\in A}\sum_{\omega\in\Omega}p(\omega)u(a,\omega)
+\ge0.$$
+
+(This compares optimal expected utility before observing the information; it does not assert that every observation raises optimal conditional expected utility above its prior level.)
+:::
+
 
 
 ### Preferences over time {#sec-consequentialism-discounting}
@@ -745,6 +758,21 @@ Then $\sigma^*=(\sigma_1^*,\sigma_2^*)$ is a computational equilibrium of the fa
 Deviations may use polynomially many private random bits, not just $s(n)$, yet every fixed PPT deviation yields at most a negligible gain as $n\to\infty$.
 
 
+## Mechanism design: Reducing transaction costs through randomization {#sec-tx-costs}
+
+If you owe me $x$ dollars but sending the money has
+a transaction cost of $c$ dollars, where
+$c$ is high, we may look for more efficient options. 
+We could wait until you owe me a higher amount, but maybe
+it's just a one-off trade. 
+The method in [@hanson1997double] uses randomization: With probability $p$ you
+send me $x/p$ dollars.
+We have to agree on a source of randomness, see [@raikwar2022sok] for mechanisms.
+Unfortunately, courts may consider contracts using this form of compensation unenforceable
+because it's too close to a lottery, so a commitment mechanism from [@dixit2009governance] may be used.
+As $p$ shrinks the mechanism becomes less feasible due to risk aversion.
+
+
 
 # Belief elicitation without verification {#sec-belief-elicitation}
 
@@ -812,8 +840,10 @@ Applications:
     payments with liability preventing undertreatment (see also [@hanson1994buy]),
     or setting prices so that profits are equal
     across verifiable treatments.
-  * Contract: with probability $p$, I'll spend the time to find the answer
+  * with probability $p$, I'll spend the time to find the answer
     myself and publish my findings [@gao2019incentivizing].
+    See @sec-tx-costs.
+    This has also been applied to eliciting truthful tax returns [@border1987samurai].
     * In the worst-case scenario this would require becoming a dentist.
   * Ask the dentist to "prove" the claim, e.g. by referencing a dentistry
     textbook.
