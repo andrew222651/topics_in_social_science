@@ -691,9 +691,7 @@ As the Metropolis-Hastings algorithm proposes a new parameter vector $\theta$, t
 Upon encountering this inflated theoretical variance, the Kalman filter optimally assigns an elevated degree of uncertainty to the state-space mapping. Consequently, the log-likelihood of observing the empirical data conditional on that specific parameter draw is severely penalized, effectively pushing the posterior mass away from parameter regions lacking rigorous numerical validity.
 
 
-## Game theory {#sec-game-theory}
-
-### Equilibria under bounded randomness {#sec-equilibria-bounded-randomness}
+## Game theory: Equilibria under bounded randomness {#sec-equilibria-bounded-randomness}
 
 All asymptotic statements are as $n\to\infty$. Algorithms receive $1^n$ (the unary encoding of $n$); each algorithm is fixed independently of $n$.
 
