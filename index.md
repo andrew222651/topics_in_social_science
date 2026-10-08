@@ -884,7 +884,8 @@ Applications:
 
 The blog post [Comment ranking formulas](https://andrew222651.com/2020/05/21/comment-ranking/)
 models user behavior in comment sections on the web to compare comment ranking formulas that account for votes and time.
-Here probabilistic numerics is used to quantify uncertainty in simulation results.
+Similar tasks include ranking freelancer profiles and product listings.
+Here probabilistic numerics is used to quantify uncertainty in the simulation results.
 Source code is [here](https://github.com/andrew222651/comment_orderings/tree/probabilistic_numerics).
 
 
