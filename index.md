@@ -21,6 +21,35 @@ repository](https://github.com/andrew222651/topics_in_social_science)
 }
 </script>
 
+# Methodology
+
+In general, models must make predictions about the future to be useful, and predictions (and the models that made them) can be evaluated ex post. 
+Types of models:
+
+* A priori: Minimal, explicit assumptions, easy to see where they hold
+  * Assumptions are simple by nature so emphasis is on derived results, hence axiomatic method
+* Empirical:
+  * Experimental data (eg psych experiment): low credibility but replicable
+    * Replicate or consult replication attempts in literature
+  * Observational data (eg country annual gdp history): high credibility but
+    non-replicable
+    * The issue is about data excluded rather than included. The process is
+      "auditable", anyone can analyze with different data selection.
+
+A candidate theory specifies:
+
+1.  observational contexts in which it applies,
+2.  an algorithm that takes the observed data and returns a probability distribution on a future outcome,
+3.  how to measure the future outcome.
+
+If a theory is scientific, it must be objective. This means that after learning the theory with a reasonable amount of effort, all peers must agree on parts 1, 2, and 3 above in all possible contexts.
+Mathematical modeling is not necessary but it can help.
+
+The science of social science is social science. 
+For example, the rational expectations concept involves modeling market participants as 
+economic statisticians.
+
+
 # Tools {#sec-tools}
 
 ## Naive Decision Theory {#sec-naive-decision-theory}
