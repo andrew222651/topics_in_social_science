@@ -878,6 +878,50 @@ Applications:
     dental health outcomes in some verifiable way. We would also need info on
     other factors like patient age.
 
+
+
+# Content ranking with feedback {#sec-content-ranking-feedback}
+
+The blog post [Comment ranking formulas](https://andrew222651.com/2020/05/21/comment-ranking/)
+models user behavior in comment sections on the web to compare comment ranking formulas that account for votes and time.
+Here probabilistic numerics is used to quantify uncertainty in simulation results.
+Source code is [here](https://github.com/andrew222651/comment_orderings/tree/probabilistic_numerics).
+
+
+The results below were obtained from 5,000 simulations per formula, retaining the
+24-hour duration and the blog post's behavioral parameters.
+The formula implementations were taken from the source code; notably, Modified Bayes uses the denominator
+`7 + (h + 1)`, rather than the blog post's displayed `7 + h`.
+
+For each formula and visitor count, run-level upvotes per visitor were modeled
+as Gamma(shape, rate), with independent Gamma(2, 1) priors on both parameters
+(shape-rate convention). Fits were separate, without pooling. The quantity
+of interest is the population mean: shape/rate.
+
+The rate was integrated out analytically, and the remaining integrals were bounded
+using Arb interval arithmetic and explicit tail bounds. The reported
+intervals are outward-rounded certified enclosures: each contains the
+exact equal-tailed 95% posterior credible interval.
+
+All intervals are for mean upvotes per visitor; higher is better.
+
+| Ranking formula | 240 visitors | 2,400 visitors |
+|---|---:|---:|
+| Upvote probability | [0.965, 0.987] | [4.182, 4.228] |
+| Modified Bayes | [0.914, 0.936] | [3.352, 3.393] |
+| Hacker News | [0.891, 0.912] | [2.390, 2.430] |
+| Bayesian average | [0.861, 0.881] | [2.217, 2.257] |
+| Difference | [0.856, 0.876] | [2.211, 2.248] |
+| Reddit | [0.833, 0.853] | [1.780, 1.816] |
+| Ratio | [0.809, 0.826] | [2.015, 2.051] |
+| YouTube | [0.643, 0.658] | [1.289, 1.313] |
+| Random | [0.582, 0.593] | [0.767, 0.773] |
+
+Non-overlapping 95% credible intervals imply at
+least a 90% posterior probability that the mean associated with the higher
+interval exceeds the other mean.
+
+
 # References {.unnumbered .unlisted}
 
 ::: {#refs}
