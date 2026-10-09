@@ -1,3 +1,13 @@
+main.content {
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+main.content :is(pre, code, .math) {
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
 /* Quarto's default CSS hides nav[role="doc-toc"] below the md (768px)
    breakpoint, which suppresses the table of contents entirely on phones.
    Re-show the inline body TOC (#TOC-body) on small screens. The

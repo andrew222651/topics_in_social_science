@@ -1,6 +1,8 @@
 project:
   type: website
 
+lang: en
+
 website:
   title: "Topics in Social Science"
   favicon: favicon.ico
