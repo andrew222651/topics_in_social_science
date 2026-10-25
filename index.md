@@ -811,7 +811,7 @@ Then $\sigma^*=(\sigma_1^*,\sigma_2^*)$ is a computational equilibrium of the fa
 Deviations may use polynomially many private random bits, not just $s(n)$, yet every fixed PPT deviation yields at most a negligible gain as $n\to\infty$.
 
 
-## Mechanism design: Reducing transaction costs through randomization {#sec-tx-costs}
+## Mechanism design: Reverse insurance {#sec-tx-costs}
 
 If you owe me $x$ dollars but sending the money has
 a transaction cost of $c$ dollars, where
