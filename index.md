@@ -108,11 +108,15 @@ Also note that these are "revealed preferences", not
 
 
 ::: {#rem-utilitarianism}
-This interpretation is compatible with decision utilitarianism for example, but differs from classical utilitarianism's concern with hedonic brain states.
+This concept of preferences is compatible with decision utilitarianism for example, but differs from classical utilitarianism's concern with hedonic brain states.
 :::
 
 ::: {#rem-nihilism}
 The preferences in @def-bayesian-expected-utility are about as subjective and arbitrary as the beliefs are.
+That is, decision theory is only concerned with
+rational behavior which primarily means self-preservation (no Dutch books, evolutionary stability);
+since preferences are left with many degrees
+of freedom, this leads to "moral subjectivism".
 :::
 
 ::: {#prp-nonnegative-value-information}
@@ -137,7 +141,7 @@ Rational beliefs evolve via conditioning, but what about preferences?
 
 Let $\Omega$ be a nonempty finite set of states and let dates be $0,\ldots,T$, with $T\ge1$. Information at date $t$ is a partition $\mathcal P_t$ of $\Omega$: the agent learns which cell $E\in\mathcal P_t$ contains the actual state. Assume $\mathcal P_0=\{\Omega\}$ and that each partition refines the preceding one, so information is retained. A *node* $(t,E)$ specifies the date and information; $(0,\Omega)$ is the root.
 
-A *plan* $h=(h_0,\ldots,h_T)$ specifies a bundle $h_t(\omega)\in\mathbb R^K_{++}$ at each date and state, where $K\ge1$ is the number of goods, the first is money, and $\mathbb R^K_{++}$ denotes strictly positive bundles. A plan is *adapted* if $h_t$ is constant on each cell of $\mathcal P_t$: consumption cannot depend on information not yet learned. Let $\mathcal H$ consist of all such plans.
+A *plan* $h=(h_0,\ldots,h_T)$ specifies a bundle $h_t(\omega)\in\mathbb R^K_{>0}$ at each date and state, where $K\ge1$ is the number of goods, the first is money, and $\mathbb R^K_{>0}$ denotes strictly positive bundles. A plan is *adapted* if $h_t$ is constant on each cell of $\mathcal P_t$: consumption cannot depend on information not yet learned. Let $\mathcal H$ consist of all such plans.
 
 At node $(t,E)$, the *continuation* of $h$ is $(h_\tau(\omega))_{\tau\ge t,\,\omega\in E}$. Assume preferences over these continuations are represented by a real-valued function $V_{t,E}$, continuous in the bundle coordinates and strictly increasing in money: any nonzero, nonnegative adapted cash addition to the continuation raises its value. Write $f\succsim_{t,E}g$ when $V_{t,E}(f)\ge V_{t,E}(g)$, and $f\succ_{t,E}g$ when the inequality is strict, evaluating only the continuations. No expected-utility or additive form is required.
 
@@ -172,7 +176,7 @@ Starting from $g$, two strictly accepted trades suffice: at the root, replace $g
 ::: {#exm-consistent-changing-tastes}
 ###### Allowed: different tastes at different consumption dates
 
-There is no uncertainty, dates are $0,1,2$, and a bundle $(m,c,a)\in\mathbb R^3_{++}$ consists of money, coffee, and tea. Let
+There is no uncertainty, dates are $0,1,2$, and a bundle $(m,c,a)\in\mathbb R^3_{>0}$ consists of money, coffee, and tea. Let
 
 $$U_0(m,c,a)=m+2c+a,\qquad U_1(m,c,a)=U_2(m,c,a)=m+c+2a,$$
 
@@ -193,6 +197,73 @@ All original consumption is restored except the $0.5$ paid at date $0$. This is 
 :::
 
 Commitment, restricted offers, or anticipation of later trades can prevent exploitation despite inconsistent rankings [@strotz1955myopia; @rabinowicz2000money]. Thus absence of observed exploitation does not establish dynamic consistency.
+
+#### Additive utility and exponential discounting {#sec-discounting-characterizations}
+
+For the next two propositions, retain the examples’ assumption of no uncertainty: take $\Omega$ to be a singleton. Also assume $T\ge2$ and the full domain $X^{T+1}$, where $X=\mathbb R^K_{>0}$. Write $\succsim_t$ for continuation preferences at date $t$, retaining the preceding continuity and strict money-monotonicity assumptions. The characterizations are necessary and sufficient on this domain; “minimal” here does not mean a uniquely weakest axiom system across different domains.
+
+::: {#def-discounted-additive}
+###### Additive separability and discounted-additive utility
+
+Root preferences are *additively separable across dates* if they have a representation $\sum_{i=0}^T v_i(h_i)$ with continuous functions $v_i:X\to\mathbb R$. Each summand depends only on its own date's bundle; interactions between goods within a bundle are allowed.
+
+The family of continuation preferences has *time-homogeneous discounted-additive utility* if it has representations
+
+$$V_t(h)=\sum_{k=0}^{T-t}D(k)u(h_{t+k}),\qquad D(0)=1,\quad D(k)>0,$$
+
+with one continuous function $u:X\to\mathbb R$, strictly increasing in money, and one *discount function* $D:\{0,\ldots,T\}\to(0,\infty)$. Time homogeneity means that weights depend on delay $k$, not on the evaluation date $t$. The term “discount” does not yet require decreasing weights. *Exponential discounting* means $D(k)=\delta^k$ for some $\delta>0$.
+:::
+
+The following conditions separate additivity, common tastes, and time homogeneity.
+
+1. *Preferential independence of every set of dates.* For every nonempty proper subset $I\subset\{0,\ldots,T\}$, all assignments $x_I,y_I\in X^I$, and all common outside assignments $z_{-I},w_{-I}\in X^{I^c}$,
+   $$ (x_I,z_{-I})\succsim_0(y_I,z_{-I})\iff(x_I,w_{-I})\succsim_0(y_I,w_{-I}). $$
+   Here $-I=I^c$ and the parentheses assemble a complete plan. Thus changing consumption outside the dates being compared cannot reverse their ranking. Independence of single dates alone is insufficient.
+2. *Common ordering of utility differences.* After obtaining continuous additive indices $v_i$ from condition 1, require, for every pair of dates $i,j$ and bundles $x,y,z,w\in X$,
+   $$v_i(x)-v_i(y)\ge v_i(z)-v_i(w)\iff v_j(x)-v_j(y)\ge v_j(z)-v_j(w).$$
+   Thus the ranking of the utility gain from $y$ to $x$ against that from $w$ to $z$ is independent of the consumption date. These are differences in the additive indices recovered from intertemporal choices, not differences in an arbitrary ordinal utility representation. The condition is independent of the choice of additive indices: their only freedom is a common positive scale and date-specific additive constants [@debreu1960topological].
+3. *Delay homogeneity of continuation rankings.* Fix a bundle $b\in X$. For $t=1,\ldots,T$ and any continuations $x=(x_0,\ldots,x_{T-t})$ and $y=(y_0,\ldots,y_{T-t})$, require
+   $$x\succsim_t y\iff(x_0,\ldots,x_{T-t},\underbrace{b,\ldots,b}_{t})\succsim_0(y_0,\ldots,y_{T-t},\underbrace{b,\ldots,b}_{t}).$$
+   The left-hand streams start at date $t$; the right-hand streams start at date $0$. This compares identical delays at different evaluation dates, rather than the same calendar-date consumption. Under condition 1, the choice of the common padding bundle $b$ is immaterial.
+
+::: {#prp-discounted-additive-characterization}
+###### Characterization of discounted-additive utility
+
+On the stated domain, conditions 1--3 hold if and only if continuation preferences have time-homogeneous discounted-additive utility as in [@def-discounted-additive]. More specifically, condition 1 is necessary and sufficient for a continuous additive representation at the root; condition 2 is then necessary and sufficient for its indices to satisfy
+
+$$v_i(x)=a_i u(x)+b_i,\qquad a_i>0,\quad b_i\in\mathbb R,$$
+
+with one common continuous $u$. Normalizing gives $D(i)=a_i/a_0$; condition 3 extends these same delay weights and this same utility to every continuation date. The normalized $D$ is unique, and $u$ is unique up to positive affine transformation, meaning replacement by $a u+b$ with $a>0$.
+
+This is an additive-representation characterization, based on Debreu's independent-factors theorem and cardinal uniqueness [@debreu1960topological; @keeney1976decisions], not a money-pump argument. The at-least-three-date assumption is needed for the stated independence characterization. Discounted-additive utility alone neither rules out nor guarantees a pure-fee pump; [@prp-exponential-characterization] gives the exact additional restriction.
+:::
+
+Absence of pumps does not imply additivity. For example, with money only and dates $0,1,2$, let
+
+$$V_2(h)=h_2,\qquad V_1(h)=h_1+h_2,\qquad V_0(h)=h_0+(h_1+h_2)^2.$$
+
+These preferences are dynamically consistent and admit no pure-fee pump by [@prp-no-net-loss-pump], but root preferences are not additively separable: trade-offs between dates $0$ and $1$ depend on date-$2$ consumption.
+
+::: {#prp-exponential-characterization}
+###### Exponential discounting and absence of money pumps
+
+Suppose continuation preferences have time-homogeneous discounted-additive utility as in [@def-discounted-additive]. The following are equivalent:
+
+1. Preferences are dynamically consistent as in [@def-dynamic-consistency].
+2. For every pair of plans identical except possibly at two dates $i,j$ with $1\le i<j\le T$, their weak ranking at date $0$ equals their weak ranking at date $1$.
+3. $D(k)=\delta^k$ for every $k=0,\ldots,T$, with $\delta=D(1)>0$.
+4. No pure-fee pump exists from any initial plan under the stated naive local acceptance rule.
+
+Thus preservation of two-date trade-offs across just the first evaluation-date change is already necessary and sufficient; full dynamic consistency need not be separately assumed. The discounting restriction is the classical consistency argument for discounted utility [@strotz1955myopia; @koopmans1960stationary]: relative weights on surviving consumption dates must agree,
+
+$$\frac{D(j)}{D(i)}=\frac{D(j-1)}{D(i-1)}\qquad(1\le i<j\le T).$$
+
+The money-pump equivalence additionally uses [@prp-no-net-loss-pump]. If $D$ is not geometric, some initial plan admits a two-trade pure-fee pump with both trades strictly accepted. If $D$ is geometric, no pure-fee pump exists.
+
+Consistency does not imply impatience. Define *strict impatience* to mean preferring $(x,y)$ to $(y,x)$ at any two dates $i<j$, with all other bundles fixed, whenever $u(x)>u(y)$. Within the exponential model this is equivalent to $0<\delta<1$; $\delta=1$ and $\delta>1$ remain dynamically consistent.
+:::
+
+Time homogeneity is essential to this conclusion. For arbitrary positive calendar-date weights $a_\tau$, the family $V_t(h)=\sum_{\tau=t}^T a_\tau u(h_\tau)$ is dynamically consistent and admits no pure-fee pump, even when the weights are not geometric. For example, $a_\tau=1/(1+\tau)$ preserves every calendar-date trade-off, but its normalized delay weight $a_{t+k}/a_t=(1+t)/(1+t+k)$ depends on the evaluation date.
 
 ### Causality {#sec-causality}
 
