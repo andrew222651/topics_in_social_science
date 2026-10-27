@@ -44,7 +44,7 @@ A candidate theory specifies:
 3.  how to measure the future outcome.
 
 If a theory is scientific, it must be objective. This means that after learning the theory with a reasonable amount of effort, all peers must agree on parts 1, 2, and 3 above in all possible contexts.
-Mathematical modeling is not necessary but it can help.
+The more specific and precise a candidate theory is, the more likely it is to be objective.
 
 The science of social science is social science. 
 For example, the rational expectations concept involves modeling market participants as 
@@ -1003,7 +1003,7 @@ as Gamma(shape, rate), with independent Gamma(2, 1) priors on both parameters
 (shape-rate convention). Fits were separate, without pooling. The quantity
 of interest is the population mean: shape/rate.
 
-The rate was integrated out analytically, and the remaining integrals were bounded
+The rate was integrated out symbolically, and the remaining integrals were bounded
 using Arb interval arithmetic and explicit tail bounds. The reported
 intervals are outward-rounded certified enclosures: each contains the
 exact equal-tailed 95% posterior credible interval.
