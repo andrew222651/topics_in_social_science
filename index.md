@@ -72,6 +72,8 @@ $$a^*(E)\in\operatorname*{arg\,max}_{a\in A}
 Roughly speaking, @def-bayesian-expected-utility would be justified
 if, given a rational agent, we can uniquely construct
 $p$ and $u$ from observed actions.
+Rationality is characterized by economic survival
+(a positive view, due to selection effects [@friedman1953methodology]).
 The following list traces results of this form
 under various assumptions.
 A good overview is [@weisberg2011varieties].
@@ -113,10 +115,7 @@ This concept of preferences is compatible with decision utilitarianism for examp
 
 ::: {#rem-nihilism}
 The preferences in @def-bayesian-expected-utility are about as subjective and arbitrary as the beliefs are.
-That is, decision theory is only concerned with
-rational behavior which primarily means self-preservation (no Dutch books, evolutionary stability);
-since preferences are left with many degrees
-of freedom, this leads to "moral subjectivism".
+This leads to "moral subjectivism".
 :::
 
 ::: {#prp-nonnegative-value-information}
