@@ -72,7 +72,7 @@ $$a^*(E)\in\operatorname*{arg\,max}_{a\in A}
 Roughly speaking, @def-bayesian-expected-utility would be justified
 if, given a rational agent, we can uniquely construct
 $p$ and $u$ from observed actions.
-Rationality is characterized by economic survival
+The clearest characterization of rationality is economic survival
 (a positive view, due to selection effects [@friedman1953methodology]).
 The following list traces results of this form
 under various assumptions.
