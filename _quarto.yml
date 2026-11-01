@@ -9,7 +9,10 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: [cosmo, solarized.scss, solarized-light.scss]
+      dark: [cosmo, solarized.scss, solarized-dark.scss]
+    respect-user-color-scheme: true
     css: styles.css
     filters:
       - permalink.lua

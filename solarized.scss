@@ -1,0 +1,33 @@
+/*-- scss:defaults --*/
+// Keep Quarto's Cosmo-specific color overrides out of this palette.
+$theme: "solarized";
+
+// Solarized accents, shared by the light and dark palettes.
+$blue: #268bd2;
+$cyan: #2aa198;
+$green: #859900;
+$yellow: #b58900;
+$orange: #cb4b16;
+$red: #dc322f;
+$pink: #d33682;
+$purple: #6c71c4;
+$primary: $blue;
+$secondary: $text-muted;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$link-color: $blue;
+$link-hover-color: $cyan;
+$component-active-bg: $blue;
+$input-bg: $solarized-surface;
+$input-color: $body-color;
+$input-border-color: $text-muted;
+$popover-bg: $solarized-surface;
+$popover-body-color: $body-color;
+$code-bg: $solarized-surface;
+$code-color: $cyan;
+$code-block-bg: $solarized-surface;
+$toc-color: $blue;
+$toc-active-border: $blue;
+$toc-inactive-border: $border-color;

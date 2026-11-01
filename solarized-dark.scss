@@ -1,0 +1,16 @@
+/*-- scss:defaults --*/
+$body-bg: #002b36;
+$body-color: #839496;
+$headings-color: #93a1a1;
+$text-muted: #657b83;
+$border-color: #073642;
+$solarized-surface: #073642;
+
+/*-- scss:rules --*/
+:root {
+  color-scheme: dark;
+}
+
+.header-section-number {
+  color: $text-muted;
+}
