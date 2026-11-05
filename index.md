@@ -4,8 +4,7 @@ bibliography: references.bib
 ---
 
 ::: {#github-links}
-[View the source of this page (`index.md`) on
-GitHub](https://github.com/andrew222651/topics_in_social_science/blob/COMMIT_SHA/index.md)
+[Permalink to page source](https://github.com/andrew222651/topics_in_social_science/blob/COMMIT_SHA/index.md)
 · [GitHub
 repository](https://github.com/andrew222651/topics_in_social_science)
 :::
@@ -140,7 +139,7 @@ Rational beliefs evolve via conditioning, but what about preferences?
 
 Let $\Omega$ be a nonempty finite set of states and let dates be $0,\ldots,T$, with $T\ge1$. Information at date $t$ is a partition $\mathcal P_t$ of $\Omega$: the agent learns which cell $E\in\mathcal P_t$ contains the actual state. Assume $\mathcal P_0=\{\Omega\}$ and that each partition refines the preceding one, so information is retained. A *node* $(t,E)$ specifies the date and information; $(0,\Omega)$ is the root.
 
-A *plan* $h=(h_0,\ldots,h_T)$ specifies a bundle $h_t(\omega)\in\mathbb R^K_{>0}$ at each date and state, where $K\ge1$ is the number of goods, the first is money, and $\mathbb R^K_{>0}$ denotes strictly positive bundles. A plan is *adapted* if $h_t$ is constant on each cell of $\mathcal P_t$: consumption cannot depend on information not yet learned. Let $\mathcal H$ consist of all such plans.
+A *plan* $h=(h_0,\ldots,h_T)$ specifies a bundle $h_t(\omega)\in\mathbb R^K_{\geq0}$ at each date and state, where $K\ge1$ is the number of goods, the first is money, and $\mathbb R^K_{\geq0}$ denotes nonnegative bundles. A plan is *adapted* if $h_t$ is constant on each cell of $\mathcal P_t$: consumption cannot depend on information not yet learned. Let $\mathcal H$ consist of all such plans.
 
 At node $(t,E)$, the *continuation* of $h$ is $(h_\tau(\omega))_{\tau\ge t,\,\omega\in E}$. Assume preferences over these continuations are represented by a real-valued function $V_{t,E}$, continuous in the bundle coordinates and strictly increasing in money: any nonzero, nonnegative adapted cash addition to the continuation raises its value. Write $f\succsim_{t,E}g$ when $V_{t,E}(f)\ge V_{t,E}(g)$, and $f\succ_{t,E}g$ when the inequality is strict, evaluating only the continuations. No expected-utility or additive form is required.
 
@@ -169,13 +168,13 @@ Whenever consistency fails, there are plans $f,g\in\mathcal H$ differing only on
 
 $$f\succ_{0,\Omega}g,\qquad g\succ_{t,E}f.$$
 
-Starting from $g$, two strictly accepted trades suffice: at the root, replace $g$ by $f$ for a sufficiently small positive upfront fee; at $(t,E)$, restore $g$'s continuation for free. Outside $E$, no second trade is needed. The final plan is $g$ minus the upfront fee in every state.
+By continuity, adding the same sufficiently small positive cash amount at every date and state to both plans preserves these strict rankings; thus choose $f,g$ with positive money holdings. Starting from $g$, two strictly accepted trades suffice: at the root, replace $g$ by $f$ for a sufficiently small positive upfront fee; at $(t,E)$, restore $g$'s continuation for free. Outside $E$, no second trade is needed. The final plan is $g$ minus the upfront fee in every state.
 :::
 
 ::: {#exm-consistent-changing-tastes}
 ###### Allowed: different tastes at different consumption dates
 
-There is no uncertainty, dates are $0,1,2$, and a bundle $(m,c,a)\in\mathbb R^3_{>0}$ consists of money, coffee, and tea. Let
+There is no uncertainty, dates are $0,1,2$, and a bundle $(m,c,a)\in\mathbb R^3_{\geq0}$ consists of money, coffee, and tea. Let
 
 $$U_0(m,c,a)=m+2c+a,\qquad U_1(m,c,a)=U_2(m,c,a)=m+c+2a,$$
 
@@ -199,7 +198,7 @@ Commitment, restricted offers, or anticipation of later trades can prevent explo
 
 #### Additive utility and exponential discounting {#sec-discounting-characterizations}
 
-For the next two propositions, retain the finite state space, information partitions, full adapted-plan domain $\mathcal H$, continuity, and strict money-monotonicity assumptions above, and assume $T\ge2$. Write $X=\mathbb R^K_{>0}$. A *deterministic stream* specifies the same bundle in every state at each date; these streams form the subdomain $X^{T+1}\subseteq\mathcal H$. Write $\succsim^d_{t,E}$ for the restriction of node preferences to deterministic continuations, and $\succsim^d_0$ at the root. The characterizations are necessary and sufficient on this domain; “minimal” here does not mean a uniquely weakest axiom system across different domains.
+For the next two propositions, retain the finite state space, information partitions, full adapted-plan domain $\mathcal H$, continuity, and strict money-monotonicity assumptions above, and assume $T\ge2$. Write $X=\mathbb R^K_{\geq0}$. A *deterministic stream* specifies the same bundle in every state at each date; these streams form the subdomain $X^{T+1}\subseteq\mathcal H$. Write $\succsim^d_{t,E}$ for the restriction of node preferences to deterministic continuations, and $\succsim^d_0$ at the root. The characterizations are necessary and sufficient on this domain; “minimal” here does not mean a uniquely weakest axiom system across different domains.
 
 ::: {#def-discounted-additive}
 ###### Additive separability and discounted-additive utility

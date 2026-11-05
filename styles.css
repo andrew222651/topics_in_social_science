@@ -1,3 +1,8 @@
+/* Hide Quarto's generated toggle; use the browser's color-scheme preference. */
+.quarto-color-scheme-toggle {
+  display: none !important;
+}
+
 main.content {
   -webkit-hyphens: auto;
   hyphens: auto;
