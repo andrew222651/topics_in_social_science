@@ -29,9 +29,9 @@ Types of models:
 * A priori: Minimal, explicit assumptions, easy to see where they hold
   * Assumptions are simple by nature so emphasis is on derived results, hence axiomatic method
 * Empirical:
-  * Experimental data (eg psych experiment): low credibility but replicable
+  * Experimental data (e.g., a psychology experiment): low credibility but replicable
     * Replicate or consult replication attempts in literature
-  * Observational data (eg country annual gdp history): high credibility but
+  * Observational data (e.g., a country’s annual GDP history): high credibility but
     non-replicable
     * The issue is about data excluded rather than included. The process is
       "auditable", anyone can analyze with different data selection.
@@ -52,7 +52,7 @@ economic statisticians.
 
 # Tools {#sec-tools}
 
-## Naive Decision Theory {#sec-naive-decision-theory}
+## Naive decision theory {#sec-naive-decision-theory}
 
 ### Bayesianism and utility theory {#sec-bayesianism-utility}
 
@@ -446,7 +446,7 @@ The result separates three ingredients: structural assumptions determine interve
 Utility uniqueness uses preferences on the full lottery simplex, not merely feasible interventions. If all feasible interventions induce the same lottery, their mutual indifference cannot identify utility. The result is also at fixed evidence $D$: a common utility across information states or an axiomatic derivation of Bayesian updating requires additional assumptions [@anscombe1963definition; @teller1973conditionalization].
 
 
-### What Is the Optimal Practical Prior? {#sec-optimal-prior}
+### What is the optimal practical prior? {#sec-optimal-prior}
 
 Solomonoff induction provides an ideal for universal sequence prediction [@solomonoff1964formal1; @solomonoff1964formal2]. But 
 what's the best we can do in polynomial time?
@@ -468,7 +468,7 @@ $$\overline{\mathbf M}(x_{1:N})=
 
 The pointwise analyses below concern $\mathbf m_d$ and $K$; the later behavioral analysis concerns the predictions of $\overline{\mathbf M}$. All hidden constants may depend on the fixed machines and fixed algorithms, but not on $n$ or $x$. The precise computability level of several variants of Solomonoff induction is classified by Leike and Hutter [@leike2015computability].
 
-#### Pointwise and Average Approximation {#sec-pointwise-approximation}
+#### Pointwise and average approximation {#sec-pointwise-approximation}
 
 General computability and approximation results for Kolmogorov complexity are surveyed by Vitányi [@vitanyi2020incomputable]. The elementary length-wise bounds below follow from standard incompressibility facts.
 
@@ -677,7 +677,7 @@ The polynomial-time construction instead supplies an exponential-in-complexity u
 
 ## Statistics {#sec-statistics}
 
-### Bayesian Classification with Prior Information on Class Proportions {#sec-bayesian-classification}
+### Bayesian classification with prior information on class proportions {#sec-bayesian-classification}
 
 The usual Bayesian regression update tacitly assumes $p(\theta\mid x)=p(\theta)$: observing inputs $x$ alone does not inform the regression parameters $\theta$. This is not automatic. For observed labels $y$, Bayes's rule gives
 
@@ -702,13 +702,13 @@ where $\phi=(\phi_1,\ldots,\phi_K)$ and the denominator is positive. This incorp
 
 For a general construction of informative priors on such functionals of a joint distribution, see *marginally specified priors* [@kessler2015marginally, secs. 2 and 4]. This is not a ready-made logistic-regression procedure; exactly known proportions require separate treatment as constraints.
 
-### Uncertainty due to computational approximation in Bayesian inference {#sec-uncertainty-computation}
+### Bayesian approximation error {#sec-uncertainty-computation}
 
-In Bayesian inference, we can factor approximate computation (e.g.
-linearization [@herbst2015]) into the actual
-posterior probabilities.
+In Bayesian inference, we can account for approximate computation
+by adding 
+uncertainty. We call this "approximation error modeling" (AEM).
 
-Suppose we have a [pmf](https://en.wikipedia.org/wiki/Probability_mass_function)
+Suppose we have a [probability mass function (PMF)](https://en.wikipedia.org/wiki/Probability_mass_function)
 $f(x) = P(X=x)$ which is hard to compute.
 If we approximate $f$ by $\tilde{f}$ then
 
@@ -724,17 +724,17 @@ What is $P\left(f(a)=x \,|\, a, \tilde{f}(a)\right)$?
 Well, if $f$ is hard to compute then we probably can't gather much data, so
 there are various options to produce a subjective belief:
 
-* average-case analysis of $\tilde{f}$ with an uninformed prior
-* in probabilistic numerics [@hennig2015] for example we may estimate a definite integral by taking a prior on integrands, sampling the integrand, then forming a posterior on integrands and hence on the integral
-* we can have an estimate of the probability of a Turing machine halting by forming a prior on how many steps it takes before halting, running it for $n$ steps, then using the posterior. this can be extended to other problems via [reductions](https://en.wikipedia.org/w/index.php?title=RE_(complexity)&oldid=1171980812#RE-complete)
-* the linearization in macroeconomic models is a single-iteration Newton method; error bounds are related to Taylor's theorem, see also
+* Average-case analysis of $\tilde{f}$ with an uninformed prior
+* In probabilistic numerics [@hennig2015], for example, we may estimate a definite integral by taking a prior on integrands, sampling the integrand, then forming a posterior on integrands and hence on the integral
+* We can have an estimate of the probability of a Turing machine halting by forming a prior on how many steps it takes before halting, running it for $n$ steps, then using the posterior. This can be extended to other problems via [reductions](https://en.wikipedia.org/w/index.php?title=RE_(complexity)&oldid=1171980812#RE-complete)
+* The linearization in macroeconomic models is a single-iteration Newton method; error bounds are related to Taylor's theorem, see also
   [Propagation of uncertainty through a linear system of equations](https://stats.stackexchange.com/questions/57532/propagation-of-uncertainty-through-a-linear-system-of-equations)
-* reference classes of "similar" cases
-* uniform distribution across worst-case bounds; interval arithmetic may be useful
-* past empirical experience
-* etc.
+* Reference classes of "similar" cases
+* Uniform distribution across worst-case bounds; interval arithmetic may be useful
+* Past empirical experience
+* ...
 
-Note that if the mean of the pmf $P(f(a)=\cdot \,|\, a, \tilde{f}(a))$
+Note that if the mean of the PMF $P(f(a)=\cdot \,|\, a, \tilde{f}(a))$
 is $f(a)$ then $P(X = a \,|\, \text{we only compute } \tilde{f}) =  P(X=a)$.
 So accounting for uncertainty due to approximation is equivalent to
 "de-biasing" it.
@@ -771,7 +771,7 @@ $y \mid \theta \sim N(\tilde G(\theta)+m_\epsilon,\Gamma_\eta+\Gamma_\epsilon)$,
 posterior accounts for both noisy observations and uncertainty from the computation.
 
 Inference is approximated for computational reasons in many places such as
-linearization as mentioned already, clustering by compression using a zip
+linearization as mentioned already, clustering by compression using a compression
 algorithm (instead of computing Kolmogorov complexity) [@cilibrasi2005],
 PASS-GLM [@huggins2017], MCMC
 sampling, numerical methods, approximation algorithms, probabilistic
@@ -827,7 +827,7 @@ A strategy family $\sigma=(\sigma_n)_{n\ge1}$ is PPT if a single algorithm imple
 :::
 
 We're interested in zero-sum games with mixed equilibria.
-Take the $n$-round repeated Matching Pennies game:
+Take the $n$-round repeated matching pennies game:
 
 * In each round $t \in \{1, \dots, n\}$, Player 1 and Player 2 choose actions $a_1^t, a_2^t \in \{0, 1\}$ simultaneously, having observed both players' actions in all previous rounds.
 * The stage utility is $u_1(a_1^t, a_2^t) = 1$ if $a_1^t = a_2^t$ and $-1$ if $a_1^t \neq a_2^t$, with $u_2 = -u_1$.
@@ -962,15 +962,15 @@ Applications:
     payments with liability preventing undertreatment (see also [@hanson1994buy]),
     or setting prices so that profits are equal
     across verifiable treatments.
-  * with probability $p$, I'll spend the time to find the answer
+  * With probability $p$, I'll spend the time to find the answer
     myself and publish my findings [@gao2019incentivizing].
     See @sec-tx-costs.
     This has also been applied to eliciting truthful tax returns [@border1987samurai].
     * In the worst-case scenario this would require becoming a dentist.
-  * Ask the dentist to "prove" the claim, e.g. by referencing a dentistry
+  * Ask the dentist to "prove" the claim, e.g., by referencing a dentistry
     textbook.
   * Dentists could publish their patients' overall rate of procedures and/or
-    dental health outcomes in some verifiable way. We would also need info on
+    dental health outcomes in some verifiable way. We would also need information on
     other factors like patient age.
 
 
@@ -995,7 +995,7 @@ as Gamma(shape, rate), with independent Gamma(2, 1) priors on both parameters
 of interest is the population mean: shape/rate.
 
 The rate was integrated out symbolically, and the remaining integrals were bounded
-using Arb interval arithmetic and explicit tail bounds. The reported
+using [Arb](https://flintlib.org/doc/algorithms/ball-arithmetic/index.html) interval arithmetic and explicit tail bounds. The reported
 intervals are outward-rounded certified enclosures: each contains the
 exact equal-tailed 95% posterior credible interval.
 
