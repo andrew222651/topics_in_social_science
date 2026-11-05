@@ -771,8 +771,7 @@ $y \mid \theta \sim N(\tilde G(\theta)+m_\epsilon,\Gamma_\eta+\Gamma_\epsilon)$,
 posterior accounts for both noisy observations and uncertainty from the computation.
 
 Inference is approximated for computational reasons in many places such as
-linearization as mentioned already, clustering by compression using a compression
-algorithm (instead of computing Kolmogorov complexity) [@cilibrasi2005],
+linearization as mentioned already, clustering by compression using DEFLATE (instead of computing Kolmogorov complexity) [@cilibrasi2005],
 PASS-GLM [@huggins2017], MCMC
 sampling, numerical methods, approximation algorithms, probabilistic
 data structures, et cetera.
@@ -783,10 +782,11 @@ tests [@banks1998],
 we are putting probability distributions on mathematically determined
 statements, assuming the software is deterministic.
 
-Is this ultimately rigorous in a decision theoretic sense? I don't think so, because the optimal computation would require proving something like an average-case hardness of approximation lower bound which is generally
+Can we say this is rational in a decision theoretic sense? I don't think so, because first off we'd have to use the optimal feasible approximate computation, which would require proving something like an average-case hardness of approximation lower bound which is generally
 difficult.
-[See also this.](http://andrew222651.com/2017/10/10/probability-riemann-hypothesis/)
-So it's a heuristic, no more no less.
+So it's an open-ended, subjective heuristic.
+See [this blog post](http://andrew222651.com/2017/10/10/probability-riemann-hypothesis/) for more on the subjectivity issue.
+
 
 #### DSGE example {#sec-dsge-example}
 
