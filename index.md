@@ -56,7 +56,7 @@ economic statisticians.
 
 ### Bayesianism and utility theory {#sec-bayesianism-utility}
 
-There is no single definition of subjective expected utility (SEU) maximizing
+There is no single definition of subjective expected utility (SEU) maximization
 but the following captures the general idea.
 
 ::: {#def-bayesian-expected-utility}
@@ -340,15 +340,14 @@ In science, "reductionism" is the thesis that a system’s causal behavior is re
 
 In $Z\to X\to Y$, intervening on the distal cause $Z$ allows its effect to propagate through $X$. Intervening on $X$ instead cuts the link $Z\to X$: $Z$ no longer affects $Y$ through that path. Observing $X=x$ cuts no link and may provide evidence about $Z$. If another path from $Z$ to $Y$ exists, fixing $X$ need not block it.
 
-A *probability kernel* from a measurable space $S$ to a measurable space $T$ assigns each $s\in S$ a probability law $K(s,\cdot)$ on $T$, with $s\mapsto K(s,B)$ measurable for each measurable $B\subseteq T$.
-A *causal kernel* specifies a node's law when its parents are externally fixed. It is *autonomous* if this mechanism remains unchanged under interventions on other nodes [@pearl2019seven].
+Here a Markov kernel specifies a node's law when its parents are externally fixed. It is *autonomous* if this mechanism remains unchanged under interventions on other nodes [@pearl2019seven].
 
 These distinctions give a three-level hierarchy of queries and corresponding graphical models [@pearl2019seven, fig. 1]:
 
 | Level | Model and added structure | Typical query | Limits |
 | --- | --- | --- | --- |
 | 1. Association: observing | An ordinary _Bayesian network_ factors an observational law over a DAG; the graph encodes conditional independencies, not necessarily causation. | $P(Y\in B\mid X=x)$: what does observing $X=x$ tell us about $Y$? | The observational law alone generally does not determine intervention effects. |
-| 2. Intervention: doing | A _causal Bayesian network_ gives arrows causal meaning and specifies autonomous kernels that remain unchanged when other mechanisms are replaced. | $P(Y\in B\mid\operatorname{do}(X=x))$: what happens if we set $X=x$? | Intervention laws alone generally do not determine joint potential responses across alternative actions. |
+| 2. Intervention: doing | A _causal Bayesian network_ gives arrows causal meaning and specifies autonomous Markov kernels that remain unchanged when other mechanisms are replaced. | $P(Y\in B\mid\operatorname{do}(X=x))$: what happens if we set $X=x$? | Intervention laws alone generally do not determine joint potential responses across alternative actions. |
 | 3. Counterfactuals: imagining | An _SCM_ supplies structural functions and a joint background law, linking alternative interventions through the same $U$. | $P(Y_{x'}\in B\mid X=x,Y=y)$: given what occurred, what would $Y$ have been under $X=x'$? | Counterfactual conclusions depend on this additional structure and need not be identified from data. |
 
 Each level adds information, not merely arrows: the same endogenous DAG can appear at all three levels. An SCM supports all three queries; its counterfactual calculation conditions the background state on actual evidence before evaluating the alternative intervention.
@@ -356,9 +355,9 @@ Each level adds information, not merely arrows: the same endogenous DAG can appe
 At an exact observation with probability zero, the observational law alone does not specify a unique conditional prediction [@kallenberg2021foundations, theorem 8.5]. A fully specified SCM nevertheless determines what happens when we *set* a variable to that value, using the modified equations rather than conditioning.
 
 ::: {#def-causal-kernels}
-###### Node causal kernels
+###### Node Markov kernels
 
-For finite-valued endogenous variables, let $E_i:=U_{I_i}$ denote the background inputs to node $i$, called its *node disturbance*. For each parent configuration $p$ and node value $a$, define the causal probability mass kernel
+For finite-valued endogenous variables, let $E_i:=U_{I_i}$ denote the background inputs to node $i$, called its *node disturbance*. For each parent configuration $p$ and node value $a$, define the Markov kernel by its probability masses
 
 $$K_i(a\mid p):=P_{\mathcal U}\{z:f_i(p,z_{I_i})=a\}.$$
 
@@ -369,11 +368,11 @@ If the disturbance vectors $E_1,\ldots,E_n$ are mutually independent, the interv
 
 $$P_{\mathcal M}(v\mid\operatorname{do}(X=x))
 =\prod_{i:V_i\notin X}K_i(v_i\mid v_{\mathrm{Pa}_i})
-\prod_{j:V_j\in X}\mathbb I\{v_j=x_j\}.$$
+\prod_{j:V_j\in X}[v_j=x_j].$$
 
-Here $v=(v_1,\ldots,v_n)$ is a complete endogenous assignment, $v_{\mathrm{Pa}_i}$ is its parent subvector, $P_{\mathcal M}(v\mid\operatorname{do}(X=x))$ is the probability of $V=v$ under the intervention, and $\mathbb I\{v_j=x_j\}$ is one if $v_j=x_j$ and zero otherwise. The factorization is called truncated because the intervention replaces each targeted node's kernel by this indicator.
+Here $v=(v_1,\ldots,v_n)$ is a complete endogenous assignment, $v_{\mathrm{Pa}_i}$ is its parent subvector, $P_{\mathcal M}(v\mid\operatorname{do}(X=x))$ is the probability of $V=v$ under the intervention, and $[v_j=x_j]$ is one if $v_j=x_j$ and zero otherwise. The factorization is called truncated because the intervention replaces each targeted node's kernel by this indicator.
 
-Under this independence assumption, the kernels agree with observational conditionals on positive-probability parent configurations. At zero-probability parent configurations, they are specified by the SCM, not determined by the observational law. With shared or dependent disturbances this product need not hold, but the causal kernels and the structural definition of interventions still apply.
+Under this independence assumption, the Markov kernels agree with observational conditionals on positive-probability parent configurations. At zero-probability parent configurations, they are specified by the SCM, not determined by the observational law. With shared or dependent disturbances this product need not hold, but the Markov kernels and the structural definition of interventions still apply.
 
 #### Bayesian inference and causal choice {#sec-bayesian-causal-choice}
 
@@ -451,7 +450,7 @@ Utility uniqueness uses preferences on the full lottery simplex, not merely feas
 Solomonoff induction provides an ideal for universal sequence prediction [@solomonoff1964formal1; @solomonoff1964formal2]. But 
 what's the best we can do in polynomial time?
 
-Here $\log$ denotes the base-2 logarithm and $\ln$ the natural logarithm. Fix an optimal prefix-free universal machine $U_d$. Let $K(x)$ be prefix Kolmogorov complexity and let $\mathbf m_d$ be the discrete universal a priori semimeasure. The coding theorem gives
+Here $\lg$ denotes the base-2 logarithm and $\log$ the natural logarithm. Fix an optimal prefix-free universal machine $U_d$. Let $K(x)$ be prefix Kolmogorov complexity and let $\mathbf m_d$ be the discrete universal a priori semimeasure. The coding theorem gives
 
 $$\mathbf m_d(x)=\Theta(2^{-K(x)}),\qquad \sum_x2^{-K(x)}\le1.$$
 
@@ -493,7 +492,7 @@ For this criterion, the lower bound is tight to lower-order terms. The computabl
 
 $$E_{A_0}(n)\le\frac n2+K(n)+O(1),$$
 
-while the lower bound above is $n/2-O_A(\log n)$ for every fixed computable estimator. Thus the best attainable leading term is $n/2$. Every fixed computable estimator incurs worst-case prior-weight distortion at least $2^{n/2-O_A(\log n)}$, while $A_0$ incurs at most $2^{n/2+O(\log n)}$.
+while the lower bound above is $n/2-O_A(\lg n)$ for every fixed computable estimator. Thus the best attainable leading term is $n/2$. Every fixed computable estimator incurs worst-case prior-weight distortion at least $2^{n/2-O_A(\lg n)}$, while $A_0$ incurs at most $2^{n/2+O(\lg n)}$.
 
 One can weaken the requirement by asking only for multiplicative approximation of the complexity itself.
 
@@ -505,9 +504,9 @@ Every fixed $A$ satisfies
 
 $$\rho_A(n)=\Omega_A\!\left(\sqrt{\frac{n}{K(n)}}\right).$$
 
-Since $K(n)=O(\log n)$, this implies
+Since $K(n)=O(\lg n)$, this implies
 
-$$\rho_A(n)=\Omega_A\!\left(\sqrt{\frac{n}{\log n}}\right).$$
+$$\rho_A(n)=\Omega_A\!\left(\sqrt{\frac{n}{\lg n}}\right).$$
 
 ::: {.proof}
 Choose $y\in\{0,1\}^n$ with $K(y)\ge n$, and let $x$ be the first length-$n$ string maximizing $A$. Then $K(x)\le K(n)+O_A(1)$, and
@@ -518,13 +517,13 @@ $$\frac n{\rho_A(n)}\le A(y)\le A(x)
 so $\rho_A(n)^2\ge n/(K(n)+O_A(1))$.
 :::
 
-The estimator $A(x)=\lceil\sqrt{|x|}\rceil$ has $\rho_A(n)=O(\sqrt n)$ because $1\le K(x)\le n+O(\log n)$. Thus the best fixed computable estimators have worst-case ratio $\sqrt n$ up to logarithmic factors.
+The estimator $A(x)=\lceil\sqrt{|x|}\rceil$ has $\rho_A(n)=O(\sqrt n)$ because $1\le K(x)\le n+O(\lg n)$. Thus the best fixed computable estimators have worst-case ratio $\sqrt n$ up to logarithmic factors.
 
 Worst-case pointwise approximation may be too demanding, so the next natural step is to average the error. This immediately raises a choice: average under which distribution?
 
 Let $X_n$ be uniform on $\{0,1\}^n$. Approximating $K(x)$ by $|x|$ gives
 
-$$𝔼_{X_n}[|n-K(X_n)|]=O(K(n))=O(\log n).$$
+$$\mathbb E[|n-K(X_n)|]=O(K(n))=O(\lg n).$$
 
 Indeed, $K(x)\le n+K(n)+O(1)$, while the counting bound $\Pr[K(X_n)<n-d]\le2^{-d+O(1)}$ makes the expected deficiency below $n$ constant. Thus returning the length has small uniform-average additive error, even though its worst-case error is linear.
 
@@ -535,13 +534,13 @@ $$Z_n=\sum_{|x|=n}2^{-K(x)},\qquad
 
 Here $\min_{|x|=n}K(x)=K(n)+O(1)$ and $Z_n=\Theta(2^{-K(n)})$. The simple string $0^n$ therefore has constant $\mu_n$-mass. Consequently,
 
-$$𝔼_{x\sim\mu_n}[|n-K(x)|]=\Theta(n).$$
+$$\mathbb E_{x\sim\mu_n}[|n-K(x)|]=\Theta(n).$$
 
 Thus returning $n$ is excellent under the uniform distribution but poor under the length-conditioned universal distribution.
 
 Li and Vitányi established that average-case time and space complexities under a universal distribution have the same order as their worst-case counterparts [@li1992average]. The following score identity is a direct length-conditioned adaptation. Let $s(x)\ge0$ be a total computable integer- or rational-valued score with effectively decidable comparisons, and let $S(n)=\max_{|x|=n}s(x)$. Then
 
-$$𝔼_{x\sim\mu_n}[s(x)]=\Theta(S(n)).$$
+$$\mathbb E_{x\sim\mu_n}[s(x)]=\Theta(S(n)).$$
 
 For the lower bound, take the lexicographically first length-$n$ maximizer $x_n$. It is computable from $n$, so $K(x_n)\le K(n)+O_s(1)$ and hence $\mu_n(x_n)=\Omega_s(1)$.
 
@@ -555,7 +554,7 @@ $$K^t(x)=\min\{|p|:U_d(p)=x\text{ within }t(|x|)\text{ steps}\}.$$
 
 Time-bounded Kolmogorov complexity is a standard resource-bounded variant [@livitanyi2019kolmogorov]. Its connection to universal search goes back to Levin [@levin1973universal].
 
-For $|x|=n$, $K(x)\le K^t(x)\le n+O(\log n)$. If $t$ is computable, exhaustive bounded simulation computes $K^t$ exactly, but not necessarily efficiently. Thus this replacement moves the problem from computability to computational cost without itself ranking efficient priors.
+For $|x|=n$, $K(x)\le K^t(x)\le n+O(\lg n)$. If $t$ is computable, exhaustive bounded simulation computes $K^t$ exactly, but not necessarily efficiently. Thus this replacement moves the problem from computability to computational cost without itself ranking efficient priors.
 
 Schmidhuber instead incorporated runtime into a speed prior [@schmidhuber2002speed]. A later variant has prediction guarantees for polynomial-time estimable measures but requires doubly exponential time in general and exponential time on polynomial-time sequences. Schmidhuber's original has better complexity bounds, but its analogous stochastic guarantee remains open [@filan2016loss]. Neither result supplies a polynomial-time replacement for Solomonoff prediction.
 
@@ -610,9 +609,9 @@ Profiles can cross; neither a unique minimizer nor an algorithm attaining every 
 
 The fair-coin prior assigns $A(x_{1:N})=2^{-N}$ to every binary string and always predicts $A(1\mid x_{\lt n})=1/2$. Let $\mu_0\in\mathcal M_T$ generate only zeros. At every round,
 
-$$D_{KL}\big(\mu_0(\cdot\mid 0^{n-1})\,\|\,A(\cdot\mid 0^{n-1})\big)=\ln2.$$
+$$D_{KL}\big(\mu_0(\cdot\mid 0^{n-1})\,\|\,A(\cdot\mid 0^{n-1})\big)=\log2.$$
 
-Its expected regret after $N$ observations is $N\ln2$, so $L(A,\mu_0)=\infty$ and $R_A(\ell)=\infty$ for every $\ell\ge K_T(\mu_0)$. Even an arbitrarily long run of zeros leaves its next prediction unchanged. More generally, no history-independent predictor, even one varying with $n$, has finite regret against both constant environments.
+Its expected regret after $N$ observations is $N\log2$, so $L(A,\mu_0)=\infty$ and $R_A(\ell)=\infty$ for every $\ell\ge K_T(\mu_0)$. Even an arbitrarily long run of zeros leaves its next prediction unchanged. More generally, no history-independent predictor, even one varying with $n$, has finite regret against both constant environments.
 :::
 
 The construction below achieves finite $R_A(\ell)$ at every fixed $\ell$. Ideal Solomonoff prediction has an $O(\ell)$ profile on this benchmark, but is incomputable and hence inadmissible [@hutter2003optimality; @leike2015computability].
@@ -631,11 +630,11 @@ A_b(a\mid x)=\frac{\xi_b(xa)}{\xi_b(x)}\quad(a\in\{0,1\}).$$
 
 At every finite round, inactive experts supply positive fair-coin mass, so these conditionals are defined on every history.
 
-Implementation maintains active likelihoods and groups all inactive experts into one fair-coin component. At round $n$, the active strings have length at most $h=\lfloor\log_2 b(n)\rfloor$; their number is $O(b(n))$, and the inactive prior mass is $1/(h+2)$. Newly activated experts inherit their previous fair-coin likelihood.
+Implementation maintains active likelihoods and groups all inactive experts into one fair-coin component. At round $n$, the active strings have length at most $h=\lfloor\lg b(n)\rfloor$; their number is $O(b(n))$, and the inactive prior mass is $1/(h+2)$. Newly activated experts inherit their previous fair-coin likelihood.
 
 For the following operation count only, rational arithmetic has unit cost and simulation of $V$ has constant overhead, with shared read-only history access. The interpreter itself uses bit computation, including binary numerator-denominator output; the unit-cost convention applies only to mixture aggregation.
 
-::: {#thm-ab-guarantee}
+::: {#prp-ab-guarantee}
 ###### Computational and predictive guarantees
 
 The predictor $A_b$ is computable with $O(b(n)T(n))$ interpreter-simulation and rational-arithmetic operations per round under these conventions. If $b$ and $T$ are polynomial, it also has polynomial bit-computation cost, possibly with a larger exponent.
@@ -643,7 +642,7 @@ The predictor $A_b$ is computable with $O(b(n)T(n))$ interpreter-simulation and 
 For every integer $\ell\ge0$, its loss profile satisfies
 
 $$R_{A_b}(\ell)\le
-(\tau_b(\ell)-1+\ell)\ln2+\ln((\ell+1)(\ell+2)).$$
+(\tau_b(\ell)-1+\ell)\log2+\log((\ell+1)(\ell+2)).$$
 :::
 
 This is a delayed version of the standard Bayesian log-loss aggregation guarantee [@hutter2003optimality; @cesabianchi2006prediction]. It supplies a finite-profile baseline, not an optimality claim.
@@ -663,12 +662,12 @@ $$K_T(\mu_y)\le m+K(m)+O(1),$$
 
 uniformly in $m,y$, where $K(m)$ is prefix-free integer complexity. This assumption is not automatic for an arbitrary $T$.
 
-::: {#thm-minimax-lower-bound}
+::: {#prp-minimax-lower-bound}
 ###### Minimax log-loss bound
 
 Under this richness assumption, every predictor $A$ satisfies, as $\ell\to\infty$,
 
-$$R_A(\ell)\ge(\ell-O(\log\ell))\ln2.$$
+$$R_A(\ell)\ge(\ell-O(\lg\ell))\log2.$$
 :::
 
 This specializes the standard minimax log-loss bound to the complexity-indexed benchmark [@hutter2003optimality; @cesabianchi2006prediction]. Together with Solomonoff's ideal bound, it makes linear dependence on $\ell$ the information-theoretic benchmark.
@@ -710,17 +709,17 @@ uncertainty. We call this "approximation error modeling" (AEM).
 
 Suppose we have a [probability mass function (PMF)](https://en.wikipedia.org/wiki/Probability_mass_function)
 $f(x) = P(X=x)$ which is hard to compute.
-If we approximate $f$ by $\tilde{f}$ then
+If we approximate $f$ by $\tilde{f}$ then informally
 
 $$
 \begin{align*}
-P\left(X = a \,|\, \text{we only compute } \tilde{f}\right)
-&= \sum_x x P \left(f(a)=x \,|\, a, \tilde{f}(a) \right)\\
-&= E\left(f(a) \,|\, a, \tilde{f}(a) \right)
+P\left(X = a \mid \text{we only compute } \tilde{f}\right)
+&= \sum_x x P \left(f(a)=x \mid a, \tilde{f}(a) \right)\\
+&= \mathbb E\left(f(a) \mid a, \tilde{f}(a) \right)
 \end{align*}
 $$
 
-What is $P\left(f(a)=x \,|\, a, \tilde{f}(a)\right)$?
+What is $P\left(f(a)=x \mid a, \tilde{f}(a)\right)$?
 Well, if $f$ is hard to compute then we probably can't gather much data, so
 there are various options to produce a subjective belief:
 
@@ -733,8 +732,8 @@ there are various options to produce a subjective belief:
 * Past empirical experience
 * ...
 
-Note that if the mean of the PMF $P(f(a)=\cdot \,|\, a, \tilde{f}(a))$
-is $f(a)$ then $P(X = a \,|\, \text{we only compute } \tilde{f}) =  P(X=a)$.
+Note that if the mean of the PMF $P(f(a)=\cdot \mid a, \tilde{f}(a))$
+is $f(a)$ then $P(X = a \mid \text{we only compute } \tilde{f}) =  P(X=a)$.
 So accounting for uncertainty due to approximation is equivalent to
 "de-biasing" it.
 
@@ -747,9 +746,9 @@ If $\tilde{f}(0) = 1$, then
 
 $$
 \begin{align*}
-P(X=0 \,|\, \text{we only compute } \tilde{f})
-&= P(f(0) = 1 \,|\, \tilde{f}(0) = 1) \\
-&\approxeq P(\tilde{f}(0) = 1 \,|\, f(0) = 1) \\
+P(X=0 \mid \text{we only compute } \tilde{f})
+&= P(f(0) = 1 \mid \tilde{f}(0) = 1) \\
+&\approxeq P(\tilde{f}(0) = 1 \mid f(0) = 1) \\
 &=\binom{10}{5} 2^{-10} \doteq 0.246.
 \end{align*}
 $$
@@ -764,7 +763,7 @@ task is to infer $\theta$ from $y$ using Bayes's rule. Often $G(\theta)$ means "
 observations would look like if $\theta$ had this value," but computing it exactly can be
 too slow, so the literature [e.g. @kaipio2007] replaces it with a cheaper approximation $\tilde G(\theta)$ and
 treats the error $G(\theta)-\tilde G(\theta)$ as another uncertain quantity. If this error
-is modeled as Gaussian with mean $m_\epsilon$ and covariance $\Gamma_\epsilon$, and the
+is modeled as normal with mean $m_\epsilon$ and covariance $\Gamma_\epsilon$, and the
 measurement noise has covariance $\Gamma_\eta$, then the likelihood can be approximated by
 $y \mid \theta \sim N(\tilde G(\theta)+m_\epsilon,\Gamma_\eta+\Gamma_\epsilon)$, so the
 posterior accounts for both noisy observations and uncertainty from the computation.
@@ -797,7 +796,7 @@ $$\delta(x_t;\theta)
 =\underbrace{g(x_t;\theta)}_{\text{exact solution}}
 -\underbrace{G(\theta)x_t}_{\text{computed approximation}}.$$
 
-For fixed $x_t$ and $\theta$, this error is deterministic; its value is unknown because the exact solution has not been computed. To illustrate how to account for it, suppose the economic dynamics have additive Gaussian shocks $\eta_t\mid\theta\sim N(0,Q(\theta))$, so the exact transition is $x_{t+1}=g(x_t;\theta)+\eta_t$. Representing uncertainty about $\delta(x_t;\theta)$ by a Gaussian variable $\epsilon_t$ gives the working approximation
+For fixed $x_t$ and $\theta$, this error is deterministic; its value is unknown because the exact solution has not been computed. To illustrate how to account for it, suppose the economic dynamics have additive normal shocks $\eta_t\mid\theta\sim N(0,Q(\theta))$, so the exact transition is $x_{t+1}=g(x_t;\theta)+\eta_t$. Representing uncertainty about $\delta(x_t;\theta)$ by a normal variable $\epsilon_t$ gives the working approximation
 
 $$x_{t+1}=G(\theta)x_t+\eta_t+\epsilon_t,
 \qquad \epsilon_t\mid\theta\sim N(0,\Sigma_\epsilon(\theta)).$$
@@ -811,7 +810,7 @@ $$B(\theta)=\|J(\theta)^{-1}\|\,\|E(\theta)\|,
 
 where the matrix norm is induced by the chosen vector norm, $I$ is the identity on the normalized state space, and $\kappa>0$ controls the uncertainty scale. The inverse Jacobian translates equilibrium residuals into a local indicator $B$ of policy error. This heuristic depends on local linearization and grid coverage. Comparisons with more accurate solutions can calibrate $\kappa$ and assess the assumed zero mean, isotropy, and temporal independence; they can also support estimated bias and structured covariance.
 
-With a Gaussian initial state and linear observations with independent Gaussian measurement noise, a Kalman filter evaluates the working model's likelihood using transition covariance $Q(\theta)+\Sigma_\epsilon(\theta)$. Both covariances are evaluated at each parameter proposal in Markov chain Monte Carlo (MCMC). The likelihood balances prediction errors against predictive uncertainty, so posterior inference accounts for the specified computational error as well as economic shocks.
+With a normal initial state and linear observations with independent normal measurement noise, a Kalman filter evaluates the working model's likelihood using transition covariance $Q(\theta)+\Sigma_\epsilon(\theta)$. Both covariances are evaluated at each parameter proposal in Markov chain Monte Carlo (MCMC). The likelihood balances prediction errors against predictive uncertainty, so posterior inference accounts for the specified computational error as well as economic shocks.
 
 
 ## Game theory: Equilibria under bounded randomness {#sec-equilibria-bounded-randomness}
@@ -866,7 +865,7 @@ $$U_{2,n}(\sigma_1, \sigma_2') \le U_{2,n}(\sigma_1, \sigma_2) + \epsilon_{2,\si
 The following specializes the PRG construction discussed in [@hubavcek2016can, sec. 1] to the PPT setting defined here.
 
 
-::: {#thm-bounded-pennies}
+::: {#prp-bounded-pennies}
 ###### Equilibrium under bounded randomness
 
 Assume a PRG family $(G_n)_{n\ge1}$ as defined above exists. For each player $i\in\{1,2\}$, let $\sigma_i^*$ sample a private seed $s_i\sim U_{s(n)}$, independently of the other player's seed, compute $w_i=G_n(s_i)$, and play $a_i^t=w_i[t]$ in each round $t\in\{1,\ldots,n\}$.
@@ -1081,9 +1080,9 @@ $$
 u'(c)=c^{-\gamma},
 $$
 
-subject to the resource constraints and transition law, with discount factor $\beta\in(0,1)$ and relative risk aversion $\gamma>0$. Assume finite expected utility, positive consumption, and transversality. Given parameters, joint shock and development laws, policy and payoff rules collected in $\theta$, a selected rational-expectations equilibrium determines consumption $c_\theta(s)$ and the physical transition kernel $\mathcal K_\theta$.
+subject to the resource constraints and transition law, with discount factor $\beta\in(0,1)$ and relative risk aversion $\gamma>0$. Assume finite expected utility, positive consumption, and transversality. Given parameters, joint shock and development laws, policy and payoff rules collected in $\theta$, a selected rational-expectations equilibrium determines consumption $c_\theta(s)$ and the Markov kernel $\mathcal K_\theta$ representing market beliefs ("physical probabilities").
 
-## From prices to physical probabilities {#sec-weaponized-asi-inversion}
+## From prices to market beliefs {#sec-weaponized-asi-inversion}
 
 Write $E=E_{t,T}$, $p=p_{t,T}$, and $R=C_{t+T}/C_t>0$. For a claim paying $X_{t+T}$ units of consumption, standard asset pricing gives [@cochrane2005asset]
 
@@ -1092,7 +1091,7 @@ P_t(X)=\mathbb E_t[M_{t,t+T}X_{t+T}],\qquad
 M_{t,t+T}=\beta^T R^{-\gamma},
 $$
 
-where $\mathbb E_t$ conditions on $\mathcal F_t$. The reference price $P_t^0(T)=\mathbb E_t[M_{t,t+T}]$ purchases one unit in every state. The pricing probability $q=\mathbb E_t[M_{t,t+T}\mathbf1_E]/P_t^0(T)$ uses the $T$-maturity forward measure, often loosely called risk-neutral.
+where $\mathbb E_t$ denotes expectation under market beliefs conditional on $\mathcal F_t$. The reference price $P_t^0(T)=\mathbb E_t[M_{t,t+T}]$ purchases one unit in every state. The probability $q=\mathbb E_t[M_{t,t+T}\mathbf1_E]/P_t^0(T)$ is under the martingale measure associated with the $T$-maturity reference claim as numeraire (the $T$-maturity forward measure); $p$ is the probability assigned by market beliefs.
 
 ::: {#prp-weaponized-asi-inversion}
 ###### Price-to-probability adjustment
@@ -1110,7 +1109,7 @@ $$
 The admissible price range is $\rho\le z\le1$, with endpoint probabilities defined by continuity for fixed $\Lambda>0$.
 :::
 
-The expectations defining $\Lambda$ are physical and include peaceful ASI development in $E^c$. They average surviving investors' marginal utility, not consumption before applying marginal utility. Lower expected marginal utility on $E$ than on $E^c$ gives $\Lambda<1$ and $p>q$. Preferences and consumption distributions require calibration or joint estimation. For continuously compounded real zero-coupon yields $y_B,y_0$ of maturity $T$, use $z=\exp[-T(y_B-y_0)]$.
+The expectations defining $\Lambda$ are under market beliefs and include peaceful ASI development in $E^c$. They average surviving investors' marginal utility, not consumption before applying marginal utility. Lower expected marginal utility on $E$ than on $E^c$ gives $\Lambda<1$ and $p>q$. Preferences and consumption distributions require calibration or joint estimation. For continuously compounded real zero-coupon yields $y_B,y_0$ of maturity $T$, use $z=\exp[-T(y_B-y_0)]$.
 
 ::: {#prp-weaponized-asi-lognormal}
 ###### Lognormal specialization
@@ -1126,7 +1125,7 @@ These are cumulative horizon-$T$ moments. Conditional lognormality is an additio
 
 For illustration, $q=0.10$, $\gamma=2$, and deterministic terminal consumption twice as high on $E$ as on $E^c$ give $\Lambda=1/4$ and $p=4/13\approx0.308$.
 
-For the nonlinear DSGE, compute the physical probability $G_n$, reference-claim price $B_n$, and event-claim price $V_n$ together. With one-period discount factor $m_\theta(s,s')=\beta[c_\theta(s')/c_\theta(s)]^{-\gamma}$, their recursions for integers $n\ge0$ are
+For the nonlinear DSGE, compute the probability $G_n$ under market beliefs, reference-claim price $B_n$, and event-claim price $V_n$ together. With one-period discount factor $m_\theta(s,s')=\beta[c_\theta(s')/c_\theta(s)]^{-\gamma}$, their recursions for integers $n\ge0$ are
 
 $$
 \begin{aligned}
@@ -1141,18 +1140,18 @@ At $s_t$, $p=G_T(s_t;\theta)$ and $q=V_T(s_t;\theta)/B_T(s_t;\theta)$. Because $
 
 ## Estimation and identification {#sec-weaponized-asi-identification}
 
-Ordinary sovereign bonds also lose value through fiscal default, conventional war, expropriation, and settlement failure; their prices mix probabilities, recovery, and risk premia [@duffie1999defaultable]. If destruction implies default, the all-cause default probability under the same horizon and pricing measure bounds $q$ above, but does not bound $p$ without marginal-utility restrictions. Separating ASI destruction from other causes requires distinguishable payoff exposures or valid restrictions on their dynamics.
+Ordinary sovereign bonds also lose value through fiscal default, conventional war, expropriation, and settlement failure; their prices mix probabilities, recovery, and risk premia [@duffie1999defaultable]. If destruction implies default, the all-cause default probability under the same horizon and martingale measure bounds $q$ above, but does not bound $p$ without marginal-utility restrictions. Separating ASI destruction from other causes requires distinguishable payoff exposures or valid restrictions on their dynamics.
 
 Fit maturity-matched real bond prices, sovereign credit default swaps (CDS), equity valuations, and options on geographically exposed assets, specifying each contract's payoff and settlement. AI equities require assumptions about profit capture, nationalization, and public ownership [@chow2026transformative, sec. 6]; currency options require a monetary and exchange-rate extension [@farhi2016rare]. Asset comovement alone does not identify hostile intent.
 
-Let $\mathbf m_{0:t}$ be the market-price history and $\mathbf x_{0:t}$ auxiliary consumption, investment, and research data. The DSGE, measurement-error distribution, and prior define a Bayesian filtering distribution $\pi_t(ds,d\theta\mid\mathbf m_{0:t},\mathbf x_{0:t})$ [@herbst2015]. The physical-probability forecast is
+Let $\mathbf m_{0:t}$ be the market-price history and $\mathbf x_{0:t}$ auxiliary consumption, investment, and research data. The DSGE, measurement-error distribution, and prior define a Bayesian filtering distribution $\pi_t(ds,d\theta\mid\mathbf m_{0:t},\mathbf x_{0:t})$ [@herbst2015]. The estimated probability under market beliefs is
 
 $$
 \widehat p_{t,T}=F_T(\mathbf m_{0:t};\mathbf x_{0:t})
 =\int G_T(s;\theta)\,\pi_t(ds,d\theta\mid\mathbf m_{0:t},\mathbf x_{0:t}).
 $$
 
-Resolve the nonlinear equilibrium and reprice contracts at each candidate $\theta$, so consumption and risk adjustments change with the inferred hazard. With only one unknown hazard parameter and a known state, match $V_T/B_T$ to the observed $q$ and report $G_T$, retaining all solutions or rejecting the calibration if none fits. Numerical approximations must preserve jump risk. Report uncertainty and sensitivity to recovery, deployment behavior, preferences, and competing disasters; unidentified components remain prior-dependent. The physical interpretation rests on the model's rational-expectations and specification assumptions.
+Resolve the nonlinear equilibrium and reprice contracts at each candidate $\theta$, so consumption and risk adjustments change with the inferred hazard. With only one unknown hazard parameter and a known state, match $V_T/B_T$ to the observed $q$ and report $G_T$, retaining all solutions or rejecting the calibration if none fits. Numerical approximations must preserve jump risk. Report uncertainty and sensitivity to recovery, deployment behavior, preferences, and competing disasters; unidentified components remain prior-dependent. The interpretation as market beliefs rests on the model's rational-expectations and specification assumptions.
 
 
 # References {.unnumbered .unlisted}
