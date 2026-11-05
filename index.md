@@ -724,12 +724,11 @@ What is $P\left(f(a)=x \,|\, a, \tilde{f}(a)\right)$?
 Well, if $f$ is hard to compute then we probably can't gather much data, so
 there are various options to produce a subjective belief:
 
-* Average-case analysis of $\tilde{f}$ with an uninformed prior
+* Average-case analysis of $\tilde{f}$ with an uninformed prior (reference class of "similar" cases)
 * In probabilistic numerics [@hennig2015], for example, we may estimate a definite integral by taking a prior on integrands, sampling the integrand, then forming a posterior on integrands and hence on the integral
 * We can have an estimate of the probability of a Turing machine halting by forming a prior on how many steps it takes before halting, running it for $n$ steps, then using the posterior. This can be extended to other problems via [reductions](https://en.wikipedia.org/w/index.php?title=RE_(complexity)&oldid=1171980812#RE-complete)
 * The linearization in macroeconomic models is a single-iteration Newton method; error bounds are related to Taylor's theorem, see also
   [Propagation of uncertainty through a linear system of equations](https://stats.stackexchange.com/questions/57532/propagation-of-uncertainty-through-a-linear-system-of-equations)
-* Reference classes of "similar" cases
 * Uniform distribution across worst-case bounds; interval arithmetic may be useful
 * Past empirical experience
 * ...
