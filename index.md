@@ -1016,9 +1016,10 @@ least a 90% posterior probability that the mean associated with the higher
 interval exceeds the other mean.
 
 
-# Market-implied probability of weaponized ASI {#sec-weaponized-asi}
+# Market indicators of weaponized ASI risk {#sec-weaponized-asi}
 
-We seek a market-implied probability that country $A$ develops artificial superintelligence (ASI) and then uses it to destroy country $B$, rather than a forecast of ASI development alone. Chow, Halperin, and Mazlish [@chow2026transformative] link AI expectations to real interest rates through the value of future consumption. Unlike global extinction, destruction of one country leaves surviving investors, whose marginal utility and assets' exposures determine prices [@gourio2012disaster; @farhi2016rare].
+We seek bounds on the market belief that country $A$ will develop artificial superintelligence (ASI) and then use it to destroy country $B$.
+Chow, Halperin, and Mazlish [@chow2026transformative] link AI expectations to real interest rates through the value of future consumption. Unlike global extinction, destruction of one country leaves surviving investors, whose marginal utility and assets' exposures determine prices [@gourio2012disaster; @farhi2016rare].
 
 ## DSGE and forecast target {#sec-weaponized-asi-dsge}
 
@@ -1080,9 +1081,9 @@ $$
 u'(c)=c^{-\gamma},
 $$
 
-subject to the resource constraints and transition law, with discount factor $\beta\in(0,1)$ and relative risk aversion $\gamma>0$. Assume finite expected utility, positive consumption, and transversality. Given parameters, joint shock and development laws, policy and payoff rules collected in $\theta$, a selected rational-expectations equilibrium determines consumption $c_\theta(s)$ and the Markov kernel $\mathcal K_\theta$ representing market beliefs ("physical probabilities").
+subject to the resource constraints and transition law, with discount factor $\beta\in(0,1)$ and relative risk aversion $\gamma>0$. Assume finite expected utility, positive consumption, and transversality. Given parameters, joint shock and development laws, policy and payoff rules collected in $\theta$, a selected rational-expectations equilibrium determines consumption $c_\theta(s)$ and the Markov kernel $\mathcal K_\theta$ representing market beliefs.
 
-## From prices to market beliefs {#sec-weaponized-asi-inversion}
+## Conditional inversion and probability bounds {#sec-weaponized-asi-inversion}
 
 Write $E=E_{t,T}$, $p=p_{t,T}$, and $R=C_{t+T}/C_t>0$. For a claim paying $X_{t+T}$ units of consumption, standard asset pricing gives [@cochrane2005asset]
 
@@ -1123,7 +1124,21 @@ $$
 These are cumulative horizon-$T$ moments. Conditional lognormality is an additional restriction, not a general property of the DSGE.
 :::
 
-For illustration, $q=0.10$, $\gamma=2$, and deterministic terminal consumption twice as high on $E$ as on $E^c$ give $\Lambda=1/4$ and $p=4/13\doteq0.308$.
+::: {#prp-weaponized-asi-bounds}
+###### Probability bounds
+
+Suppose admissible models imply $0\le\underline q\le q\le\overline q\le1$ and $0<\underline\Lambda\le\Lambda\le\overline\Lambda<\infty$. Then
+
+$$
+\frac{\underline q}{\underline q+(1-\underline q)\overline\Lambda}
+\le p\le
+\frac{\overline q}{\overline q+(1-\overline q)\underline\Lambda}.
+$$
+
+These bounds are sharp if the corresponding extreme combinations are jointly feasible, or can be approached by admissible models. Without restrictions on $\Lambda$, a fixed $q\in(0,1)$ is consistent with every $p\in(0,1)$ under the pricing identity alone.
+:::
+
+For illustration, $q=0.10$ and $\Lambda\in[1/4,2]$ give $p\in[1/19,4/13]\doteq[0.053,0.308]$ under these restrictions alone. Recovery uncertainty also affects $q$: for the ideal claim above, fixed $z$ and $0\le\underline\rho\le\rho\le\overline\rho<1$, with $\overline\rho\le z\le1$, imply $q\in[(1-z)/(1-\underline\rho),(1-z)/(1-\overline\rho)]$.
 
 For the nonlinear DSGE, compute the probability $G_n$ under market beliefs, reference-claim price $B_n$, and event-claim price $V_n$ together. With one-period stochastic discount factor $m_\theta(s,s')=\beta[c_\theta(s')/c_\theta(s)]^{-\gamma}$, their recursions for integers $n\ge0$ are
 
@@ -1138,20 +1153,33 @@ $$
 
 At $s_t$, $p=G_T(s_t;\theta)$ and $q=V_T(s_t;\theta)/B_T(s_t;\theta)$. Because $e$ is absorbing, these refer to destruction by the horizon; competing causes of loss must be recorded separately.
 
-## Estimation and identification {#sec-weaponized-asi-identification}
+## Identification and qualitative implications {#sec-weaponized-asi-identification}
 
-Ordinary sovereign bonds also lose value through fiscal default, conventional war, expropriation, and settlement failure; their prices mix probabilities, recovery, and risk premia [@duffie1999defaultable]. If destruction implies default, the all-cause default probability under the same horizon and martingale measure bounds $q$ above, but does not bound $p$ without marginal-utility restrictions. Separating ASI destruction from other causes requires distinguishable payoff exposures or valid restrictions on their dynamics.
+Ordinary sovereign bonds also lose value through fiscal default, conventional war, expropriation, and settlement failure; their prices mix probabilities, recovery, and risk premia [@duffie1999defaultable]. If destruction implies default, the all-cause default probability under the same horizon and martingale measure bounds $q$ above, but does not bound $p$ without marginal-utility restrictions. Even the all-cause probability requires assumptions about recovery and pricing wedges. If competing causes explain all observed losses, the lower bound on weaponized-ASI risk can remain zero. Separating ASI destruction from other causes requires distinguishable payoff exposures or valid restrictions on their dynamics.
 
 Fit maturity-matched real bond prices, sovereign credit default swaps (CDS), equity valuations, and options on geographically exposed assets, specifying each contract's payoff and settlement. AI equities require assumptions about profit capture, nationalization, and public ownership [@chow2026transformative, sec. 6]; currency options require a monetary and exchange-rate extension [@farhi2016rare]. Asset comovement alone does not identify hostile intent.
 
-Let $\mathbf m_{0:t}$ be the market-price history and $\mathbf x_{0:t}$ auxiliary consumption, investment, and research data. The DSGE, measurement-error distribution, and prior define a Bayesian filtering distribution $\pi_t(ds,d\theta\mid\mathbf m_{0:t},\mathbf x_{0:t})$ [@herbst2015]. The estimated probability under market beliefs is
+Let $\mathbf m_{0:t}$ be the market-price history and $\mathbf x_{0:t}$ auxiliary consumption, investment, and research data. Fix a class $\mathcal R$ of restrictions on primitives, equilibrium selection, recoveries, settlement, and measurement errors. Let $\mathcal A_t(\mathcal R)$ be the set of state–parameter pairs $(s,\theta)$ consistent with these restrictions and a stated fit criterion for the data. The model-consistent probability set and its interval envelope are
+
+$$
+\mathcal P_{t,T}(\mathcal R)
+=\{G_T(s;\theta):(s,\theta)\in\mathcal A_t(\mathcal R)\},
+\qquad
+[\inf\mathcal P_{t,T}(\mathcal R),\sup\mathcal P_{t,T}(\mathcal R)].
+$$
+
+The envelope is defined when the admissible set is nonempty and need not contain only attainable probabilities. An empty set rejects the joint restrictions under the chosen fit criterion. With exact population pricing moments this is an identified set; finite-data fit tolerances produce a compatibility set, not automatically a confidence region [@tamer2010partial]. Resolve the nonlinear equilibrium and reprice contracts for each candidate, allowing consumption and risk adjustments to change with the hazard. Joint restrictions may tighten the bounds in @prp-weaponized-asi-bounds. Report which restrictions make bounds informative and how they change when recovery, preferences, deployment behavior, or competing disasters are relaxed.
+
+Qualitative implications also require maintained restrictions. For the ideal claim, $z=1-(1-\rho)q$: holding recovery fixed, a higher event probability under the forward measure lowers its relative price. Holding $\Lambda$ fixed as well, a higher event probability under market beliefs has the same implication; changes in risk adjustment can otherwise offset it. More generally, write a claim's terminal payoff as $X=X^0-L\mathbf1_E$, where $X^0$ is a benchmark payoff and $L\ge0$ its event loss, with finite discounted expectations. Its discount relative to that benchmark is $\mathbb E_t[M_{t,t+T}L\mathbf1_E]$, so exposures and state prices jointly determine the signal [@cochrane2005asset]. Such discounts are consistent with the event, but are not distinctive evidence of its ASI cause. The sign of the risk adjustment is likewise conditional: $\Lambda<1$ implies $p>q$, whereas $\Lambda>1$ implies $p<q$ for interior probabilities. AI valuations alone cannot distinguish capability, hostile intent, and successful destruction.
+
+As a supplementary model-dependent summary, the DSGE, measurement-error distribution, and prior define a Bayesian filtering distribution $\pi_t(ds,d\theta\mid\mathbf m_{0:t},\mathbf x_{0:t})$ [@herbst2015]. Its posterior mean event probability is
 
 $$
 \widehat p_{t,T}=F_T(\mathbf m_{0:t};\mathbf x_{0:t})
 =\int G_T(s;\theta)\,\pi_t(ds,d\theta\mid\mathbf m_{0:t},\mathbf x_{0:t}).
 $$
 
-Resolve the nonlinear equilibrium and reprice contracts at each candidate $\theta$, so consumption and risk adjustments change with the inferred hazard. With only one unknown hazard parameter and a known state, match $V_T/B_T$ to the observed $q$ and report $G_T$, retaining all solutions or rejecting the calibration if none fits. Numerical approximations must preserve jump risk. Report uncertainty and sensitivity to recovery, deployment behavior, preferences, and competing disasters; unidentified components remain prior-dependent. The interpretation as market beliefs rests on the model's rational-expectations and specification assumptions.
+Neither this mean nor a posterior credible interval resolves nonidentification; unidentified components remain prior-dependent. Report prior sensitivity separately from the model-consistent bounds and sampling uncertainty. Numerical approximations must preserve jump risk. All interpretations as market beliefs rest on the model's rational-expectations and specification assumptions.
 
 
 # References {.unnumbered .unlisted}
