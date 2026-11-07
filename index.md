@@ -1018,168 +1018,25 @@ interval exceeds the other mean.
 
 # Market indicators of weaponized ASI risk {#sec-weaponized-asi}
 
-We seek bounds on the market belief that country $A$ will develop artificial superintelligence (ASI) and then use it to destroy country $B$.
-Chow, Halperin, and Mazlish [@chow2026transformative] link AI expectations to real interest rates through the value of future consumption. Unlike global extinction, destruction of one country leaves surviving investors, whose marginal utility and assets' exposures determine prices [@gourio2012disaster; @farhi2016rare].
+Let $E$ denote country $A$ developing artificial superintelligence (ASI) and deliberately using it to destroy country $B$'s resident productive economy by a fixed horizon, under specified observable criteria.
 
-## DSGE and forecast target {#sec-weaponized-asi-dsge}
+Chow, Halperin, and Mazlish [@chow2026transformative, sec. 3] argue that growth-enhancing AI and human extinction both reduce the value of future consumption, raising real interest rates under their benchmark assumptions. National destruction has no such universal implication: surviving investors may enjoy abundance or suffer economic disruption. Their marginal utility can rise or fall relative to alternatives, including peaceful ASI development [@gourio2012disaster].
 
-::: {#def-weaponized-asi-event}
-###### Forecast target
+::: {#prp-weaponized-asi-pricing}
+###### Conditional pricing signal
 
-Fix an information sigma-algebra $\mathcal F_t$, an integer horizon $T\ge1$, and observable criteria for ASI and destruction of $B$'s resident productive economy. Let $\tau_A$ be the first date $A$ develops and controls ASI, and $\tau_W\ge\tau_A$ the first date its deliberate deployment destroys $B$. Set either time to $\infty$ if it never occurs. Before $A$ develops ASI, the target is
+Let $M>0$ be a stochastic discount factor with finite expectation, conditional on current information. A claim paying $1$ outside $E$ and recovery $\rho\in[0,1)$ on $E$ has price relative to a claim paying $1$ in every state [@cochrane2005asset]
 
 $$
-E_{t,T}=\{t<\tau_A\le\tau_W\le t+T\},
-\qquad p_{t,T}=P(E_{t,T}\mid\mathcal F_t).
+z=1-(1-\rho)q,\qquad q=\frac{\mathbb E[M\mathbf1_E]}{\mathbb E[M]}.
 $$
 
-The capability criterion must be assessable without subsequent peaceful growth. Development, hostile use, and successful destruction are separate events; $A$ need not develop ASI before $B$.
+Both claims settle at the fixed horizon in the same consumption numeraire without additional pricing or settlement wedges. Holding recovery fixed, a higher risk-adjusted event probability $q$ lowers $z$.
 :::
 
-A two-country production DSGE combines AI investment [@aghion2017artificial] with disaster risk [@gourio2012disaster]. A representative household owns production in both countries, supplies one unit of labor in each surviving country, and allocates a single traded good between consumption and investment. Assume $A$ and this pricing household survive every modeled state; deployment follows a specified security-policy rule.
+Candidate indicators are wider credit spreads for $B$ and more expensive default or downside protection on its assets, conditional on recovery, liquidity, risk premia, and enforceable settlement [@duffie1999defaultable]. But conventional war, default, or expropriation can produce the same signals: identical joint distributions of payoffs and discount factors imply identical prices, regardless of cause. AI optimism alongside distress in $B$ does not establish hostile intent.
 
-For $i\in\{A,B\}$, let $S_{i,t},D_{i,t}\in\{0,1\}$ indicate survival and ASI acquisition, $Z_{i,t}>0$ denote productivity, and $K_{i,t},H_{i,t}\ge0$ denote conventional and AI research capital. Initially both countries survive without ASI; acquisition persists while a country survives. Output $Y_{i,t}$ and capital accumulation satisfy
-
-$$
-\begin{aligned}
-Y_{i,t}&=S_{i,t}Z_{i,t}K_{i,t}^{\alpha_i},
-&0<\alpha_i<1,\\
-C_t+\sum_i(I_{i,t}+J_{i,t})&=\sum_iY_{i,t},\\
-K_{i,t+1}&=S_{i,t+1}\bigl[(1-\delta_K)K_{i,t}+I_{i,t}\bigr],\\
-H_{i,t+1}&=S_{i,t+1}\bigl[(1-\delta_H)H_{i,t}+J_{i,t}\bigr].
-\end{aligned}
-$$
-
-Here $C_t>0$ is consumption; $I_{i,t},J_{i,t}\ge0$ are investments, zero after national destruction; $\alpha_i$ is the conventional-capital output elasticity; and $\delta_K,\delta_H\in(0,1)$ are depreciation rates. For surviving countries, specify
-
-$$
-\log Z_{i,t+1}=\log Z_{i,t}+g_i^0+g_i^1D_{i,t+1}+\epsilon_{i,t+1},
-\qquad g_i^1>0,
-$$
-
-where $g_i^0$ is baseline productivity growth, $g_i^1$ its assumed ASI increment, and $\epsilon_{i,t+1}$ a productivity shock.
-
-Let $s_t$ collect these states and an absorbing indicator $e(s_t)$ recording the target destruction. A surviving country without ASI develops it with probability
-
-$$
-d_i(s_t)=1-\exp(-\lambda_iH_{i,t}),\qquad \lambda_i>0.
-$$
-
-Here $\lambda_i$ measures development intensity per unit of research capital. Draw development before deployment, giving intermediate state $\widetilde s$ and capability indicator $\widetilde D_A$. While $B$ survives, its destruction probability conditional on this state is
-
-$$
-h(\widetilde s)=\widetilde D_A\,a_\theta(\widetilde s)\,v_\theta(\widetilde s),
-$$
-
-where $a_\theta,v_\theta\in[0,1]$ are deployment probability and success probability conditional on deployment; $\theta$ indexes the model's primitives. Development and destruction may occur in the same period or many periods apart. A contest-success function can specify $v_\theta$ [@garfinkel2007conflict], but does not determine hostile intent $a_\theta$. Destruction permanently sets $S_B=0$; failed deployment leaves $B$ alive. Endogenous national arms-race strategies would require governments' objectives.
-
-The household maximizes
-
-$$
-\mathbb E_0\sum_{t=0}^{\infty}\beta^t u(C_t),
-\qquad
-u'(c)=c^{-\gamma},
-$$
-
-subject to the resource constraints and transition law, with discount factor $\beta\in(0,1)$ and relative risk aversion $\gamma>0$. Assume finite expected utility, positive consumption, and transversality. Given parameters, joint shock and development laws, policy and payoff rules collected in $\theta$, a selected rational-expectations equilibrium determines consumption $c_\theta(s)$ and the Markov kernel $\mathcal K_\theta$ representing market beliefs.
-
-## Conditional inversion and probability bounds {#sec-weaponized-asi-inversion}
-
-Write $E=E_{t,T}$, $p=p_{t,T}$, and $R=C_{t+T}/C_t>0$. For a claim paying $X_{t+T}$ units of consumption, standard asset pricing gives [@cochrane2005asset]
-
-$$
-\Pi_t(X)=\mathbb E_t[M_{t,t+T}X_{t+T}],\qquad
-M_{t,t+T}=\beta^T R^{-\gamma},
-$$
-
-where $\mathbb E_t$ denotes expectation under market beliefs conditional on $\mathcal F_t$, and $M_{t,t+T}$ is the horizon-$T$ stochastic discount factor. The reference price $\Pi_t^0(T)=\mathbb E_t[M_{t,t+T}]$ purchases one unit in every state. The probability $q=\mathbb E_t[M_{t,t+T}\mathbf1_E]/\Pi_t^0(T)$ is under the martingale measure associated with the $T$-maturity reference claim as numeraire (the $T$-maturity forward measure); $p$ is the probability assigned by market beliefs.
-
-::: {#prp-weaponized-asi-inversion}
-###### Price-to-probability adjustment
-
-Suppose a traded claim with price $\Pi_t^B(T)$ pays one at $t+T$ outside $E$ and known recovery $\rho\in[0,1)$ on $E$. Both claims settle in the same consumption numeraire, without additional default, liquidity, or counterparty wedges. For $z=\Pi_t^B(T)/\Pi_t^0(T)$, $0<p<1$, and finite, strictly positive conditional marginal-utility means,
-
-$$
-\begin{aligned}
-q&=\frac{1-z}{1-\rho},\\
-p&=\frac{q}{q+(1-q)\Lambda},\\
-\Lambda&=\frac{\mathbb E_t[R^{-\gamma}\mid E]}{\mathbb E_t[R^{-\gamma}\mid E^c]}.
-\end{aligned}
-$$
-
-The admissible price range is $\rho\le z\le1$, with endpoint probabilities defined by continuity for fixed $\Lambda>0$.
-:::
-
-The expectations defining $\Lambda$ are under market beliefs and include peaceful ASI development in $E^c$. They average surviving investors' marginal utility, not consumption before applying marginal utility. Lower expected marginal utility on $E$ than on $E^c$ gives $\Lambda<1$ and $p>q$. Preferences and consumption distributions require calibration or joint estimation. For continuously compounded real zero-coupon yields $y_B,y_0$ of maturity $T$, use $z=\exp[-T(y_B-y_0)]$.
-
-::: {#prp-weaponized-asi-lognormal}
-###### Lognormal specialization
-
-Suppose, conditional on $\mathcal F_t$, $\log R$ is normally distributed on $E$ and $E^c$, with respective means $\mu_E,\mu_{E^c}$ and variances $\sigma_E^2,\sigma_{E^c}^2\ge0$. Then
-
-$$
-\Lambda=\exp\left[-\gamma(\mu_E-\mu_{E^c})+\frac{\gamma^2}{2}(\sigma_E^2-\sigma_{E^c}^2)\right].
-$$
-
-These are cumulative horizon-$T$ moments. Conditional lognormality is an additional restriction, not a general property of the DSGE.
-:::
-
-::: {#prp-weaponized-asi-bounds}
-###### Probability bounds
-
-Suppose admissible models imply $0\le\underline q\le q\le\overline q\le1$ and $0<\underline\Lambda\le\Lambda\le\overline\Lambda<\infty$. Then
-
-$$
-\frac{\underline q}{\underline q+(1-\underline q)\overline\Lambda}
-\le p\le
-\frac{\overline q}{\overline q+(1-\overline q)\underline\Lambda}.
-$$
-
-These bounds are sharp if the corresponding extreme combinations are jointly feasible, or can be approached by admissible models. Without restrictions on $\Lambda$, a fixed $q\in(0,1)$ is consistent with every $p\in(0,1)$ under the pricing identity alone.
-:::
-
-For illustration, $q=0.10$ and $\Lambda\in[1/4,2]$ give $p\in[1/19,4/13]\doteq[0.053,0.308]$ under these restrictions alone. Recovery uncertainty also affects $q$: for the ideal claim above, fixed $z$ and $0\le\underline\rho\le\rho\le\overline\rho<1$, with $\overline\rho\le z\le1$, imply $q\in[(1-z)/(1-\underline\rho),(1-z)/(1-\overline\rho)]$.
-
-For the nonlinear DSGE, compute the probability $G_n$ under market beliefs, reference-claim price $B_n$, and event-claim price $V_n$ together. With one-period stochastic discount factor $m_\theta(s,s')=\beta[c_\theta(s')/c_\theta(s)]^{-\gamma}$, their recursions for integers $n\ge0$ are
-
-$$
-\begin{aligned}
-G_0(s;\theta)&=e(s),\quad B_0(s;\theta)=1,\quad V_0(s;\theta)=e(s),\\
-G_{n+1}(s;\theta)&=\int G_n(s';\theta)\,\mathcal K_\theta(ds'\mid s),\\
-B_{n+1}(s;\theta)&=\int m_\theta(s,s')B_n(s';\theta)\,\mathcal K_\theta(ds'\mid s),\\
-V_{n+1}(s;\theta)&=\int m_\theta(s,s')V_n(s';\theta)\,\mathcal K_\theta(ds'\mid s).
-\end{aligned}
-$$
-
-At $s_t$, $p=G_T(s_t;\theta)$ and $q=V_T(s_t;\theta)/B_T(s_t;\theta)$. Because $e$ is absorbing, these refer to destruction by the horizon; competing causes of loss must be recorded separately.
-
-## Identification and qualitative implications {#sec-weaponized-asi-identification}
-
-Ordinary sovereign bonds also lose value through fiscal default, conventional war, expropriation, and settlement failure; their prices mix probabilities, recovery, and risk premia [@duffie1999defaultable]. If destruction implies default, the all-cause default probability under the same horizon and martingale measure bounds $q$ above, but does not bound $p$ without marginal-utility restrictions. Even the all-cause probability requires assumptions about recovery and pricing wedges. If competing causes explain all observed losses, the lower bound on weaponized-ASI risk can remain zero. Separating ASI destruction from other causes requires distinguishable payoff exposures or valid restrictions on their dynamics.
-
-Fit maturity-matched real bond prices, sovereign credit default swaps (CDS), equity valuations, and options on geographically exposed assets, specifying each contract's payoff and settlement. AI equities require assumptions about profit capture, nationalization, and public ownership [@chow2026transformative, sec. 6]; currency options require a monetary and exchange-rate extension [@farhi2016rare]. Asset comovement alone does not identify hostile intent.
-
-Let $\mathbf m_{0:t}$ be the market-price history and $\mathbf x_{0:t}$ auxiliary consumption, investment, and research data. Fix a class $\mathcal R$ of restrictions on primitives, equilibrium selection, recoveries, settlement, and measurement errors. Let $\mathcal A_t(\mathcal R)$ be the set of state–parameter pairs $(s,\theta)$ consistent with these restrictions and a stated fit criterion for the data. The model-consistent probability set and its interval envelope are
-
-$$
-\mathcal P_{t,T}(\mathcal R)
-=\{G_T(s;\theta):(s,\theta)\in\mathcal A_t(\mathcal R)\},
-\qquad
-[\inf\mathcal P_{t,T}(\mathcal R),\sup\mathcal P_{t,T}(\mathcal R)].
-$$
-
-The envelope is defined when the admissible set is nonempty and need not contain only attainable probabilities. An empty set rejects the joint restrictions under the chosen fit criterion. With exact population pricing moments this is an identified set; finite-data fit tolerances produce a compatibility set, not automatically a confidence region [@tamer2010partial]. Resolve the nonlinear equilibrium and reprice contracts for each candidate, allowing consumption and risk adjustments to change with the hazard. Joint restrictions may tighten the bounds in @prp-weaponized-asi-bounds. Report which restrictions make bounds informative and how they change when recovery, preferences, deployment behavior, or competing disasters are relaxed.
-
-Qualitative implications also require maintained restrictions. For the ideal claim, $z=1-(1-\rho)q$: holding recovery fixed, a higher event probability under the forward measure lowers its relative price. Holding $\Lambda$ fixed as well, a higher event probability under market beliefs has the same implication; changes in risk adjustment can otherwise offset it. More generally, write a claim's terminal payoff as $X=X^0-L\mathbf1_E$, where $X^0$ is a benchmark payoff and $L\ge0$ its event loss, with finite discounted expectations. Its discount relative to that benchmark is $\mathbb E_t[M_{t,t+T}L\mathbf1_E]$, so exposures and state prices jointly determine the signal [@cochrane2005asset]. Such discounts are consistent with the event, but are not distinctive evidence of its ASI cause. The sign of the risk adjustment is likewise conditional: $\Lambda<1$ implies $p>q$, whereas $\Lambda>1$ implies $p<q$ for interior probabilities. AI valuations alone cannot distinguish capability, hostile intent, and successful destruction.
-
-As a supplementary model-dependent summary, the DSGE, measurement-error distribution, and prior define a Bayesian filtering distribution $\pi_t(ds,d\theta\mid\mathbf m_{0:t},\mathbf x_{0:t})$ [@herbst2015]. Its posterior mean event probability is
-
-$$
-\widehat p_{t,T}=F_T(\mathbf m_{0:t};\mathbf x_{0:t})
-=\int G_T(s;\theta)\,\pi_t(ds,d\theta\mid\mathbf m_{0:t},\mathbf x_{0:t}).
-$$
-
-Neither this mean nor a posterior credible interval resolves nonidentification; unidentified components remain prior-dependent. Report prior sensitivity separately from the model-consistent bounds and sampling uncertainty. Numerical approximations must preserve jump risk. All interpretations as market beliefs rest on the model's rational-expectations and specification assumptions.
+Thus vulnerable claims may cheapen relative to protected claims, but neither this pattern nor real rates uniquely indicate weaponized ASI. Attribution requires event-specific contracts or additional evidence separating competing causes. Even the ideal claim identifies risk-adjusted $q$, not market beliefs without restrictions on risk adjustment; informative bounds require such restrictions [@tamer2010partial].
 
 
 # References {.unnumbered .unlisted}
