@@ -676,49 +676,50 @@ The polynomial-time construction instead supplies an exponential-in-complexity u
 
 ### Algorithmic arbitrage {#sec-algorithmic-arbitrage}
 
-If agents are computationally bounded can they still be
-invulnerable to money pumps?
-Consider the sampled-asset version of the two-period market from [@macfie2019plausibility, sec. 4]:
-Fix a payoff function $F:\{0,1\}^*\to[0,1]$ and distributions $\mathcal D_n$ on $\{0,1\}^n$, for integers $n\ge1$. A market $f=(f_n)_{n\ge1}$ quotes prices $f_n:\{0,1\}^n\to[0,1]$ with finite binary encodings. Asset $x$ costs $f_n(x)$ initially and pays $F(x)$ at settlement. After seeing $x$ and its price $p$, a randomized trader $g_n(x,p)\in\{-1,0,1\}$ shorts, abstains, or buys one unit. Randomizing unit positions also represents any bounded dyadic position in $[-1,1]$ in expectation. For a trader family $g=(g_n)_{n\ge1}$, expected profit is
+Can computationally bounded agents avoid money pumps? Consider the stochastic-payoff market
+from [@macfie2019plausibility, sec. 4]. A public uniform probabilistic polynomial-time (PPT) algorithm generates pairs $(X,Y)\sim\mathcal J_n$, with $X\in\{0,1\}^n$ and $Y\in\{0,1\}$.
+Write $\mathcal D_n$ for the asset marginal and $F(x)=\mathbb E[Y\mid X=x]$ on its support. An asset costs $f(x)\in[0,1]$ and pays $Y$ at settlement.
 
-$$b_n(g;f)=\mathbb E_{x\sim\mathcal D_n,\thinspace g_n}
-\left[(F(x)-f_n(x))g_n(x,f_n(x))\right],$$
+::: {#def-polynomial-time-pricing}
+###### Polynomial-time pricing and pricing error
 
-where the expectation includes the trader's randomness. These are expected profits, not guarantees against losses on individual draws.
+A polynomial-time pricing rule is a public deterministic algorithm $f:\{0,1\}^*\to[0,1]$ that outputs an explicit binary dyadic price in $O(n^k)$ time on every $n$-bit input, for some fixed $k\ge1$. One algorithm handles all lengths, without advice. Its mean-squared pricing error is
+
+$$M_n(f):=\mathbb E_{X\sim\mathcal D_n}[(F(X)-f(X))^2].$$
+:::
+
+A trader is a uniform PPT algorithm returning dyadic positions $g(x,f(x))\in[-1,1]$, without advice, and may generate independent joint samples. Costs include sampling and arithmetic. Its expected profit, including its random coins, is
+
+$$b_n(g;f):=\mathbb E_{(X,Y)\sim\mathcal J_n,\thinspace g}[(Y-f(X))g(X,f(X))].$$
 
 ::: {#def-algorithmic-arbitrage}
-###### Strict, relaxed, and approximate arbitrage
+###### Strict and relaxed arbitrage
 
-For a specified class of trader families $g=(g_n)_{n\ge1}$, a strict arbitrage has $b_n(g;f)\ge0$ for every $n$ and $b_n(g;f)>0$ infinitely often. A relaxed arbitrage has $b_n(g;f)>n^{-k}$ infinitely often for some $k>0$, while $\max\{-b_n(g;f),0\}=n^{-\omega(1)}$ [@macfie2019plausibility, sec. 4].
-
-For a class $\mathcal G_n$ of traders at length $n$, call prices $\epsilon$-no-arbitrage if
-
-$$\sup_{g_n\in\mathcal G_n}|b_n(g;f)|\le\epsilon.$$
+A trader is a strict arbitrage if $b_n(g;f)\ge0$ for every $n$ and $b_n(g;f)>0$ infinitely often. It is a relaxed arbitrage if $b_n(g;f)>n^{-k}$ infinitely often for some $k>0$, while $\max\{-b_n(g;f),0\}=n^{-\omega(1)}$ [@macfie2019plausibility, sec. 4]. These conditions concern expected profit, not protection against losses on individual settlements.
 :::
 
-The following is the trading form of the sample-access outcome-indistinguishability construction [@dwork2021outcome, theorem 5.2], related to multicalibration [@hebertjohnson2018multicalibration]. Circuit size counts bounded-fan-in Boolean gates; traders receive the sampled asset's quote, not free oracle access to other prices.
+Joint sampling lets a trader estimate and correct the sign of an inverse-polynomial expected profit. Consequently, absence of relaxed arbitrage is equivalent to computational indistinguishability of $(X,Y)$ from $(X,\widetilde Y)$, where $\widetilde Y\mid X\sim\operatorname{Bernoulli}(f(X))$ [@dwork2021outcome]. The following market formulation combines this correspondence with Goldreich's equivalence between nontrivial indistinguishability and pseudorandom generators [@goldreich1990indistinguishability], and Håstad et al.'s equivalence between pseudorandom generators and one-way functions [@hastad1999pseudorandom].
 
-::: {#prp-bounded-algorithmic-arbitrage}
-###### Small markets resist bounded traders
+::: {#prp-cryptographic-arbitrage}
+###### Arbitrage resistance need not imply accurate prices
 
-For every $n\ge1$, every $\epsilon\in(0,1)$, and every $s\ge n+b$, where $b=\lceil\lg(8/\epsilon)\rceil$, let
+One-way functions exist if and only if there are a jointly samplable ensemble as above, a polynomial-time pricing rule $f$, and a constant $\delta>0$ such that $f$ admits no relaxed arbitrage by PPT traders but $M_n(f)\ge\delta$ for all sufficiently large $n$. The same equivalence holds with an eventual bound $M_n(f)\ge n^{-a}$ for some fixed $a>0$ in place of $\delta$.
 
-$$P_b=\{j2^{-b}:j=0,\ldots,2^b\}.$$
+Moreover, assuming one-way functions exist, the ensemble can be chosen so that:
 
-Let $\mathcal G_{s,b}$ be the class of all randomized circuits of size at most $s$ taking $(x,p)\in\{0,1\}^n\times P_b$ and returning a position in $\{-1,0,1\}$. There exists a deterministic pricing circuit $f_n:\{0,1\}^n\to P_b$ of size $O(s\epsilon^{-2})$ such that
-
-$$\sup_{g_n\in\mathcal G_{s,b}}|b_n(g;f)|\le\epsilon.$$
-
-Consequently, for any fixed constants $c,k\ge1$, there is a family of pricing circuits of size $O(n^{c+2k})$ limiting every size-$n^c$ trader's absolute expected profit to $n^{-k}$, for all sufficiently large $n$. This holds for arbitrary $F$ and $\{\mathcal D_n\}$, without complexity-theoretic assumptions.
-
-Taking $s=\lceil n^{\lg n}\rceil$ and $\epsilon=n^{-\lg n}$ for sufficiently large $n$ yields a nonuniform market family of circuit size $2^{O((\lg n)^2)}$ admitting no relaxed arbitrage against any polynomial-size trader family.
+1. The constant pricing rule $f_0\equiv1/2$ satisfies $|b_n(g;f_0)|=n^{-\omega(1)}$ for every fixed PPT trader $g$.
+2. Every polynomial-time pricing rule $f$ satisfies $M_n(f)\ge1/4-\nu_f(n)$, where $\nu_f(n)=n^{-\omega(1)}$, and admits strict arbitrage by a PPT trader.
 :::
 
-Sample-access outcome indistinguishability means that small circuits cannot distinguish $(x,f_n(x),Y)$ from $(x,f_n(x),\widetilde Y)$, where $x\sim\mathcal D_n$, $Y\mid x\sim\operatorname{Bernoulli}(F(x))$, and $\widetilde Y\mid x\sim\operatorname{Bernoulli}(f_n(x))$. Distinguishers and traders translate into one another with constant-factor circuit overhead [@dwork2021outcome].
+An illustrative construction uses a uniform pseudorandom generator $H_m:\{0,1\}^m\to\{0,1\}^{2m}$. For even asset length $n=2m$, generate with equal probabilities
 
-The existence result is nonuniform: a separate circuit may be chosen for each $n$, depending on $F$ and $\mathcal D_n$. It does not supply one polynomial-time algorithm computing all prices. The construction takes $O(\epsilon^{-2})$ correction steps, but efficiently finding those corrections requires labeled samples and an efficient auditor that detects violations [@dwork2021outcome, sec. 5.4].
+$$ (X,Y)=(H_m(U_m),0)\quad\text{or}\quad(U_{2m},1),$$
 
-An $n^{-k}$ bound alone does not exclude relaxed arbitrage with smaller inverse-polynomial profits. The polynomial-size guarantee has quantifiers $\forall c,k\ \exists(f_n)$; the simultaneous guarantee against all polynomial-size traders uses quasipolynomial-size markets. Neither guarantee excludes strict arbitrage. The input distribution is fixed before choosing the market, not chosen adversarially afterward.
+where $U_j$ is uniform on $j$ bits. For odd length $n=2m+1$, append an independent uniform padding bit to $X$ in either branch. Efficient observers cannot identify the generating branch, although the generator's range occupies at most $2^{-m}$ of the asset space. The sampler's code is public: no sample-only information restriction is imposed.
+
+A uniform PPT strict trader draws $(X',Y')$ independently and holds $g(x,p)=\mathbf 1_{\{X'=x\}}(Y'-p)$. Matching assets may be exponentially rare: strict arbitrage counts such tiny opportunities, whereas relaxed arbitrage does not. Thus arbitrage resistance need not certify accurate conditional expected payoffs; it can reflect computational inability to exploit large errors.
+
+This is an existence result, not a guarantee for every market. It requires joint, not efficient conditional, sampling: if traders can simulate $Y\mid X=x$, one independent simulation gives expected profit $M_n(f)$, so constant pricing error would yield relaxed arbitrage. All algorithms here are uniform polynomial-time, but their exponents need not coincide.
 
 ## Statistics {#sec-statistics}
 
