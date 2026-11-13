@@ -677,7 +677,8 @@ The polynomial-time construction instead supplies an exponential-in-complexity u
 ### Algorithmic arbitrage {#sec-algorithmic-arbitrage}
 
 Can computationally bounded agents avoid money pumps? Consider the stochastic-payoff market
-from [@macfie2019plausibility, sec. 4]. A public uniform probabilistic polynomial-time (PPT) algorithm generates pairs $(X,Y)\sim\mathcal J_n$, with $X\in\{0,1\}^n$ and $Y\in\{0,1\}$.
+from [@macfie2019plausibility, sec. 4]:
+A public uniform probabilistic polynomial-time (PPT) algorithm generates pairs $(X,Y)\sim\mathcal J_n$, with $X\in\{0,1\}^n$ and $Y\in\{0,1\}$.
 Write $\mathcal D_n$ for the asset marginal and $F(x)=\mathbb E[Y\mid X=x]$ on its support. An asset costs $f(x)\in[0,1]$ and pays $Y$ at settlement.
 
 ::: {#def-polynomial-time-pricing}
