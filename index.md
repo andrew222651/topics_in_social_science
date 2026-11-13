@@ -674,6 +674,52 @@ This specializes the standard minimax log-loss bound to the complexity-indexed b
 
 The polynomial-time construction instead supplies an exponential-in-complexity upper bound. Neither that upper bound nor the information-theoretic lower bound establishes a computational lower bound, an optimal $n^k$ algorithm, or a uniquely optimal practical prior.
 
+### Algorithmic arbitrage {#sec-algorithmic-arbitrage}
+
+If agents are computationally bounded can they still be
+invulnerable to money pumps?
+Consider the sampled-asset version of the two-period market from [@macfie2019plausibility, sec. 4]:
+Fix a payoff function $F:\{0,1\}^*\to[0,1]$ and distributions $\mathcal D_n$ on $\{0,1\}^n$, for integers $n\ge1$. A market $f=(f_n)_{n\ge1}$ quotes prices $f_n:\{0,1\}^n\to[0,1]$ with finite binary encodings. Asset $x$ costs $f_n(x)$ initially and pays $F(x)$ at settlement. After seeing $x$ and its price $p$, a randomized trader $g_n(x,p)\in\{-1,0,1\}$ shorts, abstains, or buys one unit. Randomizing unit positions also represents any bounded dyadic position in $[-1,1]$ in expectation. For a trader family $g=(g_n)_{n\ge1}$, expected profit is
+
+$$b_n(g;f)=\mathbb E_{x\sim\mathcal D_n,\thinspace g_n}
+\left[(F(x)-f_n(x))g_n(x,f_n(x))\right],$$
+
+where the expectation includes the trader's randomness. These are expected profits, not guarantees against losses on individual draws.
+
+::: {#def-algorithmic-arbitrage}
+###### Strict, relaxed, and approximate arbitrage
+
+For a specified class of trader families $g=(g_n)_{n\ge1}$, a strict arbitrage has $b_n(g;f)\ge0$ for every $n$ and $b_n(g;f)>0$ infinitely often. A relaxed arbitrage has $b_n(g;f)>n^{-k}$ infinitely often for some $k>0$, while $\max\{-b_n(g;f),0\}=n^{-\omega(1)}$ [@macfie2019plausibility, sec. 4].
+
+For a class $\mathcal G_n$ of traders at length $n$, call prices $\epsilon$-no-arbitrage if
+
+$$\sup_{g_n\in\mathcal G_n}|b_n(g;f)|\le\epsilon.$$
+:::
+
+The following is the trading form of the sample-access outcome-indistinguishability construction [@dwork2021outcome, theorem 5.2], related to multicalibration [@hebertjohnson2018multicalibration]. Circuit size counts bounded-fan-in Boolean gates; traders receive the sampled asset's quote, not free oracle access to other prices.
+
+::: {#prp-bounded-algorithmic-arbitrage}
+###### Small markets resist bounded traders
+
+For every $n\ge1$, every $\epsilon\in(0,1)$, and every $s\ge n+b$, where $b=\lceil\lg(8/\epsilon)\rceil$, let
+
+$$P_b=\{j2^{-b}:j=0,\ldots,2^b\}.$$
+
+Let $\mathcal G_{s,b}$ be the class of all randomized circuits of size at most $s$ taking $(x,p)\in\{0,1\}^n\times P_b$ and returning a position in $\{-1,0,1\}$. There exists a deterministic pricing circuit $f_n:\{0,1\}^n\to P_b$ of size $O(s\epsilon^{-2})$ such that
+
+$$\sup_{g_n\in\mathcal G_{s,b}}|b_n(g;f)|\le\epsilon.$$
+
+Consequently, for any fixed constants $c,k\ge1$, there is a family of pricing circuits of size $O(n^{c+2k})$ limiting every size-$n^c$ trader's absolute expected profit to $n^{-k}$, for all sufficiently large $n$. This holds for arbitrary $F$ and $\{\mathcal D_n\}$, without complexity-theoretic assumptions.
+
+Taking $s=\lceil n^{\lg n}\rceil$ and $\epsilon=n^{-\lg n}$ for sufficiently large $n$ yields a nonuniform market family of circuit size $2^{O((\lg n)^2)}$ admitting no relaxed arbitrage against any polynomial-size trader family.
+:::
+
+Sample-access outcome indistinguishability means that small circuits cannot distinguish $(x,f_n(x),Y)$ from $(x,f_n(x),\widetilde Y)$, where $x\sim\mathcal D_n$, $Y\mid x\sim\operatorname{Bernoulli}(F(x))$, and $\widetilde Y\mid x\sim\operatorname{Bernoulli}(f_n(x))$. Distinguishers and traders translate into one another with constant-factor circuit overhead [@dwork2021outcome].
+
+The existence result is nonuniform: a separate circuit may be chosen for each $n$, depending on $F$ and $\mathcal D_n$. It does not supply one polynomial-time algorithm computing all prices. The construction takes $O(\epsilon^{-2})$ correction steps, but efficiently finding those corrections requires labeled samples and an efficient auditor that detects violations [@dwork2021outcome, sec. 5.4].
+
+An $n^{-k}$ bound alone does not exclude relaxed arbitrage with smaller inverse-polynomial profits. The polynomial-size guarantee has quantifiers $\forall c,k\ \exists(f_n)$; the simultaneous guarantee against all polynomial-size traders uses quasipolynomial-size markets. Neither guarantee excludes strict arbitrage. The input distribution is fixed before choosing the market, not chosen adversarially afterward.
+
 ## Statistics {#sec-statistics}
 
 ### Bayesian classification with prior information on class proportions {#sec-bayesian-classification}
