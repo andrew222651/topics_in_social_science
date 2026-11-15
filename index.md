@@ -724,6 +724,21 @@ A uniform PPT strict trader draws $(X',Y')$ independently and holds $g(x,p)=\mat
 
 This is an existence result, not a guarantee for every market. It requires joint, not efficient conditional, sampling: if traders can simulate $Y\mid X=x$, one independent simulation gives expected profit $M_n(f)$, so constant pricing error would yield relaxed arbitrage. All algorithms here are uniform polynomial-time, but their exponents need not coincide.
 
+::: {#rem-amm}
+In combinatorial prediction markets, questions are taken from
+a Boolean algebra over a set of future events.
+Combinatorial "automated market makers" are algorithms used in such markets
+that try to maintain a probability measure over events
+based on trading so far: trades in one proposition automatically
+cause changes in prices of logically related propositions.
+Various rules are used to choose which probability measure
+to compute, for example bounded loss for the operator.
+However, loss is defined differently compared to this section,
+because it depends on information traders have about future
+events while in this section all agents have the same information.
+:::
+
+
 ## Statistics {#sec-statistics}
 
 ### Bayesian classification with prior information on class proportions {#sec-bayesian-classification}
@@ -831,7 +846,7 @@ we are putting probability distributions on mathematically determined
 statements, assuming the software is deterministic.
 
 Can we say this is rational in a decision theoretic sense? I don't think so, because first off we'd have to use the optimal feasible approximate computation, which would require proving something like an average-case hardness of approximation lower bound which is generally
-difficult.
+difficult (see @sec-algorithmic-arbitrage).
 So it's an open-ended, subjective heuristic.
 See [this blog post](http://andrew222651.com/2017/10/10/probability-riemann-hypothesis/) for more on the subjectivity issue.
 
