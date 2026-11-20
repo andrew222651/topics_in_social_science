@@ -196,7 +196,12 @@ All original consumption is restored except the $0.5$ paid at date $0$. This is 
 
 Commitment, restricted offers, or anticipation of later trades can prevent exploitation despite inconsistent rankings [@strotz1955myopia; @rabinowicz2000money]. Thus absence of observed exploitation does not establish dynamic consistency.
 
+
 #### Additive utility and exponential discounting {#sec-discounting-characterizations}
+
+Why is time discounting, and exponential discounting in particular, so common?
+Time discounting per se doesn't have a Dutch book justification, but if we assume time discounting
+then a Dutch book argument gives us exponential discounting. 
 
 For the next two propositions, retain the finite state space, information partitions, full adapted-plan domain $\mathcal H$, continuity, and strict money-monotonicity assumptions above, and assume $T\ge2$. Write $X=\mathbb R^K_{\geq0}$. A *deterministic stream* specifies the same bundle in every state at each date; these streams form the subdomain $X^{T+1}\subseteq\mathcal H$. Write $\succsim^d_{t,E}$ for the restriction of node preferences to deterministic continuations, and $\succsim^d_0$ at the root. The characterizations are necessary and sufficient on this domain; “minimal” here does not mean a uniquely weakest axiom system across different domains.
 
