@@ -9,6 +9,8 @@ bibliography: references.bib
 repository](https://github.com/andrew222651/topics_in_social_science)
 :::
 
+Last updated: LAST_UPDATED
+
 <script>
 // Quarto inserts the inline TOC (#TOC-body, shown on small screens) at the
 // top of the page body; move the GitHub links above it. On larger screens
