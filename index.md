@@ -163,10 +163,12 @@ This preserves both strict rankings and indifference for choices confined to the
 :::
 
 ::: {#rem-coin-game-horizon}
-The finiteness of $T$ matters.
+The finiteness of $T$ matters:
+Consider the following sequence of decisions.
 Start with one dollar and maximize expected cash-out wealth, without discounting. At wealth $x>0$, either cash out or flip an independent fair coin. Heads changes wealth to $2x+1$; tails ends the game with zero. Flipping once and then cashing out has expected payoff $x+1/2$, strictly more than stopping now.
 
-With a fixed cap of $N$ flips, stopping while ahead before the cap cannot be optimal: one more flip followed by cashing out is a feasible improvement. Thus playing until the first tail or the cap is optimal. More generally, in a finite decision tree with dynamically consistent preferences and independently replaceable continuations, backward induction yields a globally optimal policy [@puterman1994markov, ch. 4]. It evaluates actions by their continuations, not just their immediate payoffs.
+With a fixed cap of $N$ flips, stopping while ahead before the cap cannot be optimal.
+More generally, in a finite decision tree with dynamically consistent preferences and independently replaceable continuations, backward induction yields a globally optimal policy [@puterman1994markov, ch. 4]. It evaluates actions by their continuations, not just their immediate payoffs.
 Without a cap, backward induction no longer applies and making the one-flip comparison at every node instead leads to ruin almost surely.
 :::
 
