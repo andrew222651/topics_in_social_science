@@ -162,6 +162,14 @@ $$f\succsim_{s,A}g\quad\Longleftrightarrow\quad f\succsim_{t,E}g.$$
 This preserves both strict rankings and indifference for choices confined to the later continuation; it does not forbid changing decisions when new information arrives.
 :::
 
+::: {#rem-coin-game-horizon}
+The finiteness of $T$ matters.
+Start with one dollar and maximize expected cash-out wealth, without discounting. At wealth $x>0$, either cash out or flip an independent fair coin. Heads changes wealth to $2x+1$; tails ends the game with zero. Flipping once and then cashing out has expected payoff $x+1/2$, strictly more than stopping now.
+
+With a fixed cap of $N$ flips, stopping while ahead before the cap cannot be optimal: one more flip followed by cashing out is a feasible improvement. Thus playing until the first tail or the cap is optimal. More generally, in a finite decision tree with dynamically consistent preferences and independently replaceable continuations, backward induction yields a globally optimal policy [@puterman1994markov, ch. 4]. It evaluates actions by their continuations, not just their immediate payoffs.
+Without a cap, backward induction no longer applies and making the one-flip comparison at every node instead leads to ruin almost surely.
+:::
+
 A *trade* at $(t,E)$ replaces the current plan only on $E$ from date $t$ onward, before that date's consumption. All fees are included, and every resulting complete plan must lie in $\mathcal H$. Under *naive local acceptance*, strictly preferred trades are accepted, strictly worse trades are rejected, and indifference may be resolved either way, without anticipating later offers.
 
 A *pure-fee pump* is a finite sequence of accepted trades, offered chronologically at specified nodes, whose final plan equals the initial plan except for nonnegative money deductions, positive at least once. Thus there is no gain at any date or state and a cash loss somewhere.
@@ -204,14 +212,6 @@ All original consumption is restored except the $0.5$ paid at date $0$. This is 
 :::
 
 Commitment, restricted offers, or anticipation of later trades can prevent exploitation despite inconsistent rankings [@strotz1955myopia; @rabinowicz2000money]. Thus absence of observed exploitation does not establish dynamic consistency.
-
-::: {#rem-coin-game-horizon}
-The finiteness of the time horizon matters.
-Start with one dollar and maximize expected cash-out wealth, without discounting. At wealth $x>0$, either cash out or flip an independent fair coin. Heads changes wealth to $2x+1$; tails ends the game with zero. Flipping once and then cashing out has expected payoff $x+1/2$, strictly more than stopping now.
-
-With a fixed cap of $N$ flips, stopping while ahead before the cap cannot be optimal: one more flip followed by cashing out is a feasible improvement. Thus playing until the first tail or the cap is optimal. More generally, in a finite decision tree with dynamically consistent preferences and independently replaceable continuations, backward induction yields a globally optimal policy [@puterman1994markov, ch. 4]. It evaluates actions by their continuations, not just their immediate payoffs.
-Without a cap, backward induction no longer applies and making the one-flip comparison at every node instead leads to ruin almost surely.
-:::
 
 
 #### Additive utility and exponential discounting {#sec-discounting-characterizations}
